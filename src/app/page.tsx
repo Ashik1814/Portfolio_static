@@ -14,11 +14,11 @@
 
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
+import Image from 'next/image';
 
 import { Button } from '@/components/ui/button';
 import {
   Sparkles,
-  User,
   Palette,
   Code2,
   Layers,
@@ -80,6 +80,22 @@ export default function Home() {
       <section className="relative flex min-h-screen items-center justify-center overflow-hidden">
         {/* Content overlay */}
         <div className="relative z-10 flex flex-col items-center px-4 text-center">
+          {/* Profile Image */}
+          <div className="mb-8 relative">
+            <div className="h-32 w-32 sm:h-36 sm:w-36 md:h-40 md:w-40 rounded-full overflow-hidden border-2 border-cyan-400/30 shadow-[0_0_30px_rgba(0,212,255,0.2)]">
+              <Image
+                src="/profile.jpeg"
+                alt="Alex Chen — UI/UX Designer & Front-End Developer"
+                width={160}
+                height={160}
+                className="h-full w-full object-cover"
+                priority
+              />
+            </div>
+            {/* Glow ring */}
+            <div className="absolute inset-0 rounded-full border border-cyan-400/10 scale-110" />
+          </div>
+
           <span className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-sm text-cyan-400 backdrop-blur-sm">
             <Sparkles className="h-4 w-4" />
             UI/UX Designer &amp; Front-End Developer
@@ -125,8 +141,14 @@ export default function Home() {
           <div className="summary-card rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl transition-all duration-300 hover:border-cyan-500/20 md:p-8">
             <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
               <div className="flex items-start gap-5">
-                <div className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-xl bg-cyan-500/10 text-cyan-400">
-                  <User className="h-7 w-7" />
+                <div className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-xl overflow-hidden border border-cyan-400/20">
+                  <Image
+                    src="/profile.jpeg"
+                    alt="Alex Chen"
+                    width={56}
+                    height={56}
+                    className="h-full w-full object-cover"
+                  />
                 </div>
                 <div>
                   <h2 className="text-2xl font-bold text-white">About Me</h2>

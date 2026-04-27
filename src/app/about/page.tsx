@@ -9,7 +9,8 @@
  *   - Personal interests
  */
 
-import { User, Briefcase, Heart, Coffee, Lightbulb, Users, Zap, Award } from 'lucide-react';
+import Image from 'next/image';
+import { Briefcase, Heart, Coffee, Lightbulb, Users, Zap, Award } from 'lucide-react';
 import Link from 'next/link';
 
 /** Stats displayed in the about page */
@@ -73,8 +74,15 @@ export default function AboutPage() {
           <div className="flex flex-col items-center gap-8 md:flex-row md:items-start md:gap-12">
             {/* Avatar */}
             <div className="flex-shrink-0">
-              <div className="flex h-48 w-48 items-center justify-center rounded-full border-2 border-white/10 bg-gradient-to-br from-cyan-500/20 to-purple-500/20">
-                <User className="h-20 w-20 text-white/60" />
+              <div className="h-48 w-48 rounded-full overflow-hidden border-2 border-cyan-400/30 shadow-[0_0_30px_rgba(0,212,255,0.15)]">
+                <Image
+                  src="/profile.jpeg"
+                  alt="Alex Chen"
+                  width={192}
+                  height={192}
+                  className="h-full w-full object-cover"
+                  priority
+                />
               </div>
             </div>
 

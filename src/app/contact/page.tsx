@@ -8,6 +8,7 @@
  */
 
 import { useState } from 'react';
+import Image from 'next/image';
 import {
   Send,
   Mail,
@@ -201,6 +202,20 @@ export default function ContactPage() {
       <div className="mx-auto max-w-6xl">
         {/* ── Page Header ─────────────────────────────────────────────── */}
         <div className="mb-14 text-center">
+          {/* Profile Image */}
+          <div className="mb-6 inline-block relative">
+            <div className="h-28 w-28 sm:h-32 sm:w-32 rounded-full overflow-hidden border-2 border-cyan-400/30 shadow-[0_0_30px_rgba(0,212,255,0.15)] mx-auto">
+              <Image
+                src="/profile.jpeg"
+                alt="Alex Chen"
+                width={128}
+                height={128}
+                className="h-full w-full object-cover"
+                priority
+              />
+            </div>
+            <div className="absolute inset-0 rounded-full border border-cyan-400/10 scale-110" />
+          </div>
           <h1 className="text-4xl font-bold text-white sm:text-5xl">
             Education &amp; Contact
           </h1>
