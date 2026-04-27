@@ -450,7 +450,7 @@ export default function Home({
               </h2>
             </div>
             <div className="max-w-2xl mx-auto">
-              <div className="rounded-2xl border border-cyan-500/20 bg-[rgba(8,5,15,0.92)] backdrop-blur-xl transition-all duration-300 hover:border-cyan-400/40 hover:shadow-[0_0_30px_-5px_rgba(0,229,255,0.15)] overflow-hidden">
+              <div className="rounded-2xl border border-white/10 backdrop-blur-xl transition-all duration-300 hover:border-cyan-400/40 hover:shadow-[0_0_30px_-5px_rgba(0,229,255,0.15)] overflow-hidden">
                 <div className="p-8 sm:p-10 text-center">
                   <div className="relative z-10">
                     <h3 className="text-h3 text-white mb-4">
