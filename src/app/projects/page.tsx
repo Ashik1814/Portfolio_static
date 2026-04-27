@@ -11,6 +11,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { ExternalLink, Eye, ArrowRight } from 'lucide-react';
+import GlowBorder from '@/components/ui/glow-border';
 
 // ─── Types & Data ───────────────────────────────────────────────────────────
 
@@ -285,22 +286,28 @@ export default function ProjectsPage() {
 
                 {/* Action Buttons */}
                 <div className="flex gap-3 pt-2">
-                  {/* Live Demo — gradient button */}
+                  {/* Live Demo — gradient button with glow border */}
                   <a
                     href={project.liveUrl}
-                    className="relative inline-flex items-center justify-center gap-1.5 flex-1 bg-gradient-to-r from-[#00e5ff] to-[#64b5f6] hover:from-[#00c2e5] hover:to-[#5ba3e0] text-[#06080f] font-medium text-xs rounded-md h-9 shadow-md shadow-[#00e5ff]/15 transition-all duration-200 px-3"
+                    className="relative overflow-hidden rounded-md flex-1"
                   >
-                    <ExternalLink className="w-3.5 h-3.5" />
-                    Live Demo
+                    <GlowBorder borderRadius={6} duration={4} />
+                    <span className="relative z-[1] inline-flex items-center justify-center gap-1.5 w-full bg-gradient-to-r from-[#00e5ff] to-[#64b5f6] hover:from-[#00c2e5] hover:to-[#5ba3e0] text-[#06080f] font-medium text-xs h-9 shadow-md shadow-[#00e5ff]/15 transition-all duration-200 px-3">
+                      <ExternalLink className="w-3.5 h-3.5" />
+                      Live Demo
+                    </span>
                   </a>
 
-                  {/* View — outline button */}
+                  {/* View — outline button with glow border */}
                   <a
                     href={project.sourceUrl}
-                    className="relative inline-flex items-center justify-center gap-1.5 flex-1 bg-transparent border border-[#00e5ff]/30 text-[#00e5ff] hover:bg-[#00e5ff]/25 hover:border-[#00e5ff]/60 hover:text-[#00e5ff] font-medium text-xs rounded-md h-9 transition-all duration-200 px-3"
+                    className="relative overflow-hidden rounded-md flex-1"
                   >
-                    <Eye className="w-3.5 h-3.5" />
-                    View
+                    <GlowBorder borderRadius={6} duration={5} />
+                    <span className="relative z-[1] inline-flex items-center justify-center gap-1.5 w-full bg-transparent border border-[#00e5ff]/30 text-[#00e5ff] hover:bg-[#00e5ff]/25 hover:border-[#00e5ff]/60 font-medium text-xs h-9 transition-all duration-200 px-3">
+                      <Eye className="w-3.5 h-3.5" />
+                      View
+                    </span>
                   </a>
                 </div>
               </div>
@@ -320,10 +327,13 @@ export default function ProjectsPage() {
           <p className="mb-4 text-white/50">Interested in working together?</p>
           <Link
             href="/contact"
-            className="group inline-flex items-center gap-2 rounded-lg bg-cyan-500 px-6 py-3 font-semibold text-black transition-colors hover:bg-cyan-400"
+            className="group relative overflow-hidden rounded-lg inline-flex items-center gap-2"
           >
-            Let&apos;s Talk
-            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            <GlowBorder borderRadius={8} />
+            <span className="relative z-[1] inline-flex items-center gap-2 bg-cyan-500 px-6 py-3 font-semibold text-black transition-colors hover:bg-cyan-400">
+              Let&apos;s Talk
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </span>
           </Link>
         </div>
       </div>

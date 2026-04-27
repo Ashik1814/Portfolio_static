@@ -19,6 +19,7 @@ import {
   Layers,
   ArrowRight,
 } from 'lucide-react';
+import GlowBorder from '@/components/ui/glow-border';
 
 // ─── Type Definitions ───────────────────────────────────────────────────────
 
@@ -211,10 +212,13 @@ export default function SkillsPage() {
           <p className="mb-4 text-white/50">See these skills in action</p>
           <Link
             href="/projects"
-            className="group inline-flex items-center gap-2 rounded-lg bg-cyan-500 px-6 py-3 font-semibold text-black transition-colors hover:bg-cyan-400"
+            className="group relative overflow-hidden rounded-lg inline-flex items-center gap-2"
           >
-            View Projects
-            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            <GlowBorder borderRadius={8} />
+            <span className="relative z-[1] inline-flex items-center gap-2 bg-cyan-500 px-6 py-3 font-semibold text-black transition-colors hover:bg-cyan-400">
+              View Projects
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </span>
           </Link>
         </div>
       </div>

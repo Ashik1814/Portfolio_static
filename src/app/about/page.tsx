@@ -12,6 +12,7 @@
 import Image from 'next/image';
 import { Briefcase, Heart, Coffee, Lightbulb, Users, Zap, Award } from 'lucide-react';
 import Link from 'next/link';
+import GlowBorder from '@/components/ui/glow-border';
 
 /** Stats displayed in the about page */
 const stats = [
@@ -190,9 +191,12 @@ export default function AboutPage() {
           <p className="mb-4 text-white/50">Want to work together?</p>
           <Link
             href="/contact"
-            className="inline-flex items-center gap-2 rounded-lg bg-cyan-500 px-6 py-3 font-semibold text-black transition-colors hover:bg-cyan-400"
+            className="group relative overflow-hidden rounded-lg inline-flex items-center gap-2"
           >
-            Get In Touch
+            <GlowBorder borderRadius={8} />
+            <span className="relative z-[1] inline-flex items-center gap-2 bg-cyan-500 px-6 py-3 font-semibold text-black transition-colors hover:bg-cyan-400">
+              Get In Touch
+            </span>
           </Link>
         </div>
       </div>

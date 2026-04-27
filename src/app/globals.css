@@ -225,6 +225,12 @@
   50% { transform: translateX(-50%) scaleY(1.2) scaleX(0.8); }
 }
 
+/* Traveling glow light along button border */
+@keyframes border-glow-travel {
+  0% { offset-distance: 0%; }
+  100% { offset-distance: 100%; }
+}
+
 /* ─── Gradient Text Utilities ──────────────────────────────────────────────── */
 
 @layer utilities {

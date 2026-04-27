@@ -34,6 +34,7 @@ import {
   ArrowRight,
 } from 'lucide-react';
 import Link from 'next/link';
+import GlowBorder from '@/components/ui/glow-border';
 
 // ─── Type Definitions ────────────────────────────────────────────────────────
 
@@ -504,10 +505,13 @@ export default function EducationPage() {
           <p className="mb-4 text-white/50">Want to discuss my background?</p>
           <Link
             href="/contact"
-            className="group inline-flex items-center gap-2 rounded-lg bg-cyan-500 px-6 py-3 font-semibold text-black transition-colors hover:bg-cyan-400"
+            className="group relative overflow-hidden rounded-lg inline-flex items-center gap-2"
           >
-            Get In Touch
-            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            <GlowBorder borderRadius={8} />
+            <span className="relative z-[1] inline-flex items-center gap-2 bg-cyan-500 px-6 py-3 font-semibold text-black transition-colors hover:bg-cyan-400">
+              Get In Touch
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </span>
           </Link>
         </div>
       </div>

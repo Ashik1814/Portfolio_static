@@ -22,6 +22,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
+import GlowBorder from '@/components/ui/glow-border';
 
 // ─── Type Definitions ────────────────────────────────────────────────────────
 
@@ -305,23 +306,26 @@ export default function ContactPage() {
                   <p className="text-red-400 text-sm text-center">{errorMessage}</p>
                 )}
 
-                <Button
-                  type="submit"
-                  disabled={submissionState === 'loading'}
-                  className="w-full bg-cyan-500 hover:bg-cyan-400 text-black font-semibold py-3 flex items-center justify-center gap-2"
-                >
-                  {submissionState === 'loading' ? (
-                    <>
-                      <Loader2 className="w-4 h-4 animate-spin" />
-                      Sending...
-                    </>
-                  ) : (
-                    <>
-                      <Send className="w-4 h-4" />
-                      Send Message
-                    </>
-                  )}
-                </Button>
+                <div className="relative overflow-hidden rounded-md">
+                  <GlowBorder borderRadius={6} />
+                  <Button
+                    type="submit"
+                    disabled={submissionState === 'loading'}
+                    className="relative z-[1] w-full bg-cyan-500 hover:bg-cyan-400 text-black font-semibold py-3 flex items-center justify-center gap-2"
+                  >
+                    {submissionState === 'loading' ? (
+                      <>
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                        Sending...
+                      </>
+                    ) : (
+                      <>
+                        <Send className="w-4 h-4" />
+                        Send Message
+                      </>
+                    )}
+                  </Button>
+                </div>
               </form>
             )}
           </div>

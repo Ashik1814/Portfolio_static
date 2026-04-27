@@ -5,11 +5,9 @@
  *
  * A landing page with:
  *   - 3D hero with name/title and CTAs (aether background is now global)
- *   - Summary preview cards for About, Skills, Projects, and Contact
+ *   - Summary preview cards for About, Skills, Projects, Education, and Contact
  *   - Each card links to its dedicated detail page via Next.js routing
- *
- * Navbar and Footer are rendered in the root layout.
- * AetherCanvas (Three.js) is also rendered globally in the root layout.
+ *   - All buttons feature the animated traveling border glow effect
  */
 
 import { useEffect, useRef } from 'react';
@@ -17,6 +15,7 @@ import gsap from 'gsap';
 import Image from 'next/image';
 
 import { Button } from '@/components/ui/button';
+import GlowBorder from '@/components/ui/glow-border';
 import {
   Sparkles,
   Palette,
@@ -114,15 +113,17 @@ export default function Home() {
           </p>
 
           <div className="flex flex-col gap-4 sm:flex-row">
-            <Link href="/projects">
-              <Button className="bg-cyan-500 text-black hover:bg-cyan-400 cursor-pointer px-8 py-6 text-base font-semibold sm:text-lg">
+            <Link href="/projects" className="relative overflow-hidden rounded-lg">
+              <GlowBorder borderRadius={8} />
+              <Button className="relative z-[1] bg-cyan-500 text-black hover:bg-cyan-400 cursor-pointer px-8 py-6 text-base font-semibold sm:text-lg">
                 View My Work
               </Button>
             </Link>
-            <Link href="/contact">
+            <Link href="/contact" className="relative overflow-hidden rounded-lg">
+              <GlowBorder borderRadius={8} />
               <Button
                 variant="outline"
-                className="border border-white/20 bg-white/5 text-white hover:bg-white/10 cursor-pointer px-8 py-6 text-base font-semibold sm:text-lg"
+                className="relative z-[1] border border-white/20 bg-white/5 text-white hover:bg-white/10 cursor-pointer px-8 py-6 text-base font-semibold sm:text-lg"
               >
                 Get In Touch
               </Button>
@@ -171,10 +172,13 @@ export default function Home() {
               </div>
               <Link
                 href="/about"
-                className="group inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-5 py-2.5 text-sm font-medium text-white transition-all hover:border-cyan-500/30 hover:bg-white/10"
+                className="group relative overflow-hidden rounded-lg"
               >
-                Read More
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                <GlowBorder borderRadius={8} />
+                <span className="relative z-[1] inline-flex items-center gap-2 bg-white/5 px-5 py-2.5 text-sm font-medium text-white transition-all hover:bg-white/10">
+                  Read More
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </span>
               </Link>
             </div>
           </div>
@@ -203,10 +207,13 @@ export default function Home() {
               </div>
               <Link
                 href="/skills"
-                className="group mt-2 inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-5 py-2.5 text-sm font-medium text-white transition-all hover:border-cyan-500/30 hover:bg-white/10 md:mt-0"
+                className="group relative overflow-hidden rounded-lg mt-2 md:mt-0"
               >
-                All Skills
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                <GlowBorder borderRadius={8} />
+                <span className="relative z-[1] inline-flex items-center gap-2 bg-white/5 px-5 py-2.5 text-sm font-medium text-white transition-all hover:bg-white/10">
+                  All Skills
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </span>
               </Link>
             </div>
           </div>
@@ -233,10 +240,13 @@ export default function Home() {
               </div>
               <Link
                 href="/projects"
-                className="group mt-2 inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-5 py-2.5 text-sm font-medium text-white transition-all hover:border-cyan-500/30 hover:bg-white/10 md:mt-0"
+                className="group relative overflow-hidden rounded-lg mt-2 md:mt-0"
               >
-                View All
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                <GlowBorder borderRadius={8} />
+                <span className="relative z-[1] inline-flex items-center gap-2 bg-white/5 px-5 py-2.5 text-sm font-medium text-white transition-all hover:bg-white/10">
+                  View All
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </span>
               </Link>
             </div>
           </div>
@@ -268,10 +278,13 @@ export default function Home() {
               </div>
               <Link
                 href="/education"
-                className="group inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-5 py-2.5 text-sm font-medium text-white transition-all hover:border-cyan-500/30 hover:bg-white/10"
+                className="group relative overflow-hidden rounded-lg"
               >
-                View Details
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                <GlowBorder borderRadius={8} />
+                <span className="relative z-[1] inline-flex items-center gap-2 bg-white/5 px-5 py-2.5 text-sm font-medium text-white transition-all hover:bg-white/10">
+                  View Details
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </span>
               </Link>
             </div>
           </div>
@@ -298,10 +311,13 @@ export default function Home() {
               </div>
               <Link
                 href="/contact"
-                className="group inline-flex items-center gap-2 rounded-lg bg-cyan-500 px-5 py-2.5 text-sm font-semibold text-black transition-colors hover:bg-cyan-400"
+                className="group relative overflow-hidden rounded-lg"
               >
-                <Send className="h-4 w-4" />
-                Contact Me
+                <GlowBorder borderRadius={8} />
+                <span className="relative z-[1] inline-flex items-center gap-2 bg-cyan-500 px-5 py-2.5 text-sm font-semibold text-black transition-colors hover:bg-cyan-400">
+                  <Send className="h-4 w-4" />
+                  Contact Me
+                </span>
               </Link>
             </div>
           </div>
