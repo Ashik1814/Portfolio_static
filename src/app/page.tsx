@@ -243,7 +243,7 @@ export default function Home({
         <div ref={cardsRef} className="mx-auto max-w-7xl space-y-8">
 
           {/* About Summary */}
-          <div className="summary-card rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl transition-all duration-300 hover:border-cyan-500/20 md:p-8">
+          <div className="summary-card rounded-2xl border border-white/10 p-6 backdrop-blur-xl transition-all duration-300 hover:border-cyan-500/20 md:p-8">
             <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
               <div className="flex items-start gap-6">
                 <div className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-xl overflow-hidden border border-cyan-400/20">
@@ -282,7 +282,7 @@ export default function Home({
           </div>
 
           {/* Skills Summary */}
-          <div className="summary-card rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl transition-all duration-300 hover:border-cyan-500/20 md:p-8">
+          <div className="summary-card rounded-2xl border border-white/10 p-6 backdrop-blur-xl transition-all duration-300 hover:border-cyan-500/20 md:p-8">
             <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
               <div className="flex-1">
                 <h2 className="mb-6 text-h2 text-white">Skills &amp; Expertise</h2>
@@ -292,7 +292,7 @@ export default function Home({
                     return (
                       <div
                         key={skill.name}
-                        className="flex flex-col items-center gap-3 rounded-xl border border-white/10 bg-white/5 p-4 text-center backdrop-blur-md"
+                        className="flex flex-col items-center gap-3 rounded-xl border border-white/10 p-4 text-center backdrop-blur-md"
                       >
                         <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-cyan-500/10 text-cyan-400">
                           <Icon className="h-5 w-5" />
@@ -324,7 +324,7 @@ export default function Home({
                 {featuredProjects.map((project) => (
                   <article
                     key={project.title}
-                    className={`group/card relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 backdrop-blur-lg transition-all duration-300 hover:scale-[1.02] hover:border-cyan-500/20 ${glowMap[project.accent]}`}
+                    className={`group/card relative overflow-hidden rounded-2xl border border-white/10 backdrop-blur-lg transition-all duration-300 hover:scale-[1.02] hover:border-cyan-500/20 ${glowMap[project.accent]}`}
                   >
                     {/* Project Image / Visual Header */}
                     <div
@@ -411,7 +411,7 @@ export default function Home({
           </div>
 
           {/* Education Summary */}
-          <div className="summary-card rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl transition-all duration-300 hover:border-cyan-500/20 md:p-8">
+          <div className="summary-card rounded-2xl border border-white/10 p-6 backdrop-blur-xl transition-all duration-300 hover:border-cyan-500/20 md:p-8">
             <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
               <div className="flex items-start gap-6">
                 <div className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-xl bg-cyan-500/10 text-cyan-400">

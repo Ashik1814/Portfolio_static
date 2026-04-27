@@ -291,7 +291,7 @@ export default function ProjectsPage({ params, searchParams }: { params: Promise
           {filteredProjects.map((project) => (
             <article
               key={project.title}
-              className={`group/card relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 backdrop-blur-lg transition-all duration-300 hover:scale-[1.02] hover:border-cyan-500/20 ${glowMap[project.accent]}`}
+              className={`group/card relative overflow-hidden rounded-2xl border border-white/10 backdrop-blur-lg transition-all duration-300 hover:scale-[1.02] hover:border-cyan-500/20 ${glowMap[project.accent]}`}
             >
               {/* Project Image / Visual Header */}
               <div
