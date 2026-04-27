@@ -212,7 +212,7 @@ export default function Home({
           <h1 className="mb-6 text-4xl font-bold leading-tight tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
             Crafting Digital
             <br />
-            <span className="text-cyan-400">Experiences</span>
+            <span className="mt-2 block bg-gradient-to-r from-primary via-purple-500 to-pink-500 bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient">Experiences</span>
           </h1>
 
           <p className="mb-10 max-w-2xl text-base text-white/60 sm:text-lg md:text-xl">
