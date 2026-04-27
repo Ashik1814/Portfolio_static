@@ -78,16 +78,16 @@ export default function Home() {
           HERO — Full viewport (aether particles flow behind via global canvas)
           ═══════════════════════════════════════════════════════════════════ */}
       <section className="relative flex min-h-screen items-center justify-center overflow-hidden">
-        {/* Content overlay */}
-        <div className="relative z-10 flex flex-col items-center px-4 text-center">
-          {/* Profile Image */}
-          <div className="mb-8 relative">
-            <div className="h-32 w-32 sm:h-36 sm:w-36 md:h-40 md:w-40 rounded-full overflow-hidden border-2 border-cyan-400/30 shadow-[0_0_30px_rgba(0,212,255,0.2)]">
+        {/* Content overlay — pt-20 ensures profile image clears the fixed navbar */}
+        <div className="relative z-10 flex flex-col items-center px-4 pt-20 text-center">
+          {/* Profile Image — doubled in size from original */}
+          <div className="mb-8 relative flex items-center justify-center">
+            <div className="h-64 w-64 sm:h-72 sm:w-72 md:h-80 md:w-80 rounded-full overflow-hidden border-2 border-cyan-400/30 shadow-[0_0_40px_rgba(0,212,255,0.25)]">
               <Image
                 src="/profile.jpeg"
                 alt="Alex Chen — UI/UX Designer & Front-End Developer"
-                width={160}
-                height={160}
+                width={320}
+                height={320}
                 className="h-full w-full object-cover"
                 priority
               />
