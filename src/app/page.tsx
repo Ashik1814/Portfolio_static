@@ -209,7 +209,7 @@ export default function Home({
             UI/UX Designer &amp; Front-End Developer
           </span>
 
-          <h1 className="mb-6 text-4xl font-bold leading-tight tracking-tight sm:text-5xl md:text-6xl lg:text-7xl bg-gradient-to-r from-cyan-400 via-blue-400 to-violet-400 bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient">
+          <h1 className="mb-6 text-4xl font-bold leading-tight tracking-tight sm:text-5xl md:text-6xl lg:text-7xl bg-gradient-to-r from-primary via-purple-500 to-pink-500 bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient">
             Crafting Digital
             <br />
             Experiences
