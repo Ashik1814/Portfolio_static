@@ -59,12 +59,12 @@ const contactInfoItems: ContactInfoItem[] = [
   },
   {
     label: 'Location',
-    value: 'San Francisco, CA',
+    value: 'Dhaka, Bangladesh',
     icon: MapPin,
   },
   {
     label: 'Phone',
-    value: '+1 (555) 123-4567',
+    value: '+880 1XXX-XXXXXX',
     href: 'tel:+15551234567',
     icon: Phone,
   },

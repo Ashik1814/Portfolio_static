@@ -251,11 +251,11 @@ export default function Home() {
                 <div>
                   <h2 className="text-2xl font-bold text-white">Education</h2>
                   <p className="mt-2 max-w-xl text-white/60">
-                    M.Sc. HCI from Stanford &amp; B.Sc. CS from MIT. Continuously learning through
-                    certifications and advanced courses in UX design and modern web technologies.
+                    B.Sc. CSE from United International University. Continuously learning through
+                    certifications and advanced courses in React, TypeScript, and UI/UX design.
                   </p>
                   <div className="mt-3 flex flex-wrap gap-3">
-                    {['M.Sc. HCI', 'B.Sc. CS', '3+ Certifications', '5+ Courses'].map((item) => (
+                    {['B.Sc. CSE', '6 Certifications', '12+ Courses', 'GPA 5.00/5.00 (HSC)'].map((item) => (
                       <span
                         key={item}
                         className="rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-sm font-medium text-cyan-400"
@@ -291,7 +291,7 @@ export default function Home() {
                   </p>
                   <div className="mt-3 flex flex-wrap items-center gap-4 text-sm text-white/50">
                     <span className="flex items-center gap-1.5">
-                      <MapPin className="h-4 w-4 text-cyan-400" /> San Francisco, CA
+                      <MapPin className="h-4 w-4 text-cyan-400" /> Dhaka, Bangladesh
                     </span>
                   </div>
                 </div>

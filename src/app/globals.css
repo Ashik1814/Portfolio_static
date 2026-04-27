@@ -205,6 +205,51 @@
   100% { background-position: 0% 50%; }
 }
 
+/* Rotating conic-gradient border for cards */
+@keyframes card-border-rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Water drop falling animation for timeline */
+@keyframes water-drop-fall {
+  0% { top: -5%; opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { top: 105%; opacity: 0; }
+}
+
+/* Water drop stretch/squish animation */
+@keyframes water-drop-stretch {
+  0%, 100% { transform: translateX(-50%) scaleY(1) scaleX(1); }
+  50% { transform: translateX(-50%) scaleY(1.2) scaleX(0.8); }
+}
+
+/* ─── Gradient Text Utilities ──────────────────────────────────────────────── */
+
+@layer utilities {
+  .gradient-text-cyan {
+    background: linear-gradient(135deg, #00e5ff, #64b5f6, #a78bfa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .gradient-text-purple-blue {
+    background: linear-gradient(135deg, #a78bfa, #64b5f6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .gradient-text-pink-blue {
+    background: linear-gradient(135deg, #f472b6, #64b5f6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
+
 /* ─── Section Reveal Animation (used with GSAP ScrollTrigger) ────────────── */
 
 .section-reveal {
