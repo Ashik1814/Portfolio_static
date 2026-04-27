@@ -248,7 +248,7 @@ export default function SkillsPage({ params, searchParams }: { params: Promise<R
         </div>
 
         {/* ── Category Cards (Design / Development / Automation) ──────── */}
-        <div className="grid md:grid-cols-3 gap-6 mb-16">
+        <div className="grid md:grid-cols-2 gap-6 mb-16">
           {/* Design Card */}
           <div className="group relative overflow-hidden rounded-2xl border border-white/[0.06] backdrop-blur-xl transition-all duration-300 hover:border-cyan-500/20 hover:shadow-lg hover:shadow-cyan-500/5">
             <div className="p-6 space-y-5">
@@ -305,33 +305,7 @@ export default function SkillsPage({ params, searchParams }: { params: Promise<R
             </div>
           </div>
 
-          {/* Automation Card */}
-          <div className="group relative overflow-hidden rounded-2xl border border-white/[0.06] backdrop-blur-xl transition-all duration-300 hover:border-cyan-500/20 hover:shadow-lg hover:shadow-cyan-500/5">
-            <div className="p-6 space-y-5">
-              <div className="flex items-center gap-3">
-                <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-[#2dd4bf]/10">
-                  <Bot className="w-6 h-6 text-[#2dd4bf]" />
-                </div>
-                <h3 className="text-lg font-bold text-white">Automation</h3>
-              </div>
-              <div className="grid grid-cols-2 gap-3">
-                {automationSkills.map((skill) => {
-                  const IconComp = skill.icon;
-                  return (
-                    <div
-                      key={skill.name}
-                      className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] transition-colors duration-200 group/item cursor-default"
-                    >
-                      <IconComp className="shrink-0 w-7 h-7 text-white/60 transition-colors duration-200 group-hover/item:text-[#00e5ff]" />
-                      <span className="text-sm font-medium text-white truncate group-hover/item:text-[#00e5ff] transition-colors duration-200">
-                        {skill.name}
-                      </span>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
+
         </div>
 
         {/* ── Soft Skills ─────────────────────────────────────────────── */}
