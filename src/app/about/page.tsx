@@ -9,6 +9,7 @@
  *   - Personal interests
  */
 
+import { use } from 'react';
 import Image from 'next/image';
 import { Briefcase, Heart, Coffee, Lightbulb, Users, Zap, Award, ArrowRight } from 'lucide-react';
 import AnimatedBorderButton from '@/components/ui/animated-border-button';
@@ -54,7 +55,9 @@ const interests = [
   { label: 'Music Production', icon: Zap },
 ];
 
-export default function AboutPage() {
+export default function AboutPage({ params, searchParams }: { params: Promise<Record<string, string | string[]>>; searchParams: Promise<Record<string, string | string[] | undefined>> }) {
+  use(params);
+  use(searchParams);
   return (
     <main className="min-h-screen pt-24 pb-16 px-4 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-5xl">

@@ -209,9 +209,16 @@ function StatCounter({ value, suffix, label, icon: Icon }: { value: number; suff
 
 // ─── Component ──────────────────────────────────────────────────────────────
 
-export default function Home({ params }: { params: Promise<Record<string, string | string[]>> }) {
-  // Next.js 16 requires unwrapping params Promise with React.use()
+export default function Home({
+  params,
+  searchParams,
+}: {
+  params: Promise<Record<string, string | string[]>>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
+  // Next.js 16 requires unwrapping Promise-based props with React.use()
   use(params);
+  use(searchParams);
   const heroRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
 

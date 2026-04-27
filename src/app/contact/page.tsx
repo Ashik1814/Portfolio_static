@@ -8,7 +8,7 @@
  * All buttons use the animated traveling border glow effect.
  */
 
-import { useState } from 'react';
+import { useState, use } from 'react';
 import Image from 'next/image';
 import {
   Send,
@@ -94,7 +94,9 @@ function validateForm(data: FormData): FormErrors {
 
 // ─── Page Component ──────────────────────────────────────────────────────────
 
-export default function ContactPage() {
+export default function ContactPage({ params, searchParams }: { params: Promise<Record<string, string | string[]>>; searchParams: Promise<Record<string, string | string[] | undefined>> }) {
+  use(params);
+  use(searchParams);
   const { toast } = useToast();
 
   const [formData, setFormData] = useState<FormData>({

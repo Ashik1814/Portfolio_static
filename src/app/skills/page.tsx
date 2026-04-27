@@ -8,7 +8,7 @@
  * All buttons use the animated border dot effect.
  */
 
-import { useState } from 'react';
+import { useState, use } from 'react';
 import {
   Palette,
   Code2,
@@ -161,7 +161,9 @@ function SkillCard({ skill, index }: { skill: Skill; index: number }) {
 
 // ─── Page Component ─────────────────────────────────────────────────────────
 
-export default function SkillsPage() {
+export default function SkillsPage({ params, searchParams }: { params: Promise<Record<string, string | string[]>>; searchParams: Promise<Record<string, string | string[] | undefined>> }) {
+  use(params);
+  use(searchParams);
   const [activeCategory, setActiveCategory] = useState<string>('All');
 
   const filteredSkills =

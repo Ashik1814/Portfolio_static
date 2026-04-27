@@ -8,7 +8,7 @@
  * colored tech badges, and gradient/outline action buttons with animated border.
  */
 
-import { useState } from 'react';
+import { useState, use } from 'react';
 import { ExternalLink, Eye, ArrowRight } from 'lucide-react';
 import AnimatedBorderButton from '@/components/ui/animated-border-button';
 
@@ -246,7 +246,9 @@ const defaultTagColor = { bg: 'bg-white/10', text: 'text-white/70' };
 
 // ─── Page Component ─────────────────────────────────────────────────────────
 
-export default function ProjectsPage() {
+export default function ProjectsPage({ params, searchParams }: { params: Promise<Record<string, string | string[]>>; searchParams: Promise<Record<string, string | string[] | undefined>> }) {
+  use(params);
+  use(searchParams);
   const [activeCategory, setActiveCategory] = useState<string>('All');
 
   const filteredProjects =
