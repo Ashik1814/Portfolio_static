@@ -39,9 +39,12 @@ const topSkills = [
 ];
 
 const featuredProjects = [
-  { title: 'Nebula Dashboard', tag: 'React · Three.js · D3.js' },
-  { title: 'E-Commerce Platform', tag: 'Next.js · Stripe · Prisma' },
-  { title: 'AI Content Studio', tag: 'TypeScript · OpenAI · WebSocket' },
+  { title: 'Nebula Dashboard', tag: 'React · Three.js · D3.js', category: 'Web Development' },
+  { title: 'E-Commerce Platform', tag: 'Next.js · Stripe · Prisma', category: 'Web Development' },
+  { title: 'AI Content Studio', tag: 'TypeScript · OpenAI · WebSocket', category: 'Web Development' },
+  { title: 'Healthcare App Redesign', tag: 'Figma · React · User Research', category: 'UI/UX' },
+  { title: 'Fintech Mobile App', tag: 'Figma · React · User Research', category: 'UI/UX' },
+  { title: 'EdTech Learning Portal', tag: 'Figma · React · Storybook', category: 'UI/UX' },
 ];
 
 // ─── Component ──────────────────────────────────────────────────────────────
@@ -200,7 +203,7 @@ export default function Home() {
             <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
               <div className="flex-1">
                 <h2 className="mb-4 text-2xl font-bold text-white">Featured Projects</h2>
-                <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
                   {featuredProjects.map((project) => (
                     <div
                       key={project.title}
@@ -211,6 +214,7 @@ export default function Home() {
                         <h3 className="text-sm font-semibold text-white">{project.title}</h3>
                       </div>
                       <p className="text-xs text-white/50">{project.tag}</p>
+                      <span className="mt-2 inline-block rounded-full bg-cyan-500/10 px-2 py-0.5 text-[10px] font-medium text-cyan-400">{project.category}</span>
                     </div>
                   ))}
                 </div>
