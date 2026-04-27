@@ -171,12 +171,12 @@ export default function ContactPage() {
         <div className="mb-14 text-center">
           {/* Profile Image */}
           <div className="mb-6 inline-block relative">
-            <div className="h-28 w-28 sm:h-32 sm:w-32 rounded-full overflow-hidden border-2 border-cyan-400/30 shadow-[0_0_30px_rgba(0,212,255,0.15)] mx-auto">
+            <div className="h-40 w-40 sm:h-48 sm:w-48 rounded-full overflow-hidden border-2 border-cyan-400/30 shadow-[0_0_40px_rgba(0,212,255,0.2)] mx-auto">
               <Image
                 src="/profile.jpeg"
                 alt="Alex Chen"
-                width={128}
-                height={128}
+                width={192}
+                height={192}
                 className="h-full w-full object-cover"
                 priority
               />
