@@ -192,7 +192,7 @@ export default function SkillsPage() {
       : skills.filter((s) => s.category === activeCategory);
 
   return (
-    <main className="min-h-screen bg-[#050510] pt-24 pb-16 px-4 sm:px-6 lg:px-8">
+    <main className="min-h-screen pt-24 pb-16 px-4 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-6xl">
         {/* ── Page Header ─────────────────────────────────────────────── */}
         <div className="mb-12 text-center">

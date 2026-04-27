@@ -4,17 +4,17 @@
  * Home Page — Portfolio Summary Landing
  *
  * A landing page with:
- *   - 3D hero with name/title and CTAs
+ *   - 3D hero with name/title and CTAs (aether background is now global)
  *   - Summary preview cards for About, Skills, Projects, and Contact
  *   - Each card links to its dedicated detail page via Next.js routing
  *
  * Navbar and Footer are rendered in the root layout.
+ * AetherCanvas (Three.js) is also rendered globally in the root layout.
  */
 
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 
-import ThreeScene from '@/components/three-scene';
 import { Button } from '@/components/ui/button';
 import {
   Sparkles,
@@ -75,14 +75,9 @@ export default function Home() {
   return (
     <>
       {/* ═══════════════════════════════════════════════════════════════════
-          HERO — Full viewport with 3D particle background
+          HERO — Full viewport (aether particles flow behind via global canvas)
           ═══════════════════════════════════════════════════════════════════ */}
       <section className="relative flex min-h-screen items-center justify-center overflow-hidden">
-        {/* Three.js background */}
-        <div className="absolute inset-0 z-0">
-          <ThreeScene />
-        </div>
-
         {/* Content overlay */}
         <div className="relative z-10 flex flex-col items-center px-4 text-center">
           <span className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-sm text-cyan-400 backdrop-blur-sm">
@@ -173,7 +168,7 @@ export default function Home() {
                     return (
                       <div
                         key={skill.name}
-                        className="flex flex-col items-center gap-2 rounded-xl border border-white/10 bg-white/5 p-4 text-center"
+                        className="flex flex-col items-center gap-2 rounded-xl border border-white/10 bg-white/5 p-4 text-center backdrop-blur-md"
                       >
                         <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-cyan-500/10 text-cyan-400">
                           <Icon className="h-5 w-5" />
@@ -204,7 +199,7 @@ export default function Home() {
                   {featuredProjects.map((project) => (
                     <div
                       key={project.title}
-                      className="rounded-xl border border-white/10 bg-white/5 p-4 transition-colors hover:border-cyan-500/20"
+                      className="rounded-xl border border-white/10 bg-white/5 p-4 transition-colors hover:border-cyan-500/20 backdrop-blur-md"
                     >
                       <div className="mb-2 flex items-center gap-2">
                         <ExternalLink className="h-4 w-4 text-cyan-400" />

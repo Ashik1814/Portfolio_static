@@ -124,7 +124,11 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply text-foreground;
+    /* Twilight gradient for Aether background: Midnight Blue → Amethyst */
+    background: linear-gradient(180deg, #05051a 0%, #0d0a2a 30%, #1a0a3e 60%, #15082d 80%, #050510 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
   }
 
   /* Smooth scrolling for the entire page */
@@ -159,8 +163,8 @@
   /* Frosted glass effect — the core glassmorphism pattern */
   .glass {
     background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
     border: 1px solid rgba(255, 255, 255, 0.1);
   }
 

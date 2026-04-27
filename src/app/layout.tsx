@@ -4,6 +4,7 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
+import AetherCanvas from "@/components/aether-background";
 
 /**
  * Inter — A high-contrast, modern Sans-Serif font perfect for
@@ -87,9 +88,11 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
       <body
-        className={`${inter.variable} font-sans antialiased bg-[#050510] text-white`}
+        className={`${inter.variable} font-sans antialiased text-white`}
       >
-        <div className="flex min-h-screen flex-col">
+        {/* Global Aether Flow Three.js Background */}
+        <AetherCanvas />
+        <div className="relative z-0 flex min-h-screen flex-col">
           <Navbar />
           <div className="flex-1">{children}</div>
           <Footer />
