@@ -3,10 +3,11 @@
 /**
  * Projects Detail Page — /projects
  *
- * Full project gallery with 6 detailed cards featuring
- * gradient banners, hover overlays, and technology badges.
+ * Full project gallery with category filter tabs (All, UI/UX, Web Development, 3D / Creative),
+ * detailed cards featuring gradient banners, hover overlays, and technology badges.
  */
 
+import { useState } from 'react';
 import Link from 'next/link';
 import { ExternalLink, Github, ArrowRight, Box } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
@@ -22,6 +23,7 @@ interface Project {
   liveUrl: string;
   sourceUrl: string;
   features: string[];
+  category: string;
 }
 
 const projects: Project[] = [
@@ -34,6 +36,7 @@ const projects: Project[] = [
     liveUrl: '#',
     sourceUrl: '#',
     features: ['Real-time data streaming', '3D chart visualizations', 'Customizable widget layout', 'Dark/light theme support'],
+    category: '3D / Creative',
   },
   {
     title: 'E-Commerce Platform',
@@ -44,6 +47,7 @@ const projects: Project[] = [
     liveUrl: '#',
     sourceUrl: '#',
     features: ['Headless CMS integration', 'Stripe payment processing', 'Multi-step checkout', 'Inventory management'],
+    category: 'Web Development',
   },
   {
     title: 'AI Content Studio',
@@ -54,6 +58,7 @@ const projects: Project[] = [
     liveUrl: '#',
     sourceUrl: '#',
     features: ['AI writing assistant', 'Real-time collaboration', 'SEO optimization', 'Content analytics'],
+    category: 'Web Development',
   },
   {
     title: 'Design System Kit',
@@ -64,6 +69,7 @@ const projects: Project[] = [
     liveUrl: '#',
     sourceUrl: '#',
     features: ['200+ components', 'Theming engine', 'WCAG 2.1 AA compliant', 'Storybook docs'],
+    category: 'UI/UX',
   },
   {
     title: 'Social Analytics',
@@ -74,6 +80,7 @@ const projects: Project[] = [
     liveUrl: '#',
     sourceUrl: '#',
     features: ['Sentiment analysis', 'Trend detection', 'Automated reporting', 'Multi-platform support'],
+    category: 'Web Development',
   },
   {
     title: 'Immersive Portfolio',
@@ -84,8 +91,47 @@ const projects: Project[] = [
     liveUrl: '#',
     sourceUrl: '#',
     features: ['WebGL particle system', 'GSAP scroll animations', 'Glassmorphism UI', 'Responsive design'],
+    category: '3D / Creative',
+  },
+  {
+    title: 'Healthcare App Redesign',
+    description: 'Complete UX overhaul of a patient management system, improving task completion rates by 40%',
+    longDescription: 'Redesigned a legacy healthcare application from the ground up, conducting extensive user research with doctors and nurses, creating intuitive workflows, and implementing a modern component-based UI that reduced task completion time by 40%.',
+    tags: ['Figma', 'React', 'User Research'],
+    accent: 'emerald',
+    liveUrl: '#',
+    sourceUrl: '#',
+    features: ['User research & testing', 'Workflow optimization', 'Accessible components', 'Design system creation'],
+    category: 'UI/UX',
+  },
+  {
+    title: 'Task Management Suite',
+    description: 'Collaborative project management tool with Kanban boards, Gantt charts, and team analytics',
+    longDescription: 'A full-featured project management platform supporting Kanban boards, Gantt chart timelines, team workload analytics, and real-time collaboration. Built with a focus on performance, handling 10,000+ tasks without lag.',
+    tags: ['Next.js', 'PostgreSQL', 'WebSocket'],
+    accent: 'purple',
+    liveUrl: '#',
+    sourceUrl: '#',
+    features: ['Kanban & Gantt views', 'Real-time collaboration', 'Team analytics', 'Performance optimized'],
+    category: 'Web Development',
+  },
+  {
+    title: '3D Product Configurator',
+    description: 'Interactive 3D product customizer with real-time material preview and AR try-on',
+    longDescription: 'A WebGL-based product configurator allowing customers to customize products in 3D with real-time material, color, and texture previews. Features an AR try-on mode for mobile devices using WebXR.',
+    tags: ['Three.js', 'WebXR', 'React'],
+    accent: 'amber',
+    liveUrl: '#',
+    sourceUrl: '#',
+    features: ['Real-time 3D preview', 'Material customization', 'AR try-on mode', 'Performance optimized'],
+    category: '3D / Creative',
   },
 ];
+
+/** Unique categories derived from project data */
+const categories = ['All', ...Array.from(new Set(projects.map((p) => p.category)))];
+
+// ─── Style Maps ─────────────────────────────────────────────────────────────
 
 const gradientMap: Record<Project['accent'], string> = {
   cyan: 'from-cyan-500/20 to-cyan-600/5',
@@ -114,6 +160,13 @@ const accentTextMap: Record<Project['accent'], string> = {
 // ─── Page Component ─────────────────────────────────────────────────────────
 
 export default function ProjectsPage() {
+  const [activeCategory, setActiveCategory] = useState<string>('All');
+
+  const filteredProjects =
+    activeCategory === 'All'
+      ? projects
+      : projects.filter((p) => p.category === activeCategory);
+
   return (
     <main className="min-h-screen bg-[#050510] pt-24 pb-16 px-4 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-6xl">
@@ -129,9 +182,26 @@ export default function ProjectsPage() {
           </p>
         </div>
 
+        {/* ── Category Filter ─────────────────────────────────────────── */}
+        <div className="mb-10 flex flex-wrap justify-center gap-2">
+          {categories.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setActiveCategory(cat)}
+              className={`rounded-full px-4 py-1.5 text-sm font-medium transition-all ${
+                activeCategory === cat
+                  ? 'bg-cyan-500 text-black'
+                  : 'border border-white/10 bg-white/5 text-white/60 hover:border-cyan-500/30 hover:text-white'
+              }`}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
+
         {/* ── Project Grid ────────────────────────────────────────────── */}
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-          {projects.map((project) => (
+          {filteredProjects.map((project) => (
             <article
               key={project.title}
               className={`group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 backdrop-blur-lg transition-transform duration-500 hover:scale-[1.02] hover:border-cyan-500/20 ${glowMap[project.accent]}`}
@@ -149,6 +219,11 @@ export default function ProjectsPage() {
                   }}
                 />
                 <Box className="absolute right-6 bottom-6 h-24 w-24 text-white opacity-30 transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-1" />
+
+                {/* Category badge on banner */}
+                <span className="absolute left-4 top-4 rounded-full bg-black/40 px-3 py-1 text-xs font-medium text-white/80 backdrop-blur-sm">
+                  {project.category}
+                </span>
               </div>
 
               {/* Card body */}
@@ -204,6 +279,13 @@ export default function ProjectsPage() {
             </article>
           ))}
         </div>
+
+        {/* ── Empty state when no projects match filter ── */}
+        {filteredProjects.length === 0 && (
+          <div className="py-20 text-center">
+            <p className="text-lg text-white/40">No projects found in this category.</p>
+          </div>
+        )}
 
         {/* ── CTA ─────────────────────────────────────────────────────── */}
         <div className="mt-14 text-center">
