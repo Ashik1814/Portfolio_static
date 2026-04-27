@@ -3,8 +3,8 @@
 /**
  * Contact Detail Page — /contact
  *
- * Full contact page with education timeline, contact information,
- * and a validated message form that posts to the /api/contact endpoint.
+ * Contact information and a validated message form
+ * that posts to the /api/contact endpoint.
  */
 
 import { useState } from 'react';
@@ -14,8 +14,6 @@ import {
   Mail,
   MapPin,
   Phone,
-  GraduationCap,
-  Calendar,
   CheckCircle2,
   Loader2,
 } from 'lucide-react';
@@ -26,14 +24,6 @@ import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 
 // ─── Type Definitions ────────────────────────────────────────────────────────
-
-interface EducationEntry {
-  degree: string;
-  institution: string;
-  year: string;
-  description: string;
-  icon: React.ElementType;
-}
 
 interface ContactInfoItem {
   label: string;
@@ -59,30 +49,6 @@ interface FormErrors {
 type SubmissionState = 'idle' | 'loading' | 'success' | 'error';
 
 // ─── Static Data ─────────────────────────────────────────────────────────────
-
-const educationEntries: EducationEntry[] = [
-  {
-    degree: 'M.Sc. Human-Computer Interaction',
-    institution: 'Stanford University',
-    year: '2020 – 2022',
-    description: 'Focused on interaction design, usability research, and human-centered AI. Thesis on adaptive UI patterns for accessibility.',
-    icon: GraduationCap,
-  },
-  {
-    degree: 'B.Sc. Computer Science',
-    institution: 'MIT',
-    year: '2016 – 2020',
-    description: 'Core coursework in algorithms, systems design, and software engineering. Minor in Visual Arts.',
-    icon: GraduationCap,
-  },
-  {
-    degree: 'UX Design Professional Certificate',
-    institution: 'Google',
-    year: '2021',
-    description: 'Comprehensive program covering UX research, wireframing, prototyping, and usability testing methodologies.',
-    icon: Calendar,
-  },
-];
 
 const contactInfoItems: ContactInfoItem[] = [
   {
@@ -217,48 +183,18 @@ export default function ContactPage() {
             <div className="absolute inset-0 rounded-full border border-cyan-400/10 scale-110" />
           </div>
           <h1 className="text-4xl font-bold text-white sm:text-5xl">
-            Education &amp; Contact
+            Get In Touch
           </h1>
           <div className="mt-3 mx-auto h-1 w-24 rounded-full bg-cyan-500" />
           <p className="mt-6 text-lg text-white/50">
-            My academic background and how to reach me
+            Have a project in mind? Let&apos;s talk.
           </p>
         </div>
 
         {/* ── Two-Column Layout ───────────────────────────────────────── */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14">
-          {/* LEFT: Education & Contact Info */}
+          {/* LEFT: Contact Info */}
           <div className="space-y-10">
-            {/* Education Timeline */}
-            <div>
-              <h2 className="text-2xl font-bold text-white mb-6">Education</h2>
-              <div className="relative space-y-5">
-                <div className="absolute left-[15px] top-2 bottom-2 w-px bg-white/10" />
-
-                {educationEntries.map((entry, index) => {
-                  const Icon = entry.icon;
-                  return (
-                    <div key={index} className="relative flex gap-4">
-                      <div className="relative z-10 flex-shrink-0 w-[30px] h-[30px] rounded-full bg-cyan-500/20 border border-cyan-500/40 flex items-center justify-center">
-                        <Icon className="w-3.5 h-3.5 text-cyan-400" />
-                      </div>
-
-                      <div className="flex-1 bg-white/5 border border-white/10 border-l-2 border-l-cyan-500 rounded-xl p-4">
-                        <h3 className="text-white font-medium leading-snug">
-                          {entry.degree}
-                        </h3>
-                        <p className="text-white/60 text-sm mt-1">{entry.institution}</p>
-                        <p className="text-cyan-400 text-xs mt-1.5 font-medium">{entry.year}</p>
-                        <p className="text-white/40 text-xs mt-2 leading-relaxed">
-                          {entry.description}
-                        </p>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-
             {/* Contact Info */}
             <div>
               <h2 className="text-2xl font-bold text-white mb-6">Contact Info</h2>
@@ -268,7 +204,7 @@ export default function ContactPage() {
                   return (
                     <div
                       key={index}
-                      className="flex items-center gap-4 bg-white/5 border border-white/10 rounded-xl p-4"
+                      className="flex items-center gap-4 bg-white/5 border border-white/10 rounded-xl p-4 backdrop-blur-md"
                     >
                       <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center">
                         <Icon className="w-5 h-5 text-cyan-400" />
