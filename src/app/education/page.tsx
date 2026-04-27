@@ -192,23 +192,6 @@ const courseworkItems: CourseworkItem[] = [
   { name: 'Human-Computer Interaction', icon: BookOpen, iconColor: 'rgb(148, 163, 184)', iconBg: 'rgba(148, 163, 184, 0.082)' },
 ];
 
-// ─── Reusable Rotating Border Wrapper ────────────────────────────────────────
-
-/** Conic gradient for the primary rotating border */
-const conicGradientPrimary =
-  'conic-gradient(transparent 0%, rgba(0, 229, 255, 0.12) 5%, rgba(167, 139, 250, 0.08) 10%, rgba(45, 212, 191, 0.1) 14%, transparent 18%)';
-
-/** Conic gradient for the secondary (reverse) rotating border */
-const conicGradientSecondary =
-  'conic-gradient(from 180deg, transparent 0%, rgba(217, 70, 239, 0.06) 3%, rgba(244, 114, 182, 0.05) 6%, transparent 9%)';
-
-/** Full-speed conic gradient for certification cards */
-const conicGradientFull =
-  'conic-gradient(transparent 0%, rgb(0, 229, 255) 10%, rgb(167, 139, 250) 20%, rgb(45, 212, 191) 30%, transparent 40%)';
-
-const conicGradientFullSecondary =
-  'conic-gradient(from 180deg, transparent 0%, rgb(217, 70, 239) 5%, rgb(244, 114, 182) 10%, transparent 15%)';
-
 // ─── Page Component ──────────────────────────────────────────────────────────
 
 export default function EducationPage() {
@@ -361,77 +344,23 @@ export default function EducationPage() {
           {certifications.map((cert) => {
             const CertIcon = cert.icon;
             return (
-              <div key={cert.title} className="relative overflow-hidden rounded-2xl p-[1px]">
-                {/* Primary rotating gradient */}
-                <div
-                  className="absolute"
-                  style={{
-                    inset: '-100%',
-                    background: conicGradientFull,
-                    animation: 'card-border-rotate 6s linear 0s infinite normal none running',
-                  }}
-                />
-                {/* Secondary rotating gradient */}
-                <div
-                  className="absolute"
-                  style={{
-                    inset: '-100%',
-                    background: conicGradientFullSecondary,
-                    animation: 'card-border-rotate 9s linear 0s infinite reverse none running',
-                  }}
-                />
-                {/* Card content */}
-                <div
-                  className="relative z-[1] h-full w-full overflow-hidden transition-all duration-300 group"
-                  style={{
-                    borderRadius: 'calc(-1px + 1rem)',
-                    border: 'none',
-                    background: 'rgba(8, 5, 15, 0.92)',
-                  }}
-                >
-                  <div className="relative z-10">
-                    <div className="p-5 flex items-start gap-4">
-                      {/* Icon with its own rotating border */}
-                      <div className="relative overflow-hidden p-[1px]" style={{ borderRadius: '0.5rem' }}>
-                        <div
-                          className="absolute"
-                          style={{
-                            inset: '-200%',
-                            background: conicGradientPrimary,
-                            animation: 'card-border-rotate 5s linear 0s infinite normal none running',
-                            willChange: 'transform',
-                          }}
-                        />
-                        <div
-                          className="absolute"
-                          style={{
-                            inset: '-200%',
-                            background: conicGradientSecondary,
-                            animation: 'card-border-rotate 7.5s linear 0s infinite reverse none running',
-                            willChange: 'transform',
-                          }}
-                        />
-                        <div
-                          className="relative z-[1] flex items-center justify-center w-12 h-12 shrink-0"
-                          style={{
-                            borderRadius: 'calc(-1px + 0.5rem)',
-                            background: 'rgb(8, 5, 15)',
-                          }}
-                        >
-                          <div
-                            className="absolute inset-0 rounded-[inherit]"
-                            style={{ backgroundColor: cert.iconBg }}
-                          />
-                          <CertIcon className="w-5 h-5 relative" style={{ color: cert.iconColor }} />
-                        </div>
-                      </div>
+              <div
+                key={cert.title}
+                className="rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-md transition-all duration-300 hover:border-white/20"
+              >
+                <div className="p-5 flex items-start gap-4">
+                  {/* Icon */}
+                  <div
+                    className="flex items-center justify-center w-12 h-12 shrink-0 rounded-lg"
+                    style={{ backgroundColor: cert.iconBg }}
+                  >
+                    <CertIcon className="w-5 h-5" style={{ color: cert.iconColor }} />
+                  </div>
 
-                      {/* Title + Provider */}
-                      <div>
-                        <h4 className="text-sm font-bold text-white mb-0.5">{cert.title}</h4>
-                        <p className="text-xs text-[#94a3b8]">{cert.provider} • {cert.year}</p>
-                      </div>
-                    </div>
+                  {/* Title + Provider */}
+                  <div>
+                    <h4 className="text-sm font-bold text-white mb-0.5">{cert.title}</h4>
+                    <p className="text-xs text-[#94a3b8]">{cert.provider} • {cert.year}</p>
                   </div>
                 </div>
               </div>
