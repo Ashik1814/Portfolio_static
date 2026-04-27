@@ -1,57 +1,102 @@
-import { Github, Linkedin, Twitter, Heart } from "lucide-react";
+import Link from 'next/link';
+import {
+  Github,
+  Linkedin,
+  Youtube,
+  Facebook,
+  FlaskConical,
+} from 'lucide-react';
 
-interface SocialLinkProps {
-  href: string;
-  icon: React.ElementType;
-  label: string;
-}
+// ─── Navigation links for Quick Links section ──────────────────────────────
 
-function SocialLink({ href, icon: Icon, label }: SocialLinkProps) {
-  return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label={label}
-      className="text-white/50 hover:text-cyan-400 transition-colors"
-    >
-      <Icon className="h-5 w-5" />
-    </a>
-  );
-}
+const quickLinks = [
+  { label: 'Home', href: '/' },
+  { label: 'About', href: '/about' },
+  { label: 'Skills', href: '/skills' },
+  { label: 'Projects', href: '/projects' },
+  { label: 'Education', href: '/contact' },
+  { label: 'Contact', href: '/contact' },
+];
+
+// ─── Social links for Connect section ──────────────────────────────────────
+
+const socialLinks = [
+  { href: 'https://github.com', icon: Github, label: 'GitHub' },
+  { href: 'https://linkedin.com', icon: Linkedin, label: 'LinkedIn' },
+  { href: 'https://youtube.com', icon: Youtube, label: 'YouTube' },
+  { href: 'https://facebook.com', icon: Facebook, label: 'Facebook' },
+];
+
+// ─── Footer Component ──────────────────────────────────────────────────────
 
 export default function Footer() {
   return (
-    <footer className="border-t border-white/10 bg-black/20 backdrop-blur-sm py-6 px-4 mt-auto">
-      <div className="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
-        {/* Left - Copyright */}
-        <p className="text-sm text-white/50">
-          © 2024 Alex Chen. All rights reserved.
-        </p>
+    <footer className="border-t border-cyan-500/8 bg-black/20 backdrop-blur-sm mt-auto">
+      <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+        <div className="grid items-start gap-8 md:grid-cols-3">
+          {/* ── Brand ──────────────────────────────────────────────────── */}
+          <div className="space-y-3">
+            <Link
+              href="/"
+              className="group inline-flex items-center gap-2 transition-transform duration-200 hover:scale-105"
+            >
+              <div className="flex h-7 w-7 items-center justify-center rounded-md bg-gradient-to-br from-cyan-400/20 to-purple-400/20 transition-all duration-300">
+                <FlaskConical className="h-3.5 w-3.5 text-cyan-400" />
+              </div>
+              <span className="text-lg font-bold tracking-tight">
+                <span className="text-cyan-400">Alex</span>
+                <span className="text-white">Chen</span>
+              </span>
+            </Link>
+            <p className="max-w-xs text-sm leading-relaxed text-slate-500">
+              © 2025 Alex Chen. All rights reserved .🤍
+            </p>
+          </div>
 
-        {/* Center - Made with love */}
-        <p className="text-sm text-white/50 flex items-center gap-1">
-          Made with <Heart className="h-4 w-4 text-red-500 fill-red-500" />{" "}
-          and code
-        </p>
+          {/* ── Quick Links ────────────────────────────────────────────── */}
+          <div className="space-y-3">
+            <h4 className="text-sm font-semibold text-white">Quick Links</h4>
+            <nav className="grid grid-cols-2 gap-x-6 gap-y-2">
+              {quickLinks.map((link) => (
+                <Link
+                  key={link.href + link.label}
+                  href={link.href}
+                  className="text-sm text-slate-500 transition-colors duration-200 hover:text-cyan-400"
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </nav>
+          </div>
 
-        {/* Right - Social links */}
-        <div className="flex items-center gap-4">
-          <SocialLink
-            href="https://github.com"
-            icon={Github}
-            label="GitHub"
-          />
-          <SocialLink
-            href="https://linkedin.com"
-            icon={Linkedin}
-            label="LinkedIn"
-          />
-          <SocialLink
-            href="https://twitter.com"
-            icon={Twitter}
-            label="Twitter"
-          />
+          {/* ── Connect ────────────────────────────────────────────────── */}
+          <div className="space-y-3">
+            <h4 className="text-sm font-semibold text-white">Connect</h4>
+            <div className="flex items-center gap-3">
+              {socialLinks.map((social) => {
+                const Icon = social.icon;
+                return (
+                  <a
+                    key={social.label}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={social.label}
+                    className="flex h-9 w-9 items-center justify-center rounded-lg border border-cyan-400/10 text-slate-500 transition-all duration-200 hover:border-cyan-400/25 hover:bg-cyan-400/5 hover:text-cyan-400"
+                  >
+                    <Icon className="h-4 w-4" />
+                  </a>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+
+        {/* ── Bottom bar ──────────────────────────────────────────────── */}
+        <div className="mt-8 flex items-center justify-center border-t border-cyan-500/8 pt-6">
+          <p className="text-xs text-slate-700">
+            © 2025 Alex Chen. All rights reserved .🤍
+          </p>
         </div>
       </div>
     </footer>
