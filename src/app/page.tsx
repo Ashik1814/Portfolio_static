@@ -28,6 +28,10 @@ import {
   Send,
   GraduationCap,
   MapPin,
+  Github,
+  Linkedin,
+  Youtube,
+  Facebook,
 } from 'lucide-react';
 
 // ─── Summary preview data ──────────────────────────────────────────────────
@@ -438,30 +442,79 @@ export default function Home({
             </div>
           </div>
 
-          {/* Contact Summary */}
-          <div className="summary-card rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl transition-all duration-300 hover:border-cyan-500/20 md:p-8">
-            <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-              <div className="flex items-start gap-5">
-                <div className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-xl bg-cyan-500/10 text-cyan-400">
-                  <Mail className="h-7 w-7" />
-                </div>
-                <div>
-                  <h2 className="text-2xl font-bold text-white">Get In Touch</h2>
-                  <p className="mt-2 max-w-xl text-white/60">
-                    Have a project in mind or want to collaborate? I&apos;d love to hear from you.
-                    Send me a message and I&apos;ll get back to you as soon as possible.
-                  </p>
-                  <div className="mt-3 flex flex-wrap items-center gap-4 text-sm text-white/50">
-                    <span className="flex items-center gap-1.5">
-                      <MapPin className="h-4 w-4 text-cyan-400" /> Dhaka, Bangladesh
-                    </span>
+          {/* Connect Section — Rotating border card with socials */}
+          <div className="summary-card">
+            <div className="text-center mb-8">
+              <h2 className="text-3xl sm:text-4xl font-bold text-white mb-2">
+                Let&apos;s <span className="gradient-text-pink-blue">Connect</span>
+              </h2>
+            </div>
+            <div className="max-w-2xl mx-auto">
+              <div className="relative overflow-hidden rounded-2xl p-[1px]">
+                {/* Rotating conic-gradient border layer 1 */}
+                <div
+                  className="absolute"
+                  style={{
+                    inset: '-100%',
+                    background: 'conic-gradient(transparent 0%, #00e5ff 10%, #a78bfa 20%, #2dd4bf 30%, transparent 40%)',
+                    animation: 'card-border-rotate 6s linear infinite',
+                  }}
+                />
+                {/* Rotating conic-gradient border layer 2 (reverse) */}
+                <div
+                  className="absolute"
+                  style={{
+                    inset: '-100%',
+                    background: 'conic-gradient(from 180deg, transparent 0%, #d946ef 5%, #f472b6 10%, transparent 15%)',
+                    animation: 'card-border-rotate 9s linear infinite reverse',
+                  }}
+                />
+                {/* Card inner content */}
+                <div
+                  className="relative z-[1] h-full w-full overflow-hidden p-8 sm:p-10 text-center"
+                  style={{
+                    borderRadius: 'calc(-1px + 1rem)',
+                    border: 'none',
+                    background: 'rgba(8, 5, 15, 0.92)',
+                  }}
+                >
+                  <div className="relative z-10">
+                    <h3 className="text-2xl sm:text-3xl font-bold text-white mb-3">
+                      Let&apos;s work together
+                    </h3>
+                    <p className="text-[#94a3b8] mb-8 max-w-md mx-auto leading-relaxed">
+                      I&apos;m always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
+                    </p>
+
+                    {/* Social Links */}
+                    <div className="flex items-center justify-center gap-4 mb-8">
+                      {[
+                        { Icon: Github, href: 'https://github.com/Ashik1814', label: 'GitHub' },
+                        { Icon: Linkedin, href: 'https://linkedin.com', label: 'LinkedIn' },
+                        { Icon: Youtube, href: 'https://youtube.com/@arckbreaker1814?si=iSdffxmKQl47TeMk', label: 'YouTube' },
+                        { Icon: Facebook, href: 'https://www.facebook.com/share/18FuK1HEes/', label: 'Facebook' },
+                      ].map(({ Icon, href, label }) => (
+                        <a
+                          key={label}
+                          href={href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={label}
+                          className="w-12 h-12 rounded-xl border border-[#1e3a5f]/50 flex items-center justify-center text-[#64748b] hover:text-[#00e5ff] hover:border-[#00e5ff]/30 hover:bg-[#00e5ff]/5 transition-all duration-200"
+                        >
+                          <Icon className="w-5 h-5" />
+                        </a>
+                      ))}
+                    </div>
+
+                    {/* CTA Button */}
+                    <AnimatedBorderButton href="/contact" variant="primary" size="lg">
+                      Get In Touch
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </AnimatedBorderButton>
                   </div>
                 </div>
               </div>
-              <AnimatedBorderButton href="/contact" variant="primary" size="md">
-                <Send className="h-4 w-4" />
-                Contact Me
-              </AnimatedBorderButton>
             </div>
           </div>
         </div>
