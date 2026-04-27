@@ -292,37 +292,10 @@ export default function EducationPage() {
                     </div>
                   </div>
 
-                  {/* Card with rotating border */}
-                  <div className="relative overflow-hidden p-[1px]" style={{ borderRadius: '0.75rem' }}>
-                    {/* Primary rotating gradient */}
-                    <div
-                      className="absolute"
-                      style={{
-                        inset: '-200%',
-                        background: conicGradientPrimary,
-                        animation: 'card-border-rotate 4s linear 0s infinite normal none running',
-                        willChange: 'transform',
-                      }}
-                    />
-                    {/* Secondary rotating gradient (reverse) */}
-                    <div
-                      className="absolute"
-                      style={{
-                        inset: '-200%',
-                        background: conicGradientSecondary,
-                        animation: 'card-border-rotate 6s linear 0s infinite reverse none running',
-                        willChange: 'transform',
-                      }}
-                    />
-                    {/* Content */}
-                    <div
-                      className="relative z-[1] flex items-center justify-center flex-1 ml-14 sm:ml-[4.5rem]"
-                      style={{
-                        borderRadius: 'calc(-1px + 0.75rem)',
-                        background: 'rgb(8, 5, 15)',
-                      }}
-                    >
-                      <div className="p-4 sm:p-5 w-full">
+                  {/* Card */}
+                  <div
+                    className="flex-1 ml-14 sm:ml-[4.5rem] rounded-xl border border-white/10 bg-white/[0.03] backdrop-blur-md p-4 sm:p-5"
+                  >
                         {/* Title + Date + GPA */}
                         <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 mb-2">
                           <h3 className="text-sm sm:text-base font-bold text-white flex-1">
@@ -368,8 +341,6 @@ export default function EducationPage() {
                             </span>
                           ))}
                         </div>
-                      </div>
-                    </div>
                   </div>
                 </div>
               );
