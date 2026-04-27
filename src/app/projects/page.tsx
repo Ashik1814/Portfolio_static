@@ -36,7 +36,7 @@ const projects: Project[] = [
     liveUrl: '#',
     sourceUrl: '#',
     features: ['Real-time data streaming', '3D chart visualizations', 'Customizable widget layout', 'Dark/light theme support'],
-    category: '3D / Creative',
+    category: 'Web Development',
   },
   {
     title: 'E-Commerce Platform',
@@ -91,7 +91,7 @@ const projects: Project[] = [
     liveUrl: '#',
     sourceUrl: '#',
     features: ['WebGL particle system', 'GSAP scroll animations', 'Glassmorphism UI', 'Responsive design'],
-    category: '3D / Creative',
+    category: 'Web Development',
   },
   {
     title: 'Healthcare App Redesign',
@@ -124,7 +124,7 @@ const projects: Project[] = [
     liveUrl: '#',
     sourceUrl: '#',
     features: ['Real-time 3D preview', 'Material customization', 'AR try-on mode', 'Performance optimized'],
-    category: '3D / Creative',
+    category: 'UI/UX',
   },
 ];
 

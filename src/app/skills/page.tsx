@@ -72,7 +72,7 @@ const skills: Skill[] = [
     description: 'Interactive 3D web experiences and WebGL',
     extendedDescription:
       'Capable of creating immersive 3D web experiences using Three.js, custom shaders, post-processing effects, and performance-optimized WebGL scenes. Experience with R3F, Drei, and physics engines.',
-    category: '3D / Creative',
+    category: 'Frameworks',
   },
   {
     name: 'Tailwind CSS',
