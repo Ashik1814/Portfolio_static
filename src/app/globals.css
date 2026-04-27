@@ -268,6 +268,60 @@
   }
 }
 
+/* ─── Premium Home Page Animations ─────────────────────────────────────────── */
+
+/* Rotating conic-gradient ring around profile image */
+@keyframes profile-ring-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Gentle floating animation for profile image */
+@keyframes profile-float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+}
+
+/* Shimmer sweep for badge */
+@keyframes shimmer-sweep {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+/* Bouncing scroll indicator */
+@keyframes scroll-bounce {
+  0%, 100% { transform: translateY(0); opacity: 0.6; }
+  50% { transform: translateY(10px); opacity: 1; }
+}
+
+/* Pulse glow for stat numbers */
+@keyframes stat-pulse {
+  0%, 100% { text-shadow: 0 0 10px rgba(0, 229, 255, 0.2); }
+  50% { text-shadow: 0 0 20px rgba(0, 229, 255, 0.5), 0 0 40px rgba(0, 229, 255, 0.2); }
+}
+
+/* Gradient border shimmer for cards */
+@keyframes card-shimmer {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Hero text gradient animation */
+@keyframes hero-gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Subtle particle drift for decorative elements */
+@keyframes drift {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  25% { transform: translate(5px, -8px) rotate(1deg); }
+  50% { transform: translate(-3px, -12px) rotate(-1deg); }
+  75% { transform: translate(4px, -6px) rotate(0.5deg); }
+}
+
 /* ─── Section Reveal Animation (used with GSAP ScrollTrigger) ────────────── */
 
 .section-reveal {
