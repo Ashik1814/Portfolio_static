@@ -340,6 +340,27 @@
   100% { background-position: 0% 50%; }
 }
 
+/* Infinite horizontal scroll for tech icon marquee */
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Grayscale-to-color tech icon in marquee */
+.tech-icon {
+  filter: grayscale(100%);
+  opacity: 0.35;
+  transition: filter 0.3s ease, opacity 0.3s ease, color 0.3s ease;
+}
+
+.tech-icon:hover,
+.group\/tech:hover .tech-icon {
+  filter: grayscale(0%);
+  opacity: 1;
+  color: #00e5ff;
+  filter: grayscale(0%) drop-shadow(0 0 12px rgba(0, 229, 255, 0.4));
+}
+
 /* Hero text gradient animation */
 @keyframes hero-gradient-shift {
   0% { background-position: 0% 50%; }
