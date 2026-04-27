@@ -346,6 +346,11 @@
   100% { transform: translateX(-50%); }
 }
 
+/* GPU-accelerated smooth scrolling for marquee track */
+[style*="animation: scroll"] {
+  will-change: transform;
+}
+
 /* Grayscale-to-color tech icon in marquee */
 .tech-icon {
   filter: grayscale(40%) brightness(1.6);

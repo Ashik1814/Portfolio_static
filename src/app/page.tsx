@@ -333,7 +333,7 @@ export default function Home({
               {/* Scrolling track — doubled for seamless loop */}
               <div
                 className="flex gap-16 py-6"
-                style={{ animation: 'scroll 30s linear infinite' }}
+                style={{ animation: 'scroll 22s linear infinite' }}
               >
                 {[...techIcons, ...techIcons].map((tech, index) => (
                   <div
