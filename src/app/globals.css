@@ -348,17 +348,16 @@
 
 /* Grayscale-to-color tech icon in marquee */
 .tech-icon {
-  filter: grayscale(100%);
-  opacity: 0.35;
-  transition: filter 0.3s ease, opacity 0.3s ease, color 0.3s ease;
+  filter: grayscale(40%) brightness(1.6);
+  opacity: 0.75;
+  transition: filter 0.4s ease, opacity 0.4s ease, color 0.4s ease;
 }
 
 .tech-icon:hover,
 .group\/tech:hover .tech-icon {
-  filter: grayscale(0%);
+  filter: grayscale(0%) brightness(1.2) drop-shadow(0 0 14px var(--brand-color, rgba(0, 229, 255, 0.5)));
   opacity: 1;
-  color: #00e5ff;
-  filter: grayscale(0%) drop-shadow(0 0 12px rgba(0, 229, 255, 0.4));
+  color: var(--brand-color, #00e5ff);
 }
 
 /* Hero text gradient animation */
