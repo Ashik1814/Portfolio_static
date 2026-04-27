@@ -24,6 +24,7 @@ import {
   Mail,
   ArrowRight,
   ExternalLink,
+  Eye,
   Send,
   GraduationCap,
   MapPin,
@@ -38,14 +39,111 @@ const topSkills = [
   { name: 'Three.js', icon: Box },
 ];
 
-const featuredProjects = [
-  { title: 'Nebula Dashboard', tag: 'React · Three.js · D3.js', category: 'Web Development' },
-  { title: 'E-Commerce Platform', tag: 'Next.js · Stripe · Prisma', category: 'Web Development' },
-  { title: 'AI Content Studio', tag: 'TypeScript · OpenAI · WebSocket', category: 'Web Development' },
-  { title: 'Healthcare App Redesign', tag: 'Figma · React · User Research', category: 'UI/UX' },
-  { title: 'Fintech Mobile App', tag: 'Figma · React · User Research', category: 'UI/UX' },
-  { title: 'EdTech Learning Portal', tag: 'Figma · React · Storybook', category: 'UI/UX' },
+type ProjectAccent = 'cyan' | 'purple' | 'emerald' | 'amber' | 'rose';
+
+interface FeaturedProject {
+  title: string;
+  description: string;
+  tags: string[];
+  accent: ProjectAccent;
+  liveUrl: string;
+  sourceUrl: string;
+  category: string;
+}
+
+const featuredProjects: FeaturedProject[] = [
+  {
+    title: 'Nebula Dashboard',
+    description: 'A real-time analytics dashboard with 3D data visualization and interactive charts built with React and Three.js',
+    tags: ['React', 'Three.js', 'D3.js'],
+    accent: 'cyan',
+    liveUrl: '#',
+    sourceUrl: '#',
+    category: 'Web Development',
+  },
+  {
+    title: 'E-Commerce Platform',
+    description: 'Full-stack e-commerce solution with seamless checkout, inventory management, and integrated payments.',
+    tags: ['React', 'Node.js', 'MongoDB'],
+    accent: 'purple',
+    liveUrl: '#',
+    sourceUrl: '#',
+    category: 'Web Development',
+  },
+  {
+    title: 'AI Content Studio',
+    description: 'AI-powered content creation platform with real-time collaboration and intelligent suggestions',
+    tags: ['TypeScript', 'OpenAI', 'WebSocket'],
+    accent: 'emerald',
+    liveUrl: '#',
+    sourceUrl: '#',
+    category: 'Web Development',
+  },
+  {
+    title: 'Healthcare App Redesign',
+    description: 'Complete UX overhaul of a patient management system, significantly improving task completion rates',
+    tags: ['Figma', 'React', 'User Research'],
+    accent: 'emerald',
+    liveUrl: '#',
+    sourceUrl: '#',
+    category: 'UI/UX',
+  },
+  {
+    title: 'Fintech Mobile App',
+    description: 'Mobile banking app redesign with intuitive navigation, biometric auth, and real-time transaction tracking',
+    tags: ['Figma', 'React', 'User Research'],
+    accent: 'rose',
+    liveUrl: '#',
+    sourceUrl: '#',
+    category: 'UI/UX',
+  },
+  {
+    title: 'EdTech Learning Portal',
+    description: 'Interactive e-learning platform with adaptive quizzes, progress dashboards, and gamified achievements',
+    tags: ['Figma', 'React', 'Storybook'],
+    accent: 'purple',
+    liveUrl: '#',
+    sourceUrl: '#',
+    category: 'UI/UX',
+  },
 ];
+
+/** Gradient backgrounds for project image placeholders */
+const imageGradientMap: Record<ProjectAccent, string> = {
+  cyan: 'from-cyan-900/80 via-cyan-800/60 to-teal-900/80',
+  purple: 'from-purple-900/80 via-purple-800/60 to-indigo-900/80',
+  emerald: 'from-emerald-900/80 via-emerald-800/60 to-green-900/80',
+  amber: 'from-amber-900/80 via-amber-800/60 to-orange-900/80',
+  rose: 'from-rose-900/80 via-rose-800/60 to-pink-900/80',
+};
+
+/** Glow effect on hover */
+const glowMap: Record<ProjectAccent, string> = {
+  cyan: 'hover:shadow-[0_0_30px_-5px_rgba(6,182,212,0.3)]',
+  purple: 'hover:shadow-[0_0_30px_-5px_rgba(168,85,247,0.3)]',
+  emerald: 'hover:shadow-[0_0_30px_-5px_rgba(16,185,129,0.3)]',
+  amber: 'hover:shadow-[0_0_30px_-5px_rgba(245,158,11,0.3)]',
+  rose: 'hover:shadow-[0_0_30px_-5px_rgba(244,63,94,0.3)]',
+};
+
+/** Colored tech badges */
+const tagColorMap: Record<string, { bg: string; text: string }> = {
+  'React': { bg: 'bg-cyan-500/20', text: 'text-cyan-300' },
+  'Three.js': { bg: 'bg-cyan-500/20', text: 'text-cyan-300' },
+  'D3.js': { bg: 'bg-orange-500/20', text: 'text-orange-300' },
+  'Next.js': { bg: 'bg-slate-500/20', text: 'text-slate-300' },
+  'Node.js': { bg: 'bg-emerald-500/20', text: 'text-emerald-300' },
+  'MongoDB': { bg: 'bg-teal-500/20', text: 'text-teal-300' },
+  'TypeScript': { bg: 'bg-blue-500/20', text: 'text-blue-300' },
+  'OpenAI': { bg: 'bg-green-500/20', text: 'text-green-300' },
+  'WebSocket': { bg: 'bg-teal-500/20', text: 'text-teal-300' },
+  'Figma': { bg: 'bg-rose-500/20', text: 'text-rose-300' },
+  'Storybook': { bg: 'bg-orange-500/20', text: 'text-orange-300' },
+  'User Research': { bg: 'bg-amber-500/20', text: 'text-amber-300' },
+  'Prisma': { bg: 'bg-teal-500/20', text: 'text-teal-300' },
+};
+
+const defaultTagColor = { bg: 'bg-white/10', text: 'text-white/70' };
 
 // ─── Component ──────────────────────────────────────────────────────────────
 
@@ -198,31 +296,110 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Projects Summary */}
-          <div className="summary-card rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl transition-all duration-300 hover:border-cyan-500/20 md:p-8">
-            <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
-              <div className="flex-1">
-                <h2 className="mb-4 text-2xl font-bold text-white">Featured Projects</h2>
-                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                  {featuredProjects.map((project) => (
-                    <div
-                      key={project.title}
-                      className="rounded-xl border border-white/10 bg-white/5 p-4 transition-colors hover:border-cyan-500/20 backdrop-blur-md"
-                    >
-                      <div className="mb-2 flex items-center gap-2">
-                        <ExternalLink className="h-4 w-4 text-cyan-400" />
-                        <h3 className="text-sm font-semibold text-white">{project.title}</h3>
-                      </div>
-                      <p className="text-xs text-white/50">{project.tag}</p>
-                      <span className="mt-2 inline-block rounded-full bg-cyan-500/10 px-2 py-0.5 text-[10px] font-medium text-cyan-400">{project.category}</span>
-                    </div>
-                  ))}
-                </div>
+          {/* Projects Summary — Full project cards matching /projects page */}
+          <div className="summary-card">
+            <div className="flex flex-col gap-6">
+              <div className="flex items-center justify-between">
+                <h2 className="text-2xl font-bold text-white">Featured Projects</h2>
+                <AnimatedBorderButton href="/projects" variant="outline" size="md">
+                  View All
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </AnimatedBorderButton>
               </div>
-              <AnimatedBorderButton href="/projects" variant="outline" size="md" wrapperClassName="mt-2 md:mt-0">
-                View All
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </AnimatedBorderButton>
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+                {featuredProjects.map((project) => (
+                  <article
+                    key={project.title}
+                    className={`group/card relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 backdrop-blur-lg transition-all duration-300 hover:scale-[1.02] hover:border-cyan-500/20 ${glowMap[project.accent]}`}
+                  >
+                    {/* Project Image / Visual Header */}
+                    <div
+                      className={`relative h-48 bg-gradient-to-br ${imageGradientMap[project.accent]} overflow-hidden`}
+                    >
+                      {/* Grid pattern overlay */}
+                      <div
+                        className="absolute inset-0 opacity-20"
+                        style={{
+                          backgroundImage:
+                            'linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.06) 1px, transparent 1px)',
+                          backgroundSize: '32px 32px',
+                        }}
+                      />
+                      {/* Radial glow */}
+                      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.08),transparent_70%)]" />
+
+                      {/* Category badge */}
+                      <span className="absolute left-4 top-4 rounded-full bg-black/40 px-3 py-1 text-xs font-medium text-white/80 backdrop-blur-sm">
+                        {project.category}
+                      </span>
+
+                      {/* Hover overlay */}
+                      <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition-all duration-300 group-hover/card:bg-black/20">
+                        <span className="text-white/0 transition-all duration-300 group-hover/card:text-white/90 text-sm font-medium backdrop-blur-sm rounded-lg px-4 py-2">
+                          Preview
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Card Content */}
+                    <div className="p-5 space-y-3">
+                      {/* Title */}
+                      <h3 className="text-lg font-bold text-white">
+                        {project.title}
+                      </h3>
+
+                      {/* Description */}
+                      <p className="text-sm text-[#94a3b8] leading-relaxed line-clamp-2">
+                        {project.description}
+                      </p>
+
+                      {/* Tech Tags */}
+                      <div className="flex flex-wrap gap-2 pt-1">
+                        {project.tags.map((tag) => {
+                          const colors = tagColorMap[tag] || defaultTagColor;
+                          return (
+                            <span
+                              key={tag}
+                              className={`px-3 py-1 rounded-full text-xs font-medium ${colors.bg} ${colors.text}`}
+                            >
+                              {tag}
+                            </span>
+                          );
+                        })}
+                      </div>
+
+                      {/* Action Buttons */}
+                      <div className="flex gap-3 pt-2">
+                        <AnimatedBorderButton
+                          href={project.liveUrl}
+                          variant="primary"
+                          size="sm"
+                          borderRadius={6}
+                          animationDuration={4}
+                          wrapperClassName="flex-1"
+                          fullWidth
+                        >
+                          <ExternalLink className="w-3.5 h-3.5" />
+                          Live Demo
+                        </AnimatedBorderButton>
+
+                        <AnimatedBorderButton
+                          href={project.sourceUrl}
+                          variant="outline"
+                          size="sm"
+                          borderRadius={6}
+                          animationDuration={5}
+                          wrapperClassName="flex-1"
+                          fullWidth
+                        >
+                          <Eye className="w-3.5 h-3.5" />
+                          View
+                        </AnimatedBorderButton>
+                      </div>
+                    </div>
+                  </article>
+                ))}
+              </div>
             </div>
           </div>
 
