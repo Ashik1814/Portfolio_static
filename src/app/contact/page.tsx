@@ -207,7 +207,7 @@ export default function ContactPage({ params, searchParams }: { params: Promise<
                   return (
                     <div
                       key={index}
-                      className="flex items-center gap-6 border border-white/10 rounded-2xl p-6 backdrop-blur-md"
+                      className="flex items-center gap-6 border border-white/[0.06] rounded-2xl p-6 backdrop-blur-sm"
                     >
                       <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center">
                         <Icon className="w-5 h-5 text-cyan-400" />
@@ -235,7 +235,7 @@ export default function ContactPage({ params, searchParams }: { params: Promise<
           </div>
 
           {/* RIGHT: Contact Form */}
-          <div className="backdrop-blur-xl border border-white/10 rounded-2xl p-6 sm:p-8">
+          <div className="backdrop-blur-md border border-white/[0.06] rounded-2xl p-6 sm:p-8">
             <h2 className="text-h2 text-white mb-8">Send a Message</h2>
 
             {submissionState === 'success' ? (

@@ -280,7 +280,7 @@ export default function EducationPage({ params, searchParams }: { params: Promis
 
                   {/* Card */}
                   <div
-                    className="flex-1 ml-14 sm:ml-[4.5rem] rounded-2xl border border-white/10 backdrop-blur-md p-6"
+                    className="flex-1 ml-14 sm:ml-[4.5rem] rounded-2xl border border-white/[0.06] backdrop-blur-sm p-6"
                   >
                         {/* Title + Date + GPA */}
                         <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 mb-2">
@@ -349,7 +349,7 @@ export default function EducationPage({ params, searchParams }: { params: Promis
             return (
               <div
                 key={cert.title}
-                className="rounded-2xl border border-white/10 backdrop-blur-md transition-all duration-300 hover:border-white/20"
+                className="rounded-2xl border border-white/[0.06] backdrop-blur-sm transition-all duration-300 hover:border-white/[0.15]"
               >
                 <div className="p-6">
                   <h4 className="text-base font-bold text-white mb-0.5">{cert.title}</h4>
@@ -375,7 +375,7 @@ export default function EducationPage({ params, searchParams }: { params: Promis
             return (
               <div
                 key={course.name}
-                className="group flex items-center gap-3 px-6 py-4 rounded-2xl border border-white/[0.06] hover:border-white/[0.12] transition-all duration-200 cursor-default"
+                className="group flex items-center gap-3 px-6 py-4 rounded-2xl border border-white/[0.04] hover:border-white/[0.10] transition-all duration-200 cursor-default"
               >
                 <div
                   className="w-8 h-8 rounded-md flex items-center justify-center shrink-0"

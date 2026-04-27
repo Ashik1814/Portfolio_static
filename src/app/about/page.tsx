@@ -73,7 +73,7 @@ export default function AboutPage({ params, searchParams }: { params: Promise<Re
         </div>
 
         {/* ── Profile Card ────────────────────────────────────────────── */}
-        <div className="rounded-2xl border border-white/10 p-8 backdrop-blur-xl md:p-10">
+        <div className="rounded-2xl border border-white/[0.06] p-8 backdrop-blur-md md:p-10">
           <div className="flex flex-col items-center gap-8 md:flex-row md:items-start md:gap-12">
             {/* Avatar */}
             <div className="flex-shrink-0">
@@ -129,7 +129,7 @@ export default function AboutPage({ params, searchParams }: { params: Promise<Re
             return (
               <div
                 key={stat.label}
-                className="rounded-2xl border border-white/10 p-6 text-center backdrop-blur-md"
+                className="rounded-2xl border border-white/[0.06] p-6 text-center backdrop-blur-sm"
               >
                 <Icon className="mx-auto mb-2 h-6 w-6 text-cyan-400" />
                 <p className="text-h3 text-cyan-400">{stat.value}</p>
@@ -154,7 +154,7 @@ export default function AboutPage({ params, searchParams }: { params: Promise<Re
                 </div>
 
                 {/* Card */}
-                <div className="flex-1 rounded-2xl border border-white/10 border-l-2 border-l-cyan-500 p-6">
+                <div className="flex-1 rounded-2xl border border-white/[0.06] border-l-2 border-l-cyan-500 p-6">
                   <h3 className="text-h3 text-white">{entry.role}</h3>
                   <p className="mt-1 text-sm text-cyan-400">{entry.company}</p>
                   <p className="mt-1 text-xs text-white/40">{entry.period}</p>
@@ -176,7 +176,7 @@ export default function AboutPage({ params, searchParams }: { params: Promise<Re
               return (
                 <div
                   key={interest.label}
-                  className="flex items-center gap-4 rounded-2xl border border-white/10 p-4 backdrop-blur-md"
+                  className="flex items-center gap-4 rounded-2xl border border-white/[0.06] p-4 backdrop-blur-sm"
                 >
                   <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-cyan-500/10 text-cyan-400">
                     <Icon className="h-5 w-5" />

@@ -119,8 +119,8 @@ function SkillCard({ skill, index }: { skill: Skill; index: number }) {
         className={`
           relative overflow-hidden rounded-2xl border p-6
           transition-all duration-300 ease-out
-          backdrop-blur-lg
-          border-white/10
+          backdrop-blur-sm
+          border-white/[0.06]
           hover:scale-105 hover:border-cyan-500/30 hover:shadow-lg hover:shadow-cyan-500/10
         `}
         style={{ animationDelay: `${index * 100}ms` }}
