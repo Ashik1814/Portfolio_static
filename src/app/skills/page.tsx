@@ -32,6 +32,7 @@ import {
   TestTube,
   BookOpen,
   ArrowRight,
+  Layers,
 } from 'lucide-react';
 import AnimatedBorderButton from '@/components/ui/animated-border-button';
 
