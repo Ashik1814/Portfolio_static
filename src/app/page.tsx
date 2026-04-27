@@ -269,10 +269,10 @@ export default function Home({
         <div ref={cardsRef} className="mx-auto max-w-7xl space-y-8">
 
           {/* About Summary */}
-          <div className="summary-card rounded-2xl border border-white/[0.06] p-6 backdrop-blur-md transition-all duration-300 hover:border-cyan-400/30 md:p-8">
+          <div className="summary-card rounded-2xl border border-white/[0.03] p-6 backdrop-blur-xl transition-all duration-300 hover:border-cyan-400/20 md:p-8">
             <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
               <div className="flex items-start gap-6">
-                <div className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-xl overflow-hidden border border-cyan-400/20">
+                <div className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-xl overflow-hidden border border-cyan-400/15">
                   <Image
                     src="/profile.jpeg"
                     alt="Alex Chen"
@@ -308,7 +308,7 @@ export default function Home({
           </div>
 
           {/* Skills Summary */}
-          <div className="summary-card rounded-2xl border border-white/[0.06] p-6 backdrop-blur-md transition-all duration-300 hover:border-cyan-400/30 md:p-8">
+          <div className="summary-card rounded-2xl border border-white/[0.03] p-6 backdrop-blur-xl transition-all duration-300 hover:border-cyan-400/20 md:p-8">
             <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
               <div className="flex-1">
                 <h2 className="mb-6 text-h2 text-white">Skills &amp; Expertise</h2>
@@ -318,7 +318,7 @@ export default function Home({
                     return (
                       <div
                         key={skill.name}
-                        className="flex flex-col items-center gap-3 rounded-xl border border-white/[0.06] p-4 text-center backdrop-blur-sm"
+                        className="flex flex-col items-center gap-3 rounded-xl border border-white/[0.03] p-4 text-center backdrop-blur-xl"
                       >
                         <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-cyan-500/10 text-cyan-400">
                           <Icon className="h-5 w-5" />
@@ -350,7 +350,7 @@ export default function Home({
                 {featuredProjects.map((project) => (
                   <article
                     key={project.title}
-                    className={`group/card relative overflow-hidden rounded-2xl border border-white/[0.06] backdrop-blur-sm transition-all duration-300 hover:scale-[1.02] hover:border-cyan-400/30 ${glowMap[project.accent]}`}
+                    className={`group/card relative overflow-hidden rounded-2xl border border-white/[0.03] backdrop-blur-xl transition-all duration-300 hover:scale-[1.02] hover:border-cyan-400/20 ${glowMap[project.accent]}`}
                   >
                     {/* Project Image / Visual Header */}
                     <div
@@ -437,10 +437,10 @@ export default function Home({
           </div>
 
           {/* Education Summary */}
-          <div className="summary-card rounded-2xl border border-white/[0.06] p-6 backdrop-blur-md transition-all duration-300 hover:border-cyan-400/30 md:p-8">
+          <div className="summary-card rounded-2xl border border-white/[0.03] p-6 backdrop-blur-xl transition-all duration-300 hover:border-cyan-400/20 md:p-8">
             <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
               <div className="flex items-start gap-6">
-                <div className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-xl bg-cyan-500/10 text-cyan-400">
+                <div className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-xl bg-cyan-500/8 text-cyan-400">
                   <GraduationCap className="h-7 w-7" />
                 </div>
                 <div>
@@ -476,7 +476,7 @@ export default function Home({
               </h2>
             </div>
             <div className="max-w-2xl mx-auto">
-              <div className="rounded-2xl border border-white/[0.06] backdrop-blur-md transition-all duration-300 hover:border-cyan-400/30 hover:shadow-[0_0_30px_-5px_rgba(0,229,255,0.15)] overflow-hidden">
+              <div className="rounded-2xl border border-white/[0.03] backdrop-blur-xl transition-all duration-300 hover:border-cyan-400/20 hover:shadow-[0_0_30px_-5px_rgba(0,229,255,0.1)] overflow-hidden">
                 <div className="p-8 sm:p-10 text-center">
                   <div className="relative z-10">
                     <h3 className="text-h3 text-white mb-4">

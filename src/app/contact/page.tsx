@@ -239,7 +239,7 @@ export default function ContactPage({ params, searchParams }: { params: Promise<
                   return (
                     <div
                       key={index}
-                      className="flex items-center gap-6 border border-white/[0.06] rounded-2xl p-6 backdrop-blur-sm"
+                      className="flex items-center gap-6 border border-white/[0.03] rounded-2xl p-6 backdrop-blur-xl"
                     >
                       <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center">
                         <Icon className="w-5 h-5 text-cyan-400" />
@@ -267,7 +267,7 @@ export default function ContactPage({ params, searchParams }: { params: Promise<
           </div>
 
           {/* RIGHT: Contact Form */}
-          <div className="backdrop-blur-md border border-white/[0.06] rounded-2xl p-6 sm:p-8">
+          <div className="backdrop-blur-xl border border-white/[0.03] rounded-2xl p-6 sm:p-8">
             <h2 className="text-h2 text-white mb-8">Send a Message</h2>
 
             {submissionState === 'success' ? (
@@ -289,7 +289,7 @@ export default function ContactPage({ params, searchParams }: { params: Promise<
                     placeholder="Your name"
                     value={formData.name}
                     onChange={(e) => handleFieldChange('name', e.target.value)}
-                    className="bg-white/5 border-white/10 text-white text-base placeholder:text-white/30 focus:border-cyan-500/50 focus:ring-cyan-500/20"
+                    className="bg-white/[0.02] border-white/[0.05] text-white text-base placeholder:text-white/30 focus:border-cyan-500/50 focus:ring-cyan-500/20"
                   />
                   {errors.name && <p className="text-red-400 text-xs mt-1">{errors.name}</p>}
                 </div>
@@ -303,7 +303,7 @@ export default function ContactPage({ params, searchParams }: { params: Promise<
                     placeholder="your@email.com"
                     value={formData.email}
                     onChange={(e) => handleFieldChange('email', e.target.value)}
-                    className="bg-white/5 border-white/10 text-white text-base placeholder:text-white/30 focus:border-cyan-500/50 focus:ring-cyan-500/20"
+                    className="bg-white/[0.02] border-white/[0.05] text-white text-base placeholder:text-white/30 focus:border-cyan-500/50 focus:ring-cyan-500/20"
                   />
                   {errors.email && <p className="text-red-400 text-xs mt-1">{errors.email}</p>}
                 </div>
@@ -317,7 +317,7 @@ export default function ContactPage({ params, searchParams }: { params: Promise<
                     placeholder="What is this about?"
                     value={formData.subject}
                     onChange={(e) => handleFieldChange('subject', e.target.value)}
-                    className="bg-white/5 border-white/10 text-white text-base placeholder:text-white/30 focus:border-cyan-500/50 focus:ring-cyan-500/20"
+                    className="bg-white/[0.02] border-white/[0.05] text-white text-base placeholder:text-white/30 focus:border-cyan-500/50 focus:ring-cyan-500/20"
                   />
                   {errors.subject && <p className="text-red-400 text-xs mt-1">{errors.subject}</p>}
                 </div>

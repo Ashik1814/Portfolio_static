@@ -250,7 +250,7 @@ export default function SkillsPage({ params, searchParams }: { params: Promise<R
         {/* ── Category Cards (Design / Development / Automation) ──────── */}
         <div className="grid md:grid-cols-2 gap-6 mb-16">
           {/* Design Card */}
-          <div className="group relative overflow-hidden rounded-2xl border border-white/[0.06] backdrop-blur-xl transition-all duration-300 hover:border-cyan-500/20 hover:shadow-lg hover:shadow-cyan-500/5">
+          <div className="group relative overflow-hidden rounded-2xl border border-white/[0.03] backdrop-blur-xl transition-all duration-300 hover:border-cyan-500/15 hover:shadow-lg hover:shadow-cyan-500/5">
             <div className="p-6 space-y-5">
               <div className="flex items-center gap-3">
                 <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-[#a78bfa]/10">
@@ -264,7 +264,7 @@ export default function SkillsPage({ params, searchParams }: { params: Promise<R
                   return (
                     <div
                       key={skill.name}
-                      className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] transition-colors duration-200 group/item cursor-default"
+                      className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl bg-white/[0.02] hover:bg-white/[0.05] transition-colors duration-200 group/item cursor-default"
                     >
                       <IconComp className="shrink-0 w-7 h-7 text-white/60 transition-colors duration-200 group-hover/item:text-[#00e5ff]" />
                       <span className="text-sm font-medium text-white truncate group-hover/item:text-[#00e5ff] transition-colors duration-200">
@@ -278,7 +278,7 @@ export default function SkillsPage({ params, searchParams }: { params: Promise<R
           </div>
 
           {/* Development Card */}
-          <div className="group relative overflow-hidden rounded-2xl border border-white/[0.06] backdrop-blur-xl transition-all duration-300 hover:border-cyan-500/20 hover:shadow-lg hover:shadow-cyan-500/5">
+          <div className="group relative overflow-hidden rounded-2xl border border-white/[0.03] backdrop-blur-xl transition-all duration-300 hover:border-cyan-500/15 hover:shadow-lg hover:shadow-cyan-500/5">
             <div className="p-6 space-y-5">
               <div className="flex items-center gap-3">
                 <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-[#00e5ff]/10">
@@ -292,7 +292,7 @@ export default function SkillsPage({ params, searchParams }: { params: Promise<R
                   return (
                     <div
                       key={skill.name}
-                      className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] transition-colors duration-200 group/item cursor-default"
+                      className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl bg-white/[0.02] hover:bg-white/[0.05] transition-colors duration-200 group/item cursor-default"
                     >
                       <IconComp className="shrink-0 w-7 h-7 text-white/60 transition-colors duration-200 group-hover/item:text-[#00e5ff]" />
                       <span className="text-sm font-medium text-white truncate group-hover/item:text-[#00e5ff] transition-colors duration-200">
@@ -320,7 +320,7 @@ export default function SkillsPage({ params, searchParams }: { params: Promise<R
             return (
               <div
                 key={skill.name}
-                className="group relative overflow-hidden rounded-2xl border border-white/[0.06] backdrop-blur-xl transition-all duration-300 hover:border-cyan-500/20 hover:shadow-lg hover:shadow-cyan-500/5 text-center"
+                className="group relative overflow-hidden rounded-2xl border border-white/[0.03] backdrop-blur-xl transition-all duration-300 hover:border-cyan-500/15 hover:shadow-lg hover:shadow-cyan-500/5 text-center"
               >
                 <div className="p-4 flex flex-col items-center gap-2">
                   <div
@@ -348,7 +348,7 @@ export default function SkillsPage({ params, searchParams }: { params: Promise<R
             return (
               <div
                 key={tech.name}
-                className="flex items-center gap-2.5 px-4 py-3 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.06] hover:border-[#00e5ff]/20 transition-all duration-200 cursor-default group"
+                className="flex items-center gap-2.5 px-4 py-3 rounded-xl bg-white/[0.02] hover:bg-white/[0.05] border border-white/[0.03] hover:border-[#00e5ff]/15 transition-all duration-200 cursor-default group"
               >
                 <IconComp className="shrink-0 w-6 h-6 text-white/80 group-hover:text-[#00e5ff] transition-colors duration-200" />
                 <span className="text-sm font-medium text-white/80 group-hover:text-[#00e5ff] transition-colors duration-200 whitespace-nowrap">
@@ -369,7 +369,7 @@ export default function SkillsPage({ params, searchParams }: { params: Promise<R
               <h3 className="text-xl font-bold text-white">Currently Learning</h3>
             </div>
           </div>
-          <div className="group relative overflow-hidden rounded-2xl border border-white/[0.06] backdrop-blur-xl transition-all duration-300 hover:border-cyan-500/20">
+          <div className="group relative overflow-hidden rounded-2xl border border-white/[0.03] backdrop-blur-xl transition-all duration-300 hover:border-cyan-500/15">
             <div className="p-6">
               <div className="flex flex-wrap justify-center gap-4">
                 {currentlyLearning.map((item) => {
@@ -377,7 +377,7 @@ export default function SkillsPage({ params, searchParams }: { params: Promise<R
                   return (
                     <div
                       key={item.name}
-                      className="flex items-center gap-2.5 px-4 py-3 rounded-xl bg-white/[0.04] transition-colors duration-200"
+                      className="flex items-center gap-2.5 px-4 py-3 rounded-xl bg-white/[0.02] transition-colors duration-200"
                     >
                       <IconComp className="w-7 h-7 text-white/60" />
                       <span className="text-sm font-medium text-white">{item.name}</span>

@@ -63,7 +63,7 @@ const socialLinks = [
 
 export default function Footer() {
   return (
-    <footer className="relative border-t border-cyan-500/8 bg-black/20 backdrop-blur-sm mt-auto">
+    <footer className="relative border-t border-white/[0.04] bg-black/10 backdrop-blur-xl mt-auto">
       {/* Nuxt Icon — centered on the top border */}
       <div className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-cyan-400/20 bg-black/80 backdrop-blur-md shadow-[0_0_20px_rgba(0,229,255,0.15)]">
         <Icon icon="simple-icons:nuxtdotjs" className="shrink-0 size-5 text-cyan-400" aria-hidden="true" />
@@ -129,7 +129,7 @@ export default function Footer() {
         </div>
 
         {/* ── Bottom bar ──────────────────────────────────────────────── */}
-        <div className="mt-10 flex items-center justify-center border-t border-cyan-500/8 pt-8">
+        <div className="mt-10 flex items-center justify-center border-t border-white/[0.03] pt-8">
           <p className="text-xs text-slate-700">
             © 2025 Alex Chen. All rights reserved .🤍
           </p>
