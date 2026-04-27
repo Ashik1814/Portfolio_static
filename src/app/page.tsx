@@ -450,34 +450,8 @@ export default function Home({
               </h2>
             </div>
             <div className="max-w-2xl mx-auto">
-              <div className="relative overflow-hidden rounded-2xl p-[1px]">
-                {/* Rotating conic-gradient border layer 1 */}
-                <div
-                  className="absolute"
-                  style={{
-                    inset: '-100%',
-                    background: 'conic-gradient(transparent 0%, #00e5ff 10%, #a78bfa 20%, #2dd4bf 30%, transparent 40%)',
-                    animation: 'card-border-rotate 6s linear infinite',
-                  }}
-                />
-                {/* Rotating conic-gradient border layer 2 (reverse) */}
-                <div
-                  className="absolute"
-                  style={{
-                    inset: '-100%',
-                    background: 'conic-gradient(from 180deg, transparent 0%, #d946ef 5%, #f472b6 10%, transparent 15%)',
-                    animation: 'card-border-rotate 9s linear infinite reverse',
-                  }}
-                />
-                {/* Card inner content */}
-                <div
-                  className="relative z-[1] h-full w-full overflow-hidden p-8 sm:p-10 text-center"
-                  style={{
-                    borderRadius: 'calc(-1px + 1rem)',
-                    border: 'none',
-                    background: 'rgba(8, 5, 15, 0.92)',
-                  }}
-                >
+              <div className="rounded-2xl border border-cyan-500/20 bg-[rgba(8,5,15,0.92)] backdrop-blur-xl transition-all duration-300 hover:border-cyan-400/40 hover:shadow-[0_0_30px_-5px_rgba(0,229,255,0.15)] overflow-hidden">
+                <div className="p-8 sm:p-10 text-center">
                   <div className="relative z-10">
                     <h3 className="text-2xl sm:text-3xl font-bold text-white mb-3">
                       Let&apos;s work together
