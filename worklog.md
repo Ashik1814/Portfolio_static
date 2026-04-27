@@ -164,3 +164,27 @@ Work Log:
 Stage Summary:
 - All core files updated and wired together
 - ESLint passes clean, dev server compiles successfully
+
+---
+Task ID: 14
+Agent: Main Agent
+Task: Restructure from single-page scroll to multi-page routing
+
+Work Log:
+- User reported: scrolling on home page auto-jumped between sections — unwanted behavior
+- Restructured from single-page scroll architecture to multi-page Next.js routing
+- Rewrote `/src/app/page.tsx` as a summary landing page with 3D hero + 4 preview cards linking to detail pages
+- Created `/src/app/about/page.tsx` — Full About detail page with profile card, stats, work experience timeline, interests
+- Created `/src/app/skills/page.tsx` — Full Skills detail page with 8 cards, category filter, progress bars, hover tooltips
+- Created `/src/app/projects/page.tsx` — Full Projects detail page with 6 project cards, gradient banners, features list
+- Created `/src/app/contact/page.tsx` — Full Contact detail page with education timeline, contact info, validated form
+- Rewrote `/src/components/navbar.tsx` — Now uses Next.js `Link` and `usePathname()` instead of scroll-based navigation
+- Updated `/src/app/layout.tsx` — Navbar and Footer now rendered in root layout for all pages
+- Removed old `/src/components/sections/` directory (hero, about, skills, projects, contact) — replaced by route pages
+- Fixed ESLint errors: setState in effect → onClick handler, unused imports cleaned
+
+Stage Summary:
+- Multi-page architecture: Home (summary) → /about, /skills, /projects, /contact (detail pages)
+- No scroll-based section jumping — all navigation uses Next.js Link routing
+- All 5 routes compile and return 200 successfully
+- ESLint passes clean

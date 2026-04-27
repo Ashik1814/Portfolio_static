@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
+import Navbar from "@/components/navbar";
+import Footer from "@/components/footer";
 
 /**
  * Inter — A high-contrast, modern Sans-Serif font perfect for
@@ -87,7 +89,11 @@ export default function RootLayout({
       <body
         className={`${inter.variable} font-sans antialiased bg-[#050510] text-white`}
       >
-        {children}
+        <div className="flex min-h-screen flex-col">
+          <Navbar />
+          <div className="flex-1">{children}</div>
+          <Footer />
+        </div>
         <Toaster />
       </body>
     </html>

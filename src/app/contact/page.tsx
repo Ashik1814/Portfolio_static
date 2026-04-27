@@ -1,5 +1,12 @@
 'use client';
 
+/**
+ * Contact Detail Page — /contact
+ *
+ * Full contact page with education timeline, contact information,
+ * and a validated message form that posts to the /api/contact endpoint.
+ */
+
 import { useState } from 'react';
 import {
   Send,
@@ -19,22 +26,21 @@ import { useToast } from '@/hooks/use-toast';
 
 // ─── Type Definitions ────────────────────────────────────────────────────────
 
-/** Represents a single education timeline entry */
 interface EducationEntry {
   degree: string;
   institution: string;
   year: string;
+  description: string;
   icon: React.ElementType;
 }
 
-/** Represents a contact information item */
 interface ContactInfoItem {
   label: string;
   value: string;
+  href?: string;
   icon: React.ElementType;
 }
 
-/** Form field values for the contact form */
 interface FormData {
   name: string;
   email: string;
@@ -42,7 +48,6 @@ interface FormData {
   message: string;
 }
 
-/** Validation errors mapped to form fields */
 interface FormErrors {
   name?: string;
   email?: string;
@@ -50,38 +55,39 @@ interface FormErrors {
   message?: string;
 }
 
-/** Possible submission states for the contact form */
 type SubmissionState = 'idle' | 'loading' | 'success' | 'error';
 
 // ─── Static Data ─────────────────────────────────────────────────────────────
 
-/** Education timeline entries displayed in the left column */
 const educationEntries: EducationEntry[] = [
   {
     degree: 'M.Sc. Human-Computer Interaction',
     institution: 'Stanford University',
-    year: '2020 - 2022',
+    year: '2020 – 2022',
+    description: 'Focused on interaction design, usability research, and human-centered AI. Thesis on adaptive UI patterns for accessibility.',
     icon: GraduationCap,
   },
   {
     degree: 'B.Sc. Computer Science',
     institution: 'MIT',
-    year: '2016 - 2020',
+    year: '2016 – 2020',
+    description: 'Core coursework in algorithms, systems design, and software engineering. Minor in Visual Arts.',
     icon: GraduationCap,
   },
   {
-    degree: 'UX Design Certificate',
+    degree: 'UX Design Professional Certificate',
     institution: 'Google',
     year: '2021',
+    description: 'Comprehensive program covering UX research, wireframing, prototyping, and usability testing methodologies.',
     icon: Calendar,
   },
 ];
 
-/** Contact information items displayed below education timeline */
 const contactInfoItems: ContactInfoItem[] = [
   {
     label: 'Email',
     value: 'alex@portfolio.dev',
+    href: 'mailto:alex@portfolio.dev',
     icon: Mail,
   },
   {
@@ -92,28 +98,25 @@ const contactInfoItems: ContactInfoItem[] = [
   {
     label: 'Phone',
     value: '+1 (555) 123-4567',
+    href: 'tel:+15551234567',
     icon: Phone,
   },
 ];
 
-// ─── Validation Helpers ──────────────────────────────────────────────────────
+// ─── Validation ──────────────────────────────────────────────────────────────
 
-/** Validates form data and returns an object with error messages */
 function validateForm(data: FormData): FormErrors {
   const errors: FormErrors = {};
 
   if (!data.name || data.name.trim().length < 2) {
     errors.name = 'Name must be at least 2 characters.';
   }
-
   if (!data.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
     errors.email = 'Please enter a valid email address.';
   }
-
   if (!data.subject || data.subject.trim().length < 3) {
     errors.subject = 'Subject must be at least 3 characters.';
   }
-
   if (!data.message || data.message.trim().length < 10) {
     errors.message = 'Message must be at least 10 characters.';
   }
@@ -121,20 +124,11 @@ function validateForm(data: FormData): FormErrors {
   return errors;
 }
 
-// ─── Component ───────────────────────────────────────────────────────────────
+// ─── Page Component ──────────────────────────────────────────────────────────
 
-/**
- * Contact Section
- *
- * A full-viewport portfolio section combining an education timeline and
- * contact information (left column) with a validated contact form
- * (right column). The layout is responsive — side-by-side on desktop
- * and stacked on mobile.
- */
-export default function ContactSection() {
+export default function ContactPage() {
   const { toast } = useToast();
 
-  // Form state
   const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
@@ -145,10 +139,6 @@ export default function ContactSection() {
   const [submissionState, setSubmissionState] = useState<SubmissionState>('idle');
   const [errorMessage, setErrorMessage] = useState<string>('');
 
-  /**
-   * Updates a single field in the form data.
-   * Clears the corresponding field error when the user starts typing.
-   */
   function handleFieldChange(field: keyof FormData, value: string) {
     setFormData((prev) => ({ ...prev, [field]: value }));
     if (errors[field]) {
@@ -160,18 +150,15 @@ export default function ContactSection() {
     }
   }
 
-  /** Handles form submission with validation and API call */
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
-    // Validate all fields
     const validationErrors = validateForm(formData);
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       return;
     }
 
-    // Begin submission
     setSubmissionState('loading');
     setErrorMessage('');
 
@@ -186,7 +173,6 @@ export default function ContactSection() {
         throw new Error('Failed to send message. Please try again.');
       }
 
-      // Success — reset form and show feedback
       setSubmissionState('success');
       setFormData({ name: '', email: '', subject: '', message: '' });
       setErrors({});
@@ -196,11 +182,9 @@ export default function ContactSection() {
         description: 'Thank you for reaching out. I will get back to you soon.',
       });
 
-      // Return to idle after a brief success display
       setTimeout(() => setSubmissionState('idle'), 3000);
     } catch (err) {
-      const message =
-        err instanceof Error ? err.message : 'Something went wrong.';
+      const message = err instanceof Error ? err.message : 'Something went wrong.';
       setSubmissionState('error');
       setErrorMessage(message);
 
@@ -212,54 +196,46 @@ export default function ContactSection() {
     }
   }
 
-  // ─── Render ──────────────────────────────────────────────────────────────
-
   return (
-    <section
-      id="contact"
-      className="min-h-screen w-full flex items-center justify-center px-4 py-20 sm:px-6 lg:px-8"
-    >
-      <div className="w-full max-w-6xl mx-auto">
-        {/* ── Section Heading ─────────────────────────────────────────── */}
-        <div className="text-center mb-14">
-          <h2 className="text-3xl sm:text-4xl font-bold text-white">
+    <main className="min-h-screen bg-[#050510] pt-24 pb-16 px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-6xl">
+        {/* ── Page Header ─────────────────────────────────────────────── */}
+        <div className="mb-14 text-center">
+          <h1 className="text-4xl font-bold text-white sm:text-5xl">
             Education &amp; Contact
-          </h2>
+          </h1>
           <div className="mt-3 mx-auto h-1 w-24 rounded-full bg-cyan-500" />
+          <p className="mt-6 text-lg text-white/50">
+            My academic background and how to reach me
+          </p>
         </div>
 
         {/* ── Two-Column Layout ───────────────────────────────────────── */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14">
-          {/* ── LEFT COLUMN: Education & Contact Info ────────────────── */}
+          {/* LEFT: Education & Contact Info */}
           <div className="space-y-10">
             {/* Education Timeline */}
             <div>
-              <h3 className="text-xl font-semibold text-white mb-6">
-                Education
-              </h3>
+              <h2 className="text-2xl font-bold text-white mb-6">Education</h2>
               <div className="relative space-y-5">
-                {/* Vertical timeline line */}
                 <div className="absolute left-[15px] top-2 bottom-2 w-px bg-white/10" />
 
                 {educationEntries.map((entry, index) => {
                   const Icon = entry.icon;
                   return (
                     <div key={index} className="relative flex gap-4">
-                      {/* Timeline dot with icon */}
                       <div className="relative z-10 flex-shrink-0 w-[30px] h-[30px] rounded-full bg-cyan-500/20 border border-cyan-500/40 flex items-center justify-center">
                         <Icon className="w-3.5 h-3.5 text-cyan-400" />
                       </div>
 
-                      {/* Education card with glassmorphism */}
                       <div className="flex-1 bg-white/5 border border-white/10 border-l-2 border-l-cyan-500 rounded-xl p-4">
-                        <h4 className="text-white font-medium leading-snug">
+                        <h3 className="text-white font-medium leading-snug">
                           {entry.degree}
-                        </h4>
-                        <p className="text-white/60 text-sm mt-1">
-                          {entry.institution}
-                        </p>
-                        <p className="text-cyan-400 text-xs mt-1.5 font-medium">
-                          {entry.year}
+                        </h3>
+                        <p className="text-white/60 text-sm mt-1">{entry.institution}</p>
+                        <p className="text-cyan-400 text-xs mt-1.5 font-medium">{entry.year}</p>
+                        <p className="text-white/40 text-xs mt-2 leading-relaxed">
+                          {entry.description}
                         </p>
                       </div>
                     </div>
@@ -268,11 +244,9 @@ export default function ContactSection() {
               </div>
             </div>
 
-            {/* Contact Info Cards */}
+            {/* Contact Info */}
             <div>
-              <h3 className="text-xl font-semibold text-white mb-6">
-                Contact Info
-              </h3>
+              <h2 className="text-2xl font-bold text-white mb-6">Contact Info</h2>
               <div className="space-y-4">
                 {contactInfoItems.map((item, index) => {
                   const Icon = item.icon;
@@ -288,9 +262,16 @@ export default function ContactSection() {
                         <p className="text-white/40 text-xs uppercase tracking-wider font-medium">
                           {item.label}
                         </p>
-                        <p className="text-white text-sm mt-0.5">
-                          {item.value}
-                        </p>
+                        {item.href ? (
+                          <a
+                            href={item.href}
+                            className="text-white text-sm mt-0.5 hover:text-cyan-400 transition-colors"
+                          >
+                            {item.value}
+                          </a>
+                        ) : (
+                          <p className="text-white text-sm mt-0.5">{item.value}</p>
+                        )}
                       </div>
                     </div>
                   );
@@ -299,31 +280,23 @@ export default function ContactSection() {
             </div>
           </div>
 
-          {/* ── RIGHT COLUMN: Contact Form ──────────────────────────── */}
+          {/* RIGHT: Contact Form */}
           <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 sm:p-8">
-            <h3 className="text-xl font-semibold text-white mb-6">
-              Send a Message
-            </h3>
+            <h2 className="text-2xl font-bold text-white mb-6">Send a Message</h2>
 
-            {/* ── Success State ──────────────────────────────────────── */}
             {submissionState === 'success' ? (
               <div className="flex flex-col items-center justify-center py-16 gap-4">
                 <CheckCircle2 className="w-14 h-14 text-green-400" />
-                <p className="text-green-400 font-semibold text-lg">
-                  Message Sent!
-                </p>
+                <p className="text-green-400 font-semibold text-lg">Message Sent!</p>
                 <p className="text-white/50 text-sm text-center">
                   Thank you for reaching out. I will get back to you soon.
                 </p>
               </div>
             ) : (
-              /* ── Form ──────────────────────────────────────────────── */
               <form onSubmit={handleSubmit} className="space-y-5" noValidate>
-                {/* Name Field */}
+                {/* Name */}
                 <div className="space-y-2">
-                  <Label htmlFor="name" className="text-white/80 text-sm">
-                    Name
-                  </Label>
+                  <Label htmlFor="name" className="text-white/80 text-sm">Name</Label>
                   <Input
                     id="name"
                     type="text"
@@ -332,16 +305,12 @@ export default function ContactSection() {
                     onChange={(e) => handleFieldChange('name', e.target.value)}
                     className="bg-white/5 border-white/10 text-white placeholder:text-white/30 focus:border-cyan-500/50 focus:ring-cyan-500/20"
                   />
-                  {errors.name && (
-                    <p className="text-red-400 text-xs mt-1">{errors.name}</p>
-                  )}
+                  {errors.name && <p className="text-red-400 text-xs mt-1">{errors.name}</p>}
                 </div>
 
-                {/* Email Field */}
+                {/* Email */}
                 <div className="space-y-2">
-                  <Label htmlFor="email" className="text-white/80 text-sm">
-                    Email
-                  </Label>
+                  <Label htmlFor="email" className="text-white/80 text-sm">Email</Label>
                   <Input
                     id="email"
                     type="email"
@@ -350,63 +319,41 @@ export default function ContactSection() {
                     onChange={(e) => handleFieldChange('email', e.target.value)}
                     className="bg-white/5 border-white/10 text-white placeholder:text-white/30 focus:border-cyan-500/50 focus:ring-cyan-500/20"
                   />
-                  {errors.email && (
-                    <p className="text-red-400 text-xs mt-1">{errors.email}</p>
-                  )}
+                  {errors.email && <p className="text-red-400 text-xs mt-1">{errors.email}</p>}
                 </div>
 
-                {/* Subject Field */}
+                {/* Subject */}
                 <div className="space-y-2">
-                  <Label htmlFor="subject" className="text-white/80 text-sm">
-                    Subject
-                  </Label>
+                  <Label htmlFor="subject" className="text-white/80 text-sm">Subject</Label>
                   <Input
                     id="subject"
                     type="text"
                     placeholder="What is this about?"
                     value={formData.subject}
-                    onChange={(e) =>
-                      handleFieldChange('subject', e.target.value)
-                    }
+                    onChange={(e) => handleFieldChange('subject', e.target.value)}
                     className="bg-white/5 border-white/10 text-white placeholder:text-white/30 focus:border-cyan-500/50 focus:ring-cyan-500/20"
                   />
-                  {errors.subject && (
-                    <p className="text-red-400 text-xs mt-1">
-                      {errors.subject}
-                    </p>
-                  )}
+                  {errors.subject && <p className="text-red-400 text-xs mt-1">{errors.subject}</p>}
                 </div>
 
-                {/* Message Field */}
+                {/* Message */}
                 <div className="space-y-2">
-                  <Label htmlFor="message" className="text-white/80 text-sm">
-                    Message
-                  </Label>
+                  <Label htmlFor="message" className="text-white/80 text-sm">Message</Label>
                   <Textarea
                     id="message"
                     placeholder="Write your message here..."
                     rows={5}
                     value={formData.message}
-                    onChange={(e) =>
-                      handleFieldChange('message', e.target.value)
-                    }
+                    onChange={(e) => handleFieldChange('message', e.target.value)}
                     className="bg-white/5 border-white/10 text-white placeholder:text-white/30 focus:border-cyan-500/50 focus:ring-cyan-500/20 resize-none"
                   />
-                  {errors.message && (
-                    <p className="text-red-400 text-xs mt-1">
-                      {errors.message}
-                    </p>
-                  )}
+                  {errors.message && <p className="text-red-400 text-xs mt-1">{errors.message}</p>}
                 </div>
 
-                {/* Error Message */}
                 {submissionState === 'error' && errorMessage && (
-                  <p className="text-red-400 text-sm text-center">
-                    {errorMessage}
-                  </p>
+                  <p className="text-red-400 text-sm text-center">{errorMessage}</p>
                 )}
 
-                {/* Submit Button */}
                 <Button
                   type="submit"
                   disabled={submissionState === 'loading'}
@@ -429,6 +376,6 @@ export default function ContactSection() {
           </div>
         </div>
       </div>
-    </section>
+    </main>
   );
 }

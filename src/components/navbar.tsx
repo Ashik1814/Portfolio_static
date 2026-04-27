@@ -1,26 +1,35 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect } from 'react'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { Menu, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
+/** Navigation link definition for the multi-page portfolio */
 interface NavLink {
   label: string
   href: string
-  id: string
 }
 
 const NAV_LINKS: NavLink[] = [
-  { label: 'Home', href: '#home', id: 'home' },
-  { label: 'About', href: '#about', id: 'about' },
-  { label: 'Skills', href: '#skills', id: 'skills' },
-  { label: 'Projects', href: '#projects', id: 'projects' },
-  { label: 'Contact', href: '#contact', id: 'contact' },
+  { label: 'Home', href: '/' },
+  { label: 'About', href: '/about' },
+  { label: 'Skills', href: '/skills' },
+  { label: 'Projects', href: '/projects' },
+  { label: 'Contact', href: '/contact' },
 ]
 
+/**
+ * Navbar — Multi-page navigation with Next.js Link routing.
+ *
+ * Uses `usePathname()` to detect the active page and highlights
+ * the corresponding nav link with a cyan accent and glow.
+ * Mobile responsive with a hamburger toggle.
+ */
 export default function Navbar() {
+  const pathname = usePathname()
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false)
-  const [activeSection, setActiveSection] = useState<string>('home')
   const [scrolled, setScrolled] = useState<boolean>(false)
 
   // Track scroll position for navbar background intensity
@@ -32,63 +41,16 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  // Active section detection using IntersectionObserver
-  useEffect(() => {
-    const sectionIds = NAV_LINKS.map((link) => link.id)
-    const observers: IntersectionObserver[] = []
+  // Close mobile menu when any link is clicked
+  const handleLinkClick = () => {
+    setMobileMenuOpen(false)
+  }
 
-    sectionIds.forEach((id) => {
-      const element = document.getElementById(id)
-      if (!element) return
-
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              setActiveSection(id)
-            }
-          })
-        },
-        {
-          rootMargin: '-40% 0px -55% 0px',
-          threshold: 0,
-        }
-      )
-
-      observer.observe(element)
-      observers.push(observer)
-    })
-
-    return () => {
-      observers.forEach((observer) => observer.disconnect())
-    }
-  }, [])
-
-  // Smooth scroll handler
-  const handleNavClick = useCallback(
-    (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-      e.preventDefault()
-      const targetId = href.replace('#', '')
-      const targetElement = document.getElementById(targetId)
-
-      if (targetElement) {
-        targetElement.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start',
-        })
-      }
-
-      // Close mobile menu after clicking
-      if (mobileMenuOpen) {
-        setMobileMenuOpen(false)
-      }
-    },
-    [mobileMenuOpen]
-  )
-
-  const toggleMobileMenu = useCallback(() => {
-    setMobileMenuOpen((prev) => !prev)
-  }, [])
+  /** Check if a link is active based on the current pathname */
+  function isActive(href: string): boolean {
+    if (href === '/') return pathname === '/'
+    return pathname.startsWith(href)
+  }
 
   return (
     <nav
@@ -98,32 +60,32 @@ export default function Navbar() {
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
-          {/* Logo */}
-          <a
-            href="#home"
-            onClick={(e) => handleNavClick(e, '#home')}
+          {/* Logo — links to home */}
+          <Link
+            href="/"
+            onClick={handleLinkClick}
             className="flex items-center gap-0.5 text-xl font-bold text-white transition-opacity hover:opacity-80"
           >
             Portfolio
             <span className="text-cyan-400">.</span>
-          </a>
+          </Link>
 
           {/* Desktop Navigation Links */}
           <div className="hidden items-center gap-1 md:flex">
             {NAV_LINKS.map((link) => {
-              const isActive = activeSection === link.id
+              const active = isActive(link.href)
               return (
-                <a
-                  key={link.id}
+                <Link
+                  key={link.href}
                   href={link.href}
-                  onClick={(e) => handleNavClick(e, link.href)}
+                  onClick={handleLinkClick}
                   className={`relative rounded-md px-4 py-2 text-sm font-medium transition-colors ${
-                    isActive
+                    active
                       ? 'text-cyan-400'
                       : 'text-white/70 hover:text-white'
                   }`}
                   style={
-                    isActive
+                    active
                       ? {
                           textShadow: '0 0 12px rgba(0, 212, 255, 0.5), 0 0 24px rgba(0, 212, 255, 0.2)',
                         }
@@ -131,10 +93,10 @@ export default function Navbar() {
                   }
                 >
                   {link.label}
-                  {isActive && (
+                  {active && (
                     <span className="absolute bottom-0 left-1/2 h-0.5 w-6 -translate-x-1/2 rounded-full bg-cyan-400" />
                   )}
-                </a>
+                </Link>
               )
             })}
           </div>
@@ -144,7 +106,7 @@ export default function Navbar() {
             <Button
               variant="ghost"
               size="icon"
-              onClick={toggleMobileMenu}
+              onClick={() => setMobileMenuOpen((prev) => !prev)}
               className="text-white/70 hover:bg-white/10 hover:text-white"
               aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
             >
@@ -162,19 +124,19 @@ export default function Navbar() {
       >
         <div className="space-y-1 px-4 pb-4 pt-2">
           {NAV_LINKS.map((link) => {
-            const isActive = activeSection === link.id
+            const active = isActive(link.href)
             return (
-              <a
-                key={link.id}
+              <Link
+                key={link.href}
                 href={link.href}
-                onClick={(e) => handleNavClick(e, link.href)}
+                onClick={handleLinkClick}
                 className={`block rounded-md px-4 py-2.5 text-sm font-medium transition-colors ${
-                  isActive
+                  active
                     ? 'text-cyan-400 bg-white/5'
                     : 'text-white/70 hover:text-white hover:bg-white/5'
                 }`}
                 style={
-                  isActive
+                  active
                     ? {
                         textShadow: '0 0 12px rgba(0, 212, 255, 0.5), 0 0 24px rgba(0, 212, 255, 0.2)',
                       }
@@ -182,7 +144,7 @@ export default function Navbar() {
                 }
               >
                 {link.label}
-              </a>
+              </Link>
             )
           })}
         </div>
