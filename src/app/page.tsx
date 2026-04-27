@@ -12,7 +12,7 @@
  *   - Full project cards matching the /projects page design
  */
 
-import { useEffect, useRef, useState, useCallback } from 'react';
+import { useEffect, useRef, useState, useCallback, use } from 'react';
 import gsap from 'gsap';
 import Image from 'next/image';
 
@@ -209,7 +209,9 @@ function StatCounter({ value, suffix, label, icon: Icon }: { value: number; suff
 
 // ─── Component ──────────────────────────────────────────────────────────────
 
-export default function Home() {
+export default function Home({ params }: { params: Promise<Record<string, string | string[]>> }) {
+  // Next.js 16 requires unwrapping params Promise with React.use()
+  use(params);
   const heroRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
 
