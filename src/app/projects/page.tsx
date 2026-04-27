@@ -41,7 +41,7 @@ const projects: Project[] = [
   {
     title: 'E-Commerce Platform',
     description: 'Full-stack e-commerce solution with headless CMS, payment integration, and optimized checkout flows',
-    longDescription: 'A complete e-commerce platform built with Next.js, featuring a headless CMS for content management, Stripe payment integration, and an optimized multi-step checkout flow that increased conversion rates by 23%.',
+    longDescription: 'A complete e-commerce platform built with Next.js, featuring a headless CMS for content management, Stripe payment integration, and an optimized multi-step checkout flow that significantly increased conversion rates.',
     tags: ['Next.js', 'Stripe', 'Prisma'],
     accent: 'purple',
     liveUrl: '#',
@@ -95,8 +95,8 @@ const projects: Project[] = [
   },
   {
     title: 'Healthcare App Redesign',
-    description: 'Complete UX overhaul of a patient management system, improving task completion rates by 40%',
-    longDescription: 'Redesigned a legacy healthcare application from the ground up, conducting extensive user research with doctors and nurses, creating intuitive workflows, and implementing a modern component-based UI that reduced task completion time by 40%.',
+    description: 'Complete UX overhaul of a patient management system, significantly improving task completion rates',
+    longDescription: 'Redesigned a legacy healthcare application from the ground up, conducting extensive user research with doctors and nurses, creating intuitive workflows, and implementing a modern component-based UI that significantly reduced task completion time.',
     tags: ['Figma', 'React', 'User Research'],
     accent: 'emerald',
     liveUrl: '#',

@@ -35,10 +35,10 @@ import Link from 'next/link';
 // ─── Summary preview data ──────────────────────────────────────────────────
 
 const topSkills = [
-  { name: 'Figma', icon: Palette, proficiency: 95 },
-  { name: 'TypeScript', icon: Code2, proficiency: 90 },
-  { name: 'React/Next.js', icon: Layers, proficiency: 92 },
-  { name: 'Three.js', icon: Box, proficiency: 80 },
+  { name: 'Figma', icon: Palette },
+  { name: 'TypeScript', icon: Code2 },
+  { name: 'React/Next.js', icon: Layers },
+  { name: 'Three.js', icon: Box },
 ];
 
 const featuredProjects = [
@@ -174,7 +174,6 @@ export default function Home() {
                           <Icon className="h-5 w-5" />
                         </div>
                         <span className="text-sm font-medium text-white">{skill.name}</span>
-                        <span className="text-xs text-cyan-400">{skill.proficiency}%</span>
                       </div>
                     );
                   })}

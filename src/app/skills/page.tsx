@@ -4,7 +4,7 @@
  * Skills Detail Page — /skills
  *
  * Full interactive grid of all 8 skills with detailed descriptions,
- * proficiency bars, and hover tooltips for extended information.
+ * category filters, and hover tooltips for extended information.
  */
 
 import { useState } from 'react';
@@ -27,7 +27,6 @@ interface Skill {
   icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
   description: string;
   extendedDescription: string;
-  proficiency: number;
   category: string;
 }
 
@@ -40,7 +39,6 @@ const skills: Skill[] = [
     description: 'Design systems, prototyping, and user research',
     extendedDescription:
       'Expert in building scalable design systems, high-fidelity prototyping, component libraries, and conducting user research to validate design decisions. Proficient in Figma auto-layout, variables, and advanced prototyping features.',
-    proficiency: 95,
     category: 'Design',
   },
   {
@@ -49,7 +47,6 @@ const skills: Skill[] = [
     description: 'Type-safe applications with modern TypeScript patterns',
     extendedDescription:
       'Proficient in advanced TypeScript patterns including generics, discriminated unions, conditional types, and strict type-safe architectures for large codebases. Experience with utility types and type-level programming.',
-    proficiency: 90,
     category: 'Languages',
   },
   {
@@ -58,7 +55,6 @@ const skills: Skill[] = [
     description: 'Full-stack React applications with Next.js',
     extendedDescription:
       'Deep experience with Next.js App Router, SSR/SSG, API routes, middleware, and building performant full-stack React applications at scale. Expert in React Server Components and streaming.',
-    proficiency: 92,
     category: 'Frameworks',
   },
   {
@@ -67,7 +63,6 @@ const skills: Skill[] = [
     description: 'Backend APIs, real-time services, and serverless functions',
     extendedDescription:
       'Skilled in building RESTful & GraphQL APIs, WebSocket real-time services, microservices architecture, and deploying serverless functions on edge runtimes. Experience with Express, Fastify, and tRPC.',
-    proficiency: 85,
     category: 'Backend',
   },
   {
@@ -76,7 +71,6 @@ const skills: Skill[] = [
     description: 'Interactive 3D web experiences and WebGL',
     extendedDescription:
       'Capable of creating immersive 3D web experiences using Three.js, custom shaders, post-processing effects, and performance-optimized WebGL scenes. Experience with R3F, Drei, and physics engines.',
-    proficiency: 80,
     category: '3D / Creative',
   },
   {
@@ -85,7 +79,6 @@ const skills: Skill[] = [
     description: 'Utility-first CSS with custom design systems',
     extendedDescription:
       'Expert in utility-first CSS methodology, building custom Tailwind plugins, design tokens, responsive layouts, and maintaining consistent design systems at scale. Proficient with Tailwind v4 and CSS custom properties.',
-    proficiency: 95,
     category: 'Styling',
   },
   {
@@ -94,7 +87,6 @@ const skills: Skill[] = [
     description: 'Version control and automated deployment pipelines',
     extendedDescription:
       'Experienced with Git workflows, branching strategies, code review processes, and setting up CI/CD pipelines with GitHub Actions, GitLab CI, and automated testing. Expert in monorepo management with Turborepo.',
-    proficiency: 88,
     category: 'DevOps',
   },
   {
@@ -103,7 +95,6 @@ const skills: Skill[] = [
     description: 'User-centered design thinking and accessibility',
     extendedDescription:
       'Passionate about user-centered design, accessibility standards (WCAG 2.1 AA), interaction design, information architecture, and creating inclusive digital experiences. Conduct regular usability testing and heuristic evaluations.',
-    proficiency: 93,
     category: 'Design',
   },
 ];
@@ -147,21 +138,7 @@ function SkillCard({ skill, index }: { skill: Skill; index: number }) {
         <h3 className="mb-2 text-lg font-semibold text-white">{skill.name}</h3>
 
         {/* Short description */}
-        <p className="mb-4 text-sm text-white/60">{skill.description}</p>
-
-        {/* Proficiency */}
-        <div className="mb-2 flex items-center justify-between">
-          <span className="text-xs text-white/40">Proficiency</span>
-          <span className="text-xs font-medium text-cyan-400">{skill.proficiency}%</span>
-        </div>
-
-        {/* Progress bar */}
-        <div className="h-1.5 overflow-hidden rounded-full bg-white/10">
-          <div
-            className="h-full rounded-full bg-gradient-to-r from-cyan-500 to-purple-500 transition-all duration-700 ease-out"
-            style={{ width: `${skill.proficiency}%` }}
-          />
-        </div>
+        <p className="text-sm text-white/60">{skill.description}</p>
       </div>
 
       {/* Hover Tooltip */}
