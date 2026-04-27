@@ -241,6 +241,41 @@ export default function Home() {
             </div>
           </div>
 
+          {/* Education Summary */}
+          <div className="summary-card rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl transition-all duration-300 hover:border-cyan-500/20 md:p-8">
+            <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+              <div className="flex items-start gap-5">
+                <div className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-xl bg-cyan-500/10 text-cyan-400">
+                  <GraduationCap className="h-7 w-7" />
+                </div>
+                <div>
+                  <h2 className="text-2xl font-bold text-white">Education</h2>
+                  <p className="mt-2 max-w-xl text-white/60">
+                    M.Sc. HCI from Stanford &amp; B.Sc. CS from MIT. Continuously learning through
+                    certifications and advanced courses in UX design and modern web technologies.
+                  </p>
+                  <div className="mt-3 flex flex-wrap gap-3">
+                    {['M.Sc. HCI', 'B.Sc. CS', '3+ Certifications', '5+ Courses'].map((item) => (
+                      <span
+                        key={item}
+                        className="rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-sm font-medium text-cyan-400"
+                      >
+                        {item}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+              <Link
+                href="/education"
+                className="group inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-5 py-2.5 text-sm font-medium text-white transition-all hover:border-cyan-500/30 hover:bg-white/10"
+              >
+                View Details
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </Link>
+            </div>
+          </div>
+
           {/* Contact Summary */}
           <div className="summary-card rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl transition-all duration-300 hover:border-cyan-500/20 md:p-8">
             <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
@@ -257,9 +292,6 @@ export default function Home() {
                   <div className="mt-3 flex flex-wrap items-center gap-4 text-sm text-white/50">
                     <span className="flex items-center gap-1.5">
                       <MapPin className="h-4 w-4 text-cyan-400" /> San Francisco, CA
-                    </span>
-                    <span className="flex items-center gap-1.5">
-                      <GraduationCap className="h-4 w-4 text-cyan-400" /> M.Sc. HCI, Stanford
                     </span>
                   </div>
                 </div>

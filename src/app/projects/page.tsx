@@ -3,14 +3,14 @@
 /**
  * Projects Detail Page — /projects
  *
- * Full project gallery with category filter tabs (All, UI/UX, Web Development, 3D / Creative),
- * detailed cards featuring gradient banners, hover overlays, and technology badges.
+ * Full project gallery with category filter tabs and card design matching
+ * the provided reference: image header, title, description (line-clamp-2),
+ * colored tech badges, and gradient/outline action buttons.
  */
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { ExternalLink, Github, ArrowRight, Box } from 'lucide-react';
-import { Badge } from '@/components/ui/badge';
+import { ExternalLink, Eye, ArrowRight } from 'lucide-react';
 
 // ─── Types & Data ───────────────────────────────────────────────────────────
 
@@ -40,9 +40,9 @@ const projects: Project[] = [
   },
   {
     title: 'E-Commerce Platform',
-    description: 'Full-stack e-commerce solution with headless CMS, payment integration, and optimized checkout flows',
+    description: 'Full-stack e-commerce solution with seamless checkout, inventory management, and integrated payments.',
     longDescription: 'A complete e-commerce platform built with Next.js, featuring a headless CMS for content management, Stripe payment integration, and an optimized multi-step checkout flow that significantly increased conversion rates.',
-    tags: ['Next.js', 'Stripe', 'Prisma'],
+    tags: ['React', 'Node.js', 'MongoDB'],
     accent: 'purple',
     liveUrl: '#',
     sourceUrl: '#',
@@ -133,14 +133,16 @@ const categories = ['All', ...Array.from(new Set(projects.map((p) => p.category)
 
 // ─── Style Maps ─────────────────────────────────────────────────────────────
 
-const gradientMap: Record<Project['accent'], string> = {
-  cyan: 'from-cyan-500/20 to-cyan-600/5',
-  purple: 'from-purple-500/20 to-purple-600/5',
-  emerald: 'from-emerald-500/20 to-emerald-600/5',
-  amber: 'from-amber-500/20 to-amber-600/5',
-  rose: 'from-rose-500/20 to-rose-600/5',
+/** Gradient backgrounds for project image placeholders */
+const imageGradientMap: Record<Project['accent'], string> = {
+  cyan: 'from-cyan-900/80 via-cyan-800/60 to-teal-900/80',
+  purple: 'from-purple-900/80 via-purple-800/60 to-indigo-900/80',
+  emerald: 'from-emerald-900/80 via-emerald-800/60 to-green-900/80',
+  amber: 'from-amber-900/80 via-amber-800/60 to-orange-900/80',
+  rose: 'from-rose-900/80 via-rose-800/60 to-pink-900/80',
 };
 
+/** Glow effect on hover */
 const glowMap: Record<Project['accent'], string> = {
   cyan: 'hover:shadow-[0_0_30px_-5px_rgba(6,182,212,0.3)]',
   purple: 'hover:shadow-[0_0_30px_-5px_rgba(168,85,247,0.3)]',
@@ -149,13 +151,32 @@ const glowMap: Record<Project['accent'], string> = {
   rose: 'hover:shadow-[0_0_30px_-5px_rgba(244,63,94,0.3)]',
 };
 
-const accentTextMap: Record<Project['accent'], string> = {
-  cyan: 'text-cyan-400',
-  purple: 'text-purple-400',
-  emerald: 'text-emerald-400',
-  amber: 'text-amber-400',
-  rose: 'text-rose-400',
+/** Colored tech badges — maps each tag to a color scheme */
+const tagColorMap: Record<string, { bg: string; text: string }> = {
+  'React': { bg: 'bg-cyan-500/20', text: 'text-cyan-300' },
+  'Three.js': { bg: 'bg-cyan-500/20', text: 'text-cyan-300' },
+  'D3.js': { bg: 'bg-orange-500/20', text: 'text-orange-300' },
+  'Next.js': { bg: 'bg-slate-500/20', text: 'text-slate-300' },
+  'Node.js': { bg: 'bg-emerald-500/20', text: 'text-emerald-300' },
+  'MongoDB': { bg: 'bg-teal-500/20', text: 'text-teal-300' },
+  'TypeScript': { bg: 'bg-blue-500/20', text: 'text-blue-300' },
+  'OpenAI': { bg: 'bg-green-500/20', text: 'text-green-300' },
+  'WebSocket': { bg: 'bg-teal-500/20', text: 'text-teal-300' },
+  'Figma': { bg: 'bg-rose-500/20', text: 'text-rose-300' },
+  'Storybook': { bg: 'bg-orange-500/20', text: 'text-orange-300' },
+  'Python': { bg: 'bg-yellow-500/20', text: 'text-yellow-300' },
+  'NLP': { bg: 'bg-green-500/20', text: 'text-green-300' },
+  'GSAP': { bg: 'bg-green-500/20', text: 'text-green-300' },
+  'WebGL': { bg: 'bg-cyan-500/20', text: 'text-cyan-300' },
+  'WebXR': { bg: 'bg-purple-500/20', text: 'text-purple-300' },
+  'PostgreSQL': { bg: 'bg-blue-500/20', text: 'text-blue-300' },
+  'User Research': { bg: 'bg-amber-500/20', text: 'text-amber-300' },
+  'Prisma': { bg: 'bg-teal-500/20', text: 'text-teal-300' },
+  'Stripe': { bg: 'bg-purple-500/20', text: 'text-purple-300' },
 };
+
+/** Default tag style for unmapped technologies */
+const defaultTagColor = { bg: 'bg-white/10', text: 'text-white/70' };
 
 // ─── Page Component ─────────────────────────────────────────────────────────
 
@@ -200,16 +221,17 @@ export default function ProjectsPage() {
         </div>
 
         {/* ── Project Grid ────────────────────────────────────────────── */}
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {filteredProjects.map((project) => (
             <article
               key={project.title}
-              className={`group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 backdrop-blur-lg transition-transform duration-500 hover:scale-[1.02] hover:border-cyan-500/20 ${glowMap[project.accent]}`}
+              className={`group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 backdrop-blur-lg transition-all duration-300 hover:scale-[1.02] hover:border-cyan-500/20 ${glowMap[project.accent]}`}
             >
-              {/* Gradient banner */}
+              {/* Project Image / Visual Header */}
               <div
-                className={`relative h-48 bg-gradient-to-br ${gradientMap[project.accent]} overflow-hidden`}
+                className={`relative h-48 bg-gradient-to-br ${imageGradientMap[project.accent]} overflow-hidden`}
               >
+                {/* Grid pattern overlay */}
                 <div
                   className="absolute inset-0 opacity-20"
                   style={{
@@ -218,63 +240,69 @@ export default function ProjectsPage() {
                     backgroundSize: '32px 32px',
                   }}
                 />
-                <Box className="absolute right-6 bottom-6 h-24 w-24 text-white opacity-30 transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-1" />
+                {/* Radial glow */}
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.08),transparent_70%)]" />
 
-                {/* Category badge on banner */}
+                {/* Category badge */}
                 <span className="absolute left-4 top-4 rounded-full bg-black/40 px-3 py-1 text-xs font-medium text-white/80 backdrop-blur-sm">
                   {project.category}
                 </span>
+
+                {/* Hover overlay for image area */}
+                <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition-all duration-300 group-hover:bg-black/20">
+                  <span className="text-white/0 transition-all duration-300 group-hover:text-white/90 text-sm font-medium backdrop-blur-sm rounded-lg px-4 py-2">
+                    Preview
+                  </span>
+                </div>
               </div>
 
-              {/* Card body */}
-              <div className="p-6">
-                <h2 className="text-xl font-bold text-white">{project.title}</h2>
-                <p className="mt-2 text-sm text-white/60">{project.description}</p>
+              {/* Card Content */}
+              <div className="p-5 space-y-3">
+                {/* Title */}
+                <h3 className="text-lg font-bold text-white">
+                  {project.title}
+                </h3>
 
-                {/* Detailed description */}
-                <p className="mt-3 text-sm leading-relaxed text-white/40">
-                  {project.longDescription}
+                {/* Description — line-clamp-2 */}
+                <p className="text-sm text-[#94a3b8] leading-relaxed line-clamp-2">
+                  {project.description}
                 </p>
 
-                {/* Features list */}
-                <div className="mt-4 grid grid-cols-2 gap-2">
-                  {project.features.map((feature) => (
-                    <div key={feature} className="flex items-center gap-2">
-                      <span className={`h-1 w-1 rounded-full ${accentTextMap[project.accent]} bg-current`} />
-                      <span className="text-xs text-white/50">{feature}</span>
-                    </div>
-                  ))}
+                {/* Tech Tags — colored badges */}
+                <div className="flex flex-wrap gap-2 pt-1">
+                  {project.tags.map((tag) => {
+                    const colors = tagColorMap[tag] || defaultTagColor;
+                    return (
+                      <span
+                        key={tag}
+                        className={`px-3 py-1 rounded-full text-xs font-medium ${colors.bg} ${colors.text}`}
+                      >
+                        {tag}
+                      </span>
+                    );
+                  })}
                 </div>
 
-                {/* Tags */}
-                <div className="mt-4 flex flex-wrap gap-2">
-                  {project.tags.map((tag) => (
-                    <Badge
-                      key={tag}
-                      className="border-0 bg-white/10 text-xs text-white/70 hover:bg-white/20"
-                    >
-                      {tag}
-                    </Badge>
-                  ))}
-                </div>
-              </div>
+                {/* Action Buttons */}
+                <div className="flex gap-3 pt-2">
+                  {/* Live Demo — gradient button */}
+                  <a
+                    href={project.liveUrl}
+                    className="relative inline-flex items-center justify-center gap-1.5 flex-1 bg-gradient-to-r from-[#00e5ff] to-[#64b5f6] hover:from-[#00c2e5] hover:to-[#5ba3e0] text-[#06080f] font-medium text-xs rounded-md h-9 shadow-md shadow-[#00e5ff]/15 transition-all duration-200 px-3"
+                  >
+                    <ExternalLink className="w-3.5 h-3.5" />
+                    Live Demo
+                  </a>
 
-              {/* Hover overlay */}
-              <div className="absolute inset-0 flex items-center justify-center gap-4 bg-black/60 opacity-0 backdrop-blur-sm transition-opacity duration-300 group-hover:opacity-100">
-                <a
-                  href={project.liveUrl}
-                  className="inline-flex items-center gap-2 rounded-full bg-cyan-500 px-5 py-2.5 text-sm font-semibold text-white shadow-lg transition-colors hover:bg-cyan-400"
-                >
-                  <ExternalLink className="h-4 w-4" />
-                  Live Demo
-                </a>
-                <a
-                  href={project.sourceUrl}
-                  className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-5 py-2.5 text-sm font-semibold text-white backdrop-blur transition-colors hover:bg-white/20"
-                >
-                  <Github className="h-4 w-4" />
-                  Source Code
-                </a>
+                  {/* View — outline button */}
+                  <a
+                    href={project.sourceUrl}
+                    className="relative inline-flex items-center justify-center gap-1.5 flex-1 bg-transparent border border-[#00e5ff]/30 text-[#00e5ff] hover:bg-[#00e5ff]/25 hover:border-[#00e5ff]/60 hover:text-[#00e5ff] font-medium text-xs rounded-md h-9 transition-all duration-200 px-3"
+                  >
+                    <Eye className="w-3.5 h-3.5" />
+                    View
+                  </a>
+                </div>
               </div>
             </article>
           ))}
