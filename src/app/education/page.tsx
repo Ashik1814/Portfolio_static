@@ -348,20 +348,9 @@ export default function EducationPage() {
                 key={cert.title}
                 className="rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-md transition-all duration-300 hover:border-white/20"
               >
-                <div className="p-5 flex items-start gap-4">
-                  {/* Icon */}
-                  <div
-                    className="flex items-center justify-center w-12 h-12 shrink-0 rounded-lg"
-                    style={{ backgroundColor: cert.iconBg }}
-                  >
-                    <CertIcon className="w-5 h-5" style={{ color: cert.iconColor }} />
-                  </div>
-
-                  {/* Title + Provider */}
-                  <div>
-                    <h4 className="text-sm font-bold text-white mb-0.5">{cert.title}</h4>
-                    <p className="text-xs text-[#94a3b8]">{cert.provider} • {cert.year}</p>
-                  </div>
+                <div className="p-5">
+                  <h4 className="text-sm font-bold text-white mb-0.5">{cert.title}</h4>
+                  <p className="text-xs text-[#94a3b8]">{cert.provider} • {cert.year}</p>
                 </div>
               </div>
             );
