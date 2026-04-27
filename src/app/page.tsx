@@ -77,14 +77,14 @@ export default function Home() {
       <section className="relative flex min-h-screen items-center justify-center overflow-hidden">
         {/* Content overlay — pt-20 ensures profile image clears the fixed navbar */}
         <div className="relative z-10 flex flex-col items-center px-4 pt-20 text-center">
-          {/* Profile Image — doubled in size from original */}
+          {/* Profile Image */}
           <div className="mb-8 relative flex items-center justify-center">
-            <div className="h-64 w-64 sm:h-72 sm:w-72 md:h-80 md:w-80 rounded-full overflow-hidden border-2 border-cyan-400/30 shadow-[0_0_40px_rgba(0,212,255,0.25)]">
+            <div className="h-[32rem] w-[32rem] sm:h-[36rem] sm:w-[36rem] md:h-[40rem] md:w-[40rem] max-h-[70vh] max-w-[70vh] rounded-full overflow-hidden border-2 border-cyan-400/30 shadow-[0_0_60px_rgba(0,212,255,0.25)]">
               <Image
                 src="/profile.jpeg"
                 alt="Alex Chen — UI/UX Designer & Front-End Developer"
-                width={320}
-                height={320}
+                width={640}
+                height={640}
                 className="h-full w-full object-cover"
                 priority
               />
