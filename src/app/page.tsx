@@ -14,8 +14,7 @@ import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import Image from 'next/image';
 
-import { Button } from '@/components/ui/button';
-import GlowBorder from '@/components/ui/glow-border';
+import AnimatedBorderButton from '@/components/ui/animated-border-button';
 import {
   Sparkles,
   Palette,
@@ -29,7 +28,6 @@ import {
   GraduationCap,
   MapPin,
 } from 'lucide-react';
-import Link from 'next/link';
 
 // ─── Summary preview data ──────────────────────────────────────────────────
 
@@ -113,21 +111,12 @@ export default function Home() {
           </p>
 
           <div className="flex flex-col gap-4 sm:flex-row">
-            <Link href="/projects" className="relative overflow-hidden rounded-lg">
-              <GlowBorder borderRadius={8} />
-              <Button className="relative z-[1] bg-cyan-500 text-black hover:bg-cyan-400 cursor-pointer px-8 py-6 text-base font-semibold sm:text-lg">
-                View My Work
-              </Button>
-            </Link>
-            <Link href="/contact" className="relative overflow-hidden rounded-lg">
-              <GlowBorder borderRadius={8} />
-              <Button
-                variant="outline"
-                className="relative z-[1] border border-white/20 bg-white/5 text-white hover:bg-white/10 cursor-pointer px-8 py-6 text-base font-semibold sm:text-lg"
-              >
-                Get In Touch
-              </Button>
-            </Link>
+            <AnimatedBorderButton href="/projects" variant="primary" size="lg">
+              View My Work
+            </AnimatedBorderButton>
+            <AnimatedBorderButton href="/contact" variant="outline" size="lg">
+              Get In Touch
+            </AnimatedBorderButton>
           </div>
         </div>
       </section>
@@ -170,16 +159,10 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-              <Link
-                href="/about"
-                className="group relative overflow-hidden rounded-lg"
-              >
-                <GlowBorder borderRadius={8} />
-                <span className="relative z-[1] inline-flex items-center gap-2 bg-white/5 px-5 py-2.5 text-sm font-medium text-white transition-all hover:bg-white/10">
-                  Read More
-                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </span>
-              </Link>
+              <AnimatedBorderButton href="/about" variant="outline" size="md">
+                Read More
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </AnimatedBorderButton>
             </div>
           </div>
 
@@ -205,16 +188,10 @@ export default function Home() {
                   })}
                 </div>
               </div>
-              <Link
-                href="/skills"
-                className="group relative overflow-hidden rounded-lg mt-2 md:mt-0"
-              >
-                <GlowBorder borderRadius={8} />
-                <span className="relative z-[1] inline-flex items-center gap-2 bg-white/5 px-5 py-2.5 text-sm font-medium text-white transition-all hover:bg-white/10">
-                  All Skills
-                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </span>
-              </Link>
+              <AnimatedBorderButton href="/skills" variant="outline" size="md" wrapperClassName="mt-2 md:mt-0">
+                All Skills
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </AnimatedBorderButton>
             </div>
           </div>
 
@@ -238,16 +215,10 @@ export default function Home() {
                   ))}
                 </div>
               </div>
-              <Link
-                href="/projects"
-                className="group relative overflow-hidden rounded-lg mt-2 md:mt-0"
-              >
-                <GlowBorder borderRadius={8} />
-                <span className="relative z-[1] inline-flex items-center gap-2 bg-white/5 px-5 py-2.5 text-sm font-medium text-white transition-all hover:bg-white/10">
-                  View All
-                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </span>
-              </Link>
+              <AnimatedBorderButton href="/projects" variant="outline" size="md" wrapperClassName="mt-2 md:mt-0">
+                View All
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </AnimatedBorderButton>
             </div>
           </div>
 
@@ -276,16 +247,10 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-              <Link
-                href="/education"
-                className="group relative overflow-hidden rounded-lg"
-              >
-                <GlowBorder borderRadius={8} />
-                <span className="relative z-[1] inline-flex items-center gap-2 bg-white/5 px-5 py-2.5 text-sm font-medium text-white transition-all hover:bg-white/10">
-                  View Details
-                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </span>
-              </Link>
+              <AnimatedBorderButton href="/education" variant="outline" size="md">
+                View Details
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </AnimatedBorderButton>
             </div>
           </div>
 
@@ -309,16 +274,10 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-              <Link
-                href="/contact"
-                className="group relative overflow-hidden rounded-lg"
-              >
-                <GlowBorder borderRadius={8} />
-                <span className="relative z-[1] inline-flex items-center gap-2 bg-cyan-500 px-5 py-2.5 text-sm font-semibold text-black transition-colors hover:bg-cyan-400">
-                  <Send className="h-4 w-4" />
-                  Contact Me
-                </span>
-              </Link>
+              <AnimatedBorderButton href="/contact" variant="primary" size="md">
+                <Send className="h-4 w-4" />
+                Contact Me
+              </AnimatedBorderButton>
             </div>
           </div>
         </div>

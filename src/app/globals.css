@@ -231,6 +231,18 @@
   100% { offset-distance: 100%; }
 }
 
+/* Hover effect for the animated border dot — becomes bigger and brighter */
+.group:hover .glow-border-dot {
+  width: 40px !important;
+  filter: brightness(1.8) drop-shadow(0 0 8px rgba(0, 229, 255, 0.6));
+}
+
+/* Active (pressed) effect — dot snaps back smaller */
+.group:active .glow-border-dot {
+  width: 16px !important;
+  filter: brightness(1.2);
+}
+
 /* ─── Gradient Text Utilities ──────────────────────────────────────────────── */
 
 @layer utilities {

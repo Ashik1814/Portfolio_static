@@ -41,12 +41,13 @@ export default function GlowBorder({
       }}
     >
       <div
-        className="absolute aspect-square"
+        className="absolute aspect-square glow-border-dot"
         style={{
           width: '20px',
           background: `linear-gradient(to right, transparent, ${gradientFrom}, ${gradientTo})`,
           offsetPath: `rect(0px auto auto 0px round ${borderRadius}px)`,
           animation: `border-glow-travel ${duration}s linear infinite`,
+          transition: 'filter 0.3s ease, width 0.3s ease',
         }}
       />
     </div>

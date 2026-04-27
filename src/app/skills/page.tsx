@@ -5,10 +5,10 @@
  *
  * Full interactive grid of all 8 skills with detailed descriptions,
  * category filters, and hover tooltips for extended information.
+ * All buttons use the animated border dot effect.
  */
 
 import { useState } from 'react';
-import Link from 'next/link';
 import {
   Palette,
   Code2,
@@ -19,7 +19,7 @@ import {
   Layers,
   ArrowRight,
 } from 'lucide-react';
-import GlowBorder from '@/components/ui/glow-border';
+import AnimatedBorderButton from '@/components/ui/animated-border-button';
 
 // ─── Type Definitions ───────────────────────────────────────────────────────
 
@@ -186,17 +186,15 @@ export default function SkillsPage() {
         {/* ── Category Filter ─────────────────────────────────────────── */}
         <div className="mb-10 flex flex-wrap justify-center gap-2">
           {categories.map((cat) => (
-            <button
+            <AnimatedBorderButton
               key={cat}
+              variant="filter"
+              size="sm"
+              isActive={activeCategory === cat}
               onClick={() => setActiveCategory(cat)}
-              className={`rounded-full px-4 py-1.5 text-sm font-medium transition-all ${
-                activeCategory === cat
-                  ? 'bg-cyan-500 text-black'
-                  : 'border border-white/10 bg-white/5 text-white/60 hover:border-cyan-500/30 hover:text-white'
-              }`}
             >
               {cat}
-            </button>
+            </AnimatedBorderButton>
           ))}
         </div>
 
@@ -210,16 +208,10 @@ export default function SkillsPage() {
         {/* ── CTA ─────────────────────────────────────────────────────── */}
         <div className="mt-14 text-center">
           <p className="mb-4 text-white/50">See these skills in action</p>
-          <Link
-            href="/projects"
-            className="group relative overflow-hidden rounded-lg inline-flex items-center gap-2"
-          >
-            <GlowBorder borderRadius={8} />
-            <span className="relative z-[1] inline-flex items-center gap-2 bg-cyan-500 px-6 py-3 font-semibold text-black transition-colors hover:bg-cyan-400">
-              View Projects
-              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </span>
-          </Link>
+          <AnimatedBorderButton href="/projects" variant="primary" size="lg">
+            View Projects
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+          </AnimatedBorderButton>
         </div>
       </div>
     </main>

@@ -5,13 +5,12 @@
  *
  * Full project gallery with category filter tabs and card design matching
  * the provided reference: image header, title, description (line-clamp-2),
- * colored tech badges, and gradient/outline action buttons.
+ * colored tech badges, and gradient/outline action buttons with animated border.
  */
 
 import { useState } from 'react';
-import Link from 'next/link';
 import { ExternalLink, Eye, ArrowRight } from 'lucide-react';
-import GlowBorder from '@/components/ui/glow-border';
+import AnimatedBorderButton from '@/components/ui/animated-border-button';
 
 // ─── Types & Data ───────────────────────────────────────────────────────────
 
@@ -207,17 +206,15 @@ export default function ProjectsPage() {
         {/* ── Category Filter ─────────────────────────────────────────── */}
         <div className="mb-10 flex flex-wrap justify-center gap-2">
           {categories.map((cat) => (
-            <button
+            <AnimatedBorderButton
               key={cat}
+              variant="filter"
+              size="sm"
+              isActive={activeCategory === cat}
               onClick={() => setActiveCategory(cat)}
-              className={`rounded-full px-4 py-1.5 text-sm font-medium transition-all ${
-                activeCategory === cat
-                  ? 'bg-cyan-500 text-black'
-                  : 'border border-white/10 bg-white/5 text-white/60 hover:border-cyan-500/30 hover:text-white'
-              }`}
             >
               {cat}
-            </button>
+            </AnimatedBorderButton>
           ))}
         </div>
 
@@ -226,7 +223,7 @@ export default function ProjectsPage() {
           {filteredProjects.map((project) => (
             <article
               key={project.title}
-              className={`group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 backdrop-blur-lg transition-all duration-300 hover:scale-[1.02] hover:border-cyan-500/20 ${glowMap[project.accent]}`}
+              className={`group/card relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 backdrop-blur-lg transition-all duration-300 hover:scale-[1.02] hover:border-cyan-500/20 ${glowMap[project.accent]}`}
             >
               {/* Project Image / Visual Header */}
               <div
@@ -250,8 +247,8 @@ export default function ProjectsPage() {
                 </span>
 
                 {/* Hover overlay for image area */}
-                <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition-all duration-300 group-hover:bg-black/20">
-                  <span className="text-white/0 transition-all duration-300 group-hover:text-white/90 text-sm font-medium backdrop-blur-sm rounded-lg px-4 py-2">
+                <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition-all duration-300 group-hover/card:bg-black/20">
+                  <span className="text-white/0 transition-all duration-300 group-hover/card:text-white/90 text-sm font-medium backdrop-blur-sm rounded-lg px-4 py-2">
                     Preview
                   </span>
                 </div>
@@ -286,29 +283,33 @@ export default function ProjectsPage() {
 
                 {/* Action Buttons */}
                 <div className="flex gap-3 pt-2">
-                  {/* Live Demo — gradient button with glow border */}
-                  <a
+                  {/* Live Demo — gradient button with animated border */}
+                  <AnimatedBorderButton
                     href={project.liveUrl}
-                    className="relative overflow-hidden rounded-md flex-1"
+                    variant="primary"
+                    size="sm"
+                    borderRadius={6}
+                    animationDuration={4}
+                    wrapperClassName="flex-1"
+                    fullWidth
                   >
-                    <GlowBorder borderRadius={6} duration={4} />
-                    <span className="relative z-[1] inline-flex items-center justify-center gap-1.5 w-full bg-gradient-to-r from-[#00e5ff] to-[#64b5f6] hover:from-[#00c2e5] hover:to-[#5ba3e0] text-[#06080f] font-medium text-xs h-9 shadow-md shadow-[#00e5ff]/15 transition-all duration-200 px-3">
-                      <ExternalLink className="w-3.5 h-3.5" />
-                      Live Demo
-                    </span>
-                  </a>
+                    <ExternalLink className="w-3.5 h-3.5" />
+                    Live Demo
+                  </AnimatedBorderButton>
 
-                  {/* View — outline button with glow border */}
-                  <a
+                  {/* View — outline button with animated border */}
+                  <AnimatedBorderButton
                     href={project.sourceUrl}
-                    className="relative overflow-hidden rounded-md flex-1"
+                    variant="outline"
+                    size="sm"
+                    borderRadius={6}
+                    animationDuration={5}
+                    wrapperClassName="flex-1"
+                    fullWidth
                   >
-                    <GlowBorder borderRadius={6} duration={5} />
-                    <span className="relative z-[1] inline-flex items-center justify-center gap-1.5 w-full bg-transparent border border-[#00e5ff]/30 text-[#00e5ff] hover:bg-[#00e5ff]/25 hover:border-[#00e5ff]/60 font-medium text-xs h-9 transition-all duration-200 px-3">
-                      <Eye className="w-3.5 h-3.5" />
-                      View
-                    </span>
-                  </a>
+                    <Eye className="w-3.5 h-3.5" />
+                    View
+                  </AnimatedBorderButton>
                 </div>
               </div>
             </article>
@@ -325,16 +326,10 @@ export default function ProjectsPage() {
         {/* ── CTA ─────────────────────────────────────────────────────── */}
         <div className="mt-14 text-center">
           <p className="mb-4 text-white/50">Interested in working together?</p>
-          <Link
-            href="/contact"
-            className="group relative overflow-hidden rounded-lg inline-flex items-center gap-2"
-          >
-            <GlowBorder borderRadius={8} />
-            <span className="relative z-[1] inline-flex items-center gap-2 bg-cyan-500 px-6 py-3 font-semibold text-black transition-colors hover:bg-cyan-400">
-              Let&apos;s Talk
-              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </span>
-          </Link>
+          <AnimatedBorderButton href="/contact" variant="primary" size="lg">
+            Let&apos;s Talk
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+          </AnimatedBorderButton>
         </div>
       </div>
     </main>

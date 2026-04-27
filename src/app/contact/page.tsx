@@ -5,6 +5,7 @@
  *
  * Contact information and a validated message form
  * that posts to the /api/contact endpoint.
+ * All buttons use the animated traveling border glow effect.
  */
 
 import { useState } from 'react';
@@ -17,12 +18,11 @@ import {
   CheckCircle2,
   Loader2,
 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
-import GlowBorder from '@/components/ui/glow-border';
+import AnimatedBorderButton from '@/components/ui/animated-border-button';
 
 // ─── Type Definitions ────────────────────────────────────────────────────────
 
@@ -306,26 +306,26 @@ export default function ContactPage() {
                   <p className="text-red-400 text-sm text-center">{errorMessage}</p>
                 )}
 
-                <div className="relative overflow-hidden rounded-md">
-                  <GlowBorder borderRadius={6} />
-                  <Button
-                    type="submit"
-                    disabled={submissionState === 'loading'}
-                    className="relative z-[1] w-full bg-cyan-500 hover:bg-cyan-400 text-black font-semibold py-3 flex items-center justify-center gap-2"
-                  >
-                    {submissionState === 'loading' ? (
-                      <>
-                        <Loader2 className="w-4 h-4 animate-spin" />
-                        Sending...
-                      </>
-                    ) : (
-                      <>
-                        <Send className="w-4 h-4" />
-                        Send Message
-                      </>
-                    )}
-                  </Button>
-                </div>
+                <AnimatedBorderButton
+                  type="submit"
+                  variant="primary"
+                  size="md"
+                  fullWidth
+                  disabled={submissionState === 'loading'}
+                  borderRadius={6}
+                >
+                  {submissionState === 'loading' ? (
+                    <>
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                      Sending...
+                    </>
+                  ) : (
+                    <>
+                      <Send className="w-4 h-4" />
+                      Send Message
+                    </>
+                  )}
+                </AnimatedBorderButton>
               </form>
             )}
           </div>
