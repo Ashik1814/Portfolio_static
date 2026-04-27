@@ -350,8 +350,8 @@ export default function SkillsPage({ params, searchParams }: { params: Promise<R
                 key={tech.name}
                 className="flex items-center gap-2.5 px-4 py-3 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.06] hover:border-[#00e5ff]/20 transition-all duration-200 cursor-default group"
               >
-                <IconComp className="shrink-0 w-5 h-5 text-white/50 group-hover:text-[#00e5ff] transition-colors duration-200" />
-                <span className="text-sm font-medium text-white/50 group-hover:text-[#00e5ff] transition-colors duration-200 whitespace-nowrap">
+                <IconComp className="shrink-0 w-6 h-6 text-white/80 group-hover:text-[#00e5ff] transition-colors duration-200" />
+                <span className="text-sm font-medium text-white/80 group-hover:text-[#00e5ff] transition-colors duration-200 whitespace-nowrap">
                   {tech.name}
                 </span>
               </div>
