@@ -206,13 +206,13 @@ export default function EducationPage({ params, searchParams }: { params: Promis
             HEADER — Icon + Gradient Text Title + Subtitle
             ═══════════════════════════════════════════════════════════════════ */}
         <div className="text-center mb-16">
-          <div className="w-14 h-14 rounded-full bg-[#64b5f6]/15 flex items-center justify-center mx-auto mb-4">
+          <div className="w-16 h-16 rounded-full bg-[#64b5f6]/15 flex items-center justify-center mx-auto mb-6">
             <GraduationCap className="w-7 h-7 text-[#64b5f6]" />
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
+          <h2 className="text-h1 mb-6">
             <span className="gradient-text-cyan">Education</span>
           </h2>
-          <p className="text-[#94a3b8] max-w-2xl mx-auto text-base">
+          <p className="text-[#94a3b8] max-w-2xl mx-auto text-body">
             My academic journey and continual learning path in computer science and technology
           </p>
         </div>
@@ -259,7 +259,7 @@ export default function EducationPage({ params, searchParams }: { params: Promis
           </div>
 
           {/* Timeline entries */}
-          <div className="space-y-5">
+          <div className="space-y-8">
             {educationEntries.map((entry) => {
               const Icon = entry.icon;
               return (
@@ -280,11 +280,11 @@ export default function EducationPage({ params, searchParams }: { params: Promis
 
                   {/* Card */}
                   <div
-                    className="flex-1 ml-14 sm:ml-[4.5rem] rounded-xl border border-white/10 bg-white/[0.03] backdrop-blur-md p-4 sm:p-5"
+                    className="flex-1 ml-14 sm:ml-[4.5rem] rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-md p-6"
                   >
                         {/* Title + Date + GPA */}
                         <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 mb-2">
-                          <h3 className="text-sm sm:text-base font-bold text-white flex-1">
+                          <h3 className="text-base sm:text-h3 font-bold text-white flex-1">
                             {entry.title}
                           </h3>
                           <div className="flex items-center gap-2 shrink-0">
@@ -311,7 +311,7 @@ export default function EducationPage({ params, searchParams }: { params: Promis
                         </div>
 
                         {/* Description */}
-                        <p className="text-[#94a3b8] text-xs leading-relaxed mb-2 line-clamp-2">
+                        <p className="text-[#94a3b8] text-sm leading-relaxed mb-2 line-clamp-2">
                           {entry.description}
                         </p>
 
@@ -338,12 +338,12 @@ export default function EducationPage({ params, searchParams }: { params: Promis
             CERTIFICATIONS — Grid with rotating border cards
             ═══════════════════════════════════════════════════════════════════ */}
         <div className="text-center mb-8">
-          <h3 className="text-2xl font-bold">
+          <h3 className="text-h3">
             <span className="gradient-text-purple-blue">Certifications</span>
           </h3>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-20">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-20">
           {certifications.map((cert) => {
             const CertIcon = cert.icon;
             return (
@@ -351,9 +351,9 @@ export default function EducationPage({ params, searchParams }: { params: Promis
                 key={cert.title}
                 className="rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-md transition-all duration-300 hover:border-white/20"
               >
-                <div className="p-5">
-                  <h4 className="text-sm font-bold text-white mb-0.5">{cert.title}</h4>
-                  <p className="text-xs text-[#94a3b8]">{cert.provider} • {cert.year}</p>
+                <div className="p-6">
+                  <h4 className="text-base font-bold text-white mb-0.5">{cert.title}</h4>
+                  <p className="text-sm text-[#94a3b8]">{cert.provider} • {cert.year}</p>
                 </div>
               </div>
             );
@@ -364,18 +364,18 @@ export default function EducationPage({ params, searchParams }: { params: Promis
             RELEVANT COURSEWORK — Grid items with colored icons
             ═══════════════════════════════════════════════════════════════════ */}
         <div className="text-center mb-8">
-          <h3 className="text-2xl font-bold">
+          <h3 className="text-h3">
             <span className="gradient-text-pink-blue">Relevant Coursework</span>
           </h3>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {courseworkItems.map((course) => {
             const CourseIcon = course.icon;
             return (
               <div
                 key={course.name}
-                className="group flex items-center gap-3 px-4 py-3 rounded-lg border border-white/[0.06] bg-white/[0.02] hover:border-white/[0.12] hover:bg-white/[0.04] transition-all duration-200 cursor-default"
+                className="group flex items-center gap-3 px-6 py-4 rounded-2xl border border-white/[0.06] bg-white/[0.02] hover:border-white/[0.12] hover:bg-white/[0.04] transition-all duration-200 cursor-default"
               >
                 <div
                   className="w-8 h-8 rounded-md flex items-center justify-center shrink-0"
@@ -392,8 +392,8 @@ export default function EducationPage({ params, searchParams }: { params: Promis
         </div>
 
         {/* ── CTA ─────────────────────────────────────────────────────── */}
-        <div className="mt-14 text-center">
-          <p className="mb-4 text-white/50">Want to discuss my background?</p>
+        <div className="mt-16 text-center">
+          <p className="mb-6 text-white/50">Want to discuss my background?</p>
           <AnimatedBorderButton href="/contact" variant="primary" size="lg">
             Get In Touch
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />

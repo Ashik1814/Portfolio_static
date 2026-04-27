@@ -60,14 +60,14 @@ export default function AboutPage({ params, searchParams }: { params: Promise<Re
   use(searchParams);
   return (
     <main className="min-h-screen pt-24 pb-16 px-4 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-5xl">
+      <div className="mx-auto max-w-7xl">
         {/* ── Page Header ─────────────────────────────────────────────── */}
         <div className="mb-12 text-center">
-          <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl">
+          <h1 className="text-h1 text-white">
             About Me
           </h1>
-          <div className="mx-auto mt-4 h-1 w-20 rounded-full bg-cyan-400" />
-          <p className="mt-6 text-lg text-white/50">
+          <div className="mx-auto mt-6 h-1 w-20 rounded-full bg-cyan-400" />
+          <p className="mt-6 text-body text-white/50">
             Get to know the person behind the pixels
           </p>
         </div>
@@ -91,12 +91,12 @@ export default function AboutPage({ params, searchParams }: { params: Promise<Re
 
             {/* Bio */}
             <div className="flex flex-1 flex-col gap-6 text-center md:text-left">
-              <h2 className="text-3xl font-semibold text-white">Alex Chen</h2>
-              <p className="text-lg font-medium text-cyan-400">
+              <h2 className="text-h2 text-white">Alex Chen</h2>
+              <p className="text-body font-medium text-cyan-400">
                 Senior UI/UX Designer &amp; Front-End Developer
               </p>
 
-              <div className="space-y-4 text-base leading-relaxed text-white/70">
+              <div className="space-y-4 text-body text-white/70">
                 <p>
                   I&apos;m a passionate designer and developer with over 5 years
                   of experience creating digital products that balance
@@ -123,16 +123,16 @@ export default function AboutPage({ params, searchParams }: { params: Promise<Re
         </div>
 
         {/* ── Stats Grid ──────────────────────────────────────────────── */}
-        <div className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-4">
+        <div className="mt-12 grid grid-cols-2 gap-6 sm:grid-cols-4">
           {stats.map((stat) => {
             const Icon = stat.icon;
             return (
               <div
                 key={stat.label}
-                className="rounded-xl border border-white/10 bg-white/5 p-5 text-center backdrop-blur-md"
+                className="rounded-2xl border border-white/10 bg-white/5 p-6 text-center backdrop-blur-md"
               >
                 <Icon className="mx-auto mb-2 h-6 w-6 text-cyan-400" />
-                <p className="text-2xl font-bold text-cyan-400">{stat.value}</p>
+                <p className="text-h3 text-cyan-400">{stat.value}</p>
                 <p className="mt-1 text-sm text-white/60">{stat.label}</p>
               </div>
             );
@@ -140,8 +140,8 @@ export default function AboutPage({ params, searchParams }: { params: Promise<Re
         </div>
 
         {/* ── Experience Timeline ─────────────────────────────────────── */}
-        <div className="mt-14">
-          <h2 className="mb-8 text-2xl font-bold text-white">Work Experience</h2>
+        <div className="mt-16">
+          <h2 className="mb-8 text-h2 text-white">Work Experience</h2>
           <div className="relative space-y-6">
             {/* Vertical line */}
             <div className="absolute left-[15px] top-2 bottom-2 w-px bg-white/10" />
@@ -154,8 +154,8 @@ export default function AboutPage({ params, searchParams }: { params: Promise<Re
                 </div>
 
                 {/* Card */}
-                <div className="flex-1 rounded-xl border border-white/10 border-l-2 border-l-cyan-500 bg-white/5 p-5">
-                  <h3 className="font-semibold text-white">{entry.role}</h3>
+                <div className="flex-1 rounded-2xl border border-white/10 border-l-2 border-l-cyan-500 bg-white/5 p-6">
+                  <h3 className="text-h3 text-white">{entry.role}</h3>
                   <p className="mt-1 text-sm text-cyan-400">{entry.company}</p>
                   <p className="mt-1 text-xs text-white/40">{entry.period}</p>
                   <p className="mt-3 text-sm leading-relaxed text-white/60">
@@ -168,15 +168,15 @@ export default function AboutPage({ params, searchParams }: { params: Promise<Re
         </div>
 
         {/* ── Interests ───────────────────────────────────────────────── */}
-        <div className="mt-14">
-          <h2 className="mb-6 text-2xl font-bold text-white">Interests &amp; Hobbies</h2>
+        <div className="mt-16">
+          <h2 className="mb-8 text-h2 text-white">Interests &amp; Hobbies</h2>
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
             {interests.map((interest) => {
               const Icon = interest.icon;
               return (
                 <div
                   key={interest.label}
-                  className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 p-4 backdrop-blur-md"
+                  className="flex items-center gap-4 rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur-md"
                 >
                   <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-cyan-500/10 text-cyan-400">
                     <Icon className="h-5 w-5" />
@@ -189,8 +189,8 @@ export default function AboutPage({ params, searchParams }: { params: Promise<Re
         </div>
 
         {/* ── CTA ─────────────────────────────────────────────────────── */}
-        <div className="mt-14 text-center">
-          <p className="mb-4 text-white/50">Want to work together?</p>
+        <div className="mt-16 text-center">
+          <p className="mb-6 text-white/50 text-body">Want to work together?</p>
           <AnimatedBorderButton href="/contact" variant="primary" size="lg">
             Get In Touch
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />

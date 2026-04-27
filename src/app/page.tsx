@@ -193,7 +193,7 @@ export default function Home({
         {/* Content overlay — pt-20 ensures profile image clears the fixed navbar */}
         <div className="relative z-10 flex flex-col items-center px-4 pt-20 text-center">
           {/* Profile Image */}
-          <div className="mb-8 relative flex items-center justify-center">
+          <div className="mb-10 relative flex items-center justify-center">
             <div className="h-64 w-64 rounded-full overflow-hidden border-2 border-cyan-400/30 shadow-[0_0_60px_rgba(0,212,255,0.25)]">
               <Image
                 src="/profile.jpeg"
@@ -208,18 +208,18 @@ export default function Home({
             <div className="absolute inset-0 rounded-full border border-cyan-400/10 scale-110" />
           </div>
 
-          <span className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-sm text-cyan-400 backdrop-blur-sm">
+          <span className="mb-8 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-sm text-cyan-400 backdrop-blur-sm">
             <Sparkles className="h-4 w-4" />
             UI/UX Designer &amp; Front-End Developer
           </span>
 
-          <h1 className="mb-6 text-4xl font-bold leading-tight tracking-tight sm:text-5xl md:text-6xl lg:text-7xl bg-gradient-to-r from-primary via-purple-500 to-pink-500 bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient">
+          <h1 className="mb-8 text-h1 bg-gradient-to-r from-primary via-purple-500 to-pink-500 bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient">
             Crafting Digital
             <br />
             Experiences
           </h1>
 
-          <p className="mb-10 max-w-2xl text-base text-white/60 sm:text-lg md:text-xl">
+          <p className="mb-12 max-w-2xl text-body text-white/60">
             I design and build beautiful, performant web experiences that delight
             users and drive results. Specializing in interactive interfaces and
             immersive 3D web.
@@ -240,12 +240,12 @@ export default function Home({
           SUMMARY CARDS — Brief previews linking to detail pages
           ═══════════════════════════════════════════════════════════════════ */}
       <section className="px-4 py-20 sm:px-6 lg:px-8">
-        <div ref={cardsRef} className="mx-auto max-w-6xl space-y-10">
+        <div ref={cardsRef} className="mx-auto max-w-7xl space-y-8">
 
           {/* About Summary */}
           <div className="summary-card rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl transition-all duration-300 hover:border-cyan-500/20 md:p-8">
             <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-              <div className="flex items-start gap-5">
+              <div className="flex items-start gap-6">
                 <div className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-xl overflow-hidden border border-cyan-400/20">
                   <Image
                     src="/profile.jpeg"
@@ -256,13 +256,13 @@ export default function Home({
                   />
                 </div>
                 <div>
-                  <h2 className="text-2xl font-bold text-white">About Me</h2>
-                  <p className="mt-2 max-w-xl text-white/60">
+                  <h2 className="text-h2 text-white">About Me</h2>
+                  <p className="mt-4 max-w-xl text-body text-white/60">
                     Senior UI/UX Designer &amp; Front-End Developer with 5+ years of experience
                     crafting digital products. Passionate about design systems, component
                     architecture, and immersive web experiences.
                   </p>
-                  <div className="mt-4 flex flex-wrap gap-3">
+                  <div className="mt-6 flex flex-wrap gap-3">
                     {['5+ Years', '50+ Projects', '30+ Clients'].map((stat) => (
                       <span
                         key={stat}
@@ -285,16 +285,16 @@ export default function Home({
           <div className="summary-card rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl transition-all duration-300 hover:border-cyan-500/20 md:p-8">
             <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
               <div className="flex-1">
-                <h2 className="mb-4 text-2xl font-bold text-white">Skills &amp; Expertise</h2>
+                <h2 className="mb-6 text-h2 text-white">Skills &amp; Expertise</h2>
                 <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
                   {topSkills.map((skill) => {
                     const Icon = skill.icon;
                     return (
                       <div
                         key={skill.name}
-                        className="flex flex-col items-center gap-2 rounded-xl border border-white/10 bg-white/5 p-4 text-center backdrop-blur-md"
+                        className="flex flex-col items-center gap-3 rounded-xl border border-white/10 bg-white/5 p-4 text-center backdrop-blur-md"
                       >
-                        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-cyan-500/10 text-cyan-400">
+                        <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-cyan-500/10 text-cyan-400">
                           <Icon className="h-5 w-5" />
                         </div>
                         <span className="text-sm font-medium text-white">{skill.name}</span>
@@ -314,7 +314,7 @@ export default function Home({
           <div className="summary-card">
             <div className="flex flex-col gap-6">
               <div className="flex items-center justify-between">
-                <h2 className="text-2xl font-bold text-white">Featured Projects</h2>
+                <h2 className="text-h2 text-white">Featured Projects</h2>
                 <AnimatedBorderButton href="/projects" variant="outline" size="md">
                   View All
                   <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -356,9 +356,9 @@ export default function Home({
                     </div>
 
                     {/* Card Content */}
-                    <div className="p-5 space-y-3">
-                      <h3 className="text-lg font-bold text-white">{project.title}</h3>
-                      <p className="text-sm text-[#94a3b8] leading-relaxed line-clamp-2">{project.description}</p>
+                    <div className="p-6 space-y-4">
+                      <h3 className="text-h3 text-white">{project.title}</h3>
+                      <p className="text-[0.875rem] text-[#94a3b8] leading-relaxed line-clamp-2">{project.description}</p>
 
                       {/* Tech Tags */}
                       <div className="flex flex-wrap gap-2 pt-1">
@@ -413,17 +413,17 @@ export default function Home({
           {/* Education Summary */}
           <div className="summary-card rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl transition-all duration-300 hover:border-cyan-500/20 md:p-8">
             <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-              <div className="flex items-start gap-5">
+              <div className="flex items-start gap-6">
                 <div className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-xl bg-cyan-500/10 text-cyan-400">
                   <GraduationCap className="h-7 w-7" />
                 </div>
                 <div>
-                  <h2 className="text-2xl font-bold text-white">Education</h2>
-                  <p className="mt-2 max-w-xl text-white/60">
+                  <h2 className="text-h2 text-white">Education</h2>
+                  <p className="mt-4 max-w-xl text-body text-white/60">
                     B.Sc. CSE from United International University. Continuously learning through
                     certifications and advanced courses in React, TypeScript, and UI/UX design.
                   </p>
-                  <div className="mt-3 flex flex-wrap gap-3">
+                  <div className="mt-4 flex flex-wrap gap-3">
                     {['B.Sc. CSE', '6 Certifications', '12+ Courses', 'GPA 5.00/5.00 (HSC)'].map((item) => (
                       <span
                         key={item}
@@ -445,7 +445,7 @@ export default function Home({
           {/* Connect Section — Rotating border card with socials */}
           <div className="summary-card">
             <div className="text-center mb-8">
-              <h2 className="text-3xl sm:text-4xl font-bold text-white mb-2">
+              <h2 className="text-h2 text-white mb-4">
                 Let&apos;s <span className="gradient-text-pink-blue">Connect</span>
               </h2>
             </div>
@@ -453,10 +453,10 @@ export default function Home({
               <div className="rounded-2xl border border-cyan-500/20 bg-[rgba(8,5,15,0.92)] backdrop-blur-xl transition-all duration-300 hover:border-cyan-400/40 hover:shadow-[0_0_30px_-5px_rgba(0,229,255,0.15)] overflow-hidden">
                 <div className="p-8 sm:p-10 text-center">
                   <div className="relative z-10">
-                    <h3 className="text-2xl sm:text-3xl font-bold text-white mb-3">
+                    <h3 className="text-h3 text-white mb-4">
                       Let&apos;s work together
                     </h3>
-                    <p className="text-[#94a3b8] mb-8 max-w-md mx-auto leading-relaxed">
+                    <p className="text-body text-[#94a3b8] mb-8 max-w-md mx-auto">
                       I&apos;m always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
                     </p>
 

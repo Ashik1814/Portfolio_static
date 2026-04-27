@@ -168,11 +168,11 @@ export default function ContactPage({ params, searchParams }: { params: Promise<
 
   return (
     <main className="min-h-screen pt-24 pb-16 px-4 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-6xl">
+      <div className="mx-auto max-w-7xl">
         {/* ── Page Header ─────────────────────────────────────────────── */}
-        <div className="mb-14 text-center">
+        <div className="mb-16 text-center">
           {/* Profile Image */}
-          <div className="mb-6 inline-block relative">
+          <div className="mb-8 inline-block relative">
             <div className="h-40 w-40 sm:h-48 sm:w-48 rounded-full overflow-hidden border-2 border-cyan-400/30 shadow-[0_0_40px_rgba(0,212,255,0.2)] mx-auto">
               <Image
                 src="/profile.jpeg"
@@ -185,29 +185,29 @@ export default function ContactPage({ params, searchParams }: { params: Promise<
             </div>
             <div className="absolute inset-0 rounded-full border border-cyan-400/10 scale-110" />
           </div>
-          <h1 className="text-4xl font-bold text-white sm:text-5xl">
+          <h1 className="text-h1 text-white">
             Get In Touch
           </h1>
-          <div className="mt-3 mx-auto h-1 w-24 rounded-full bg-cyan-500" />
-          <p className="mt-6 text-lg text-white/50">
+          <div className="mt-6 mx-auto h-1 w-24 rounded-full bg-cyan-500" />
+          <p className="mt-6 text-body text-white/50">
             Have a project in mind? Let&apos;s talk.
           </p>
         </div>
 
         {/* ── Two-Column Layout ───────────────────────────────────────── */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
           {/* LEFT: Contact Info */}
           <div className="space-y-10">
             {/* Contact Info */}
             <div>
-              <h2 className="text-2xl font-bold text-white mb-6">Contact Info</h2>
+              <h2 className="text-h2 text-white mb-8">Contact Info</h2>
               <div className="space-y-4">
                 {contactInfoItems.map((item, index) => {
                   const Icon = item.icon;
                   return (
                     <div
                       key={index}
-                      className="flex items-center gap-4 bg-white/5 border border-white/10 rounded-xl p-4 backdrop-blur-md"
+                      className="flex items-center gap-6 bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-md"
                     >
                       <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center">
                         <Icon className="w-5 h-5 text-cyan-400" />
@@ -219,12 +219,12 @@ export default function ContactPage({ params, searchParams }: { params: Promise<
                         {item.href ? (
                           <a
                             href={item.href}
-                            className="text-white text-sm mt-0.5 hover:text-cyan-400 transition-colors"
+                            className="text-white text-base mt-0.5 hover:text-cyan-400 transition-colors"
                           >
                             {item.value}
                           </a>
                         ) : (
-                          <p className="text-white text-sm mt-0.5">{item.value}</p>
+                          <p className="text-white text-base mt-0.5">{item.value}</p>
                         )}
                       </div>
                     </div>
@@ -236,7 +236,7 @@ export default function ContactPage({ params, searchParams }: { params: Promise<
 
           {/* RIGHT: Contact Form */}
           <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 sm:p-8">
-            <h2 className="text-2xl font-bold text-white mb-6">Send a Message</h2>
+            <h2 className="text-h2 text-white mb-8">Send a Message</h2>
 
             {submissionState === 'success' ? (
               <div className="flex flex-col items-center justify-center py-16 gap-4">
@@ -247,9 +247,9 @@ export default function ContactPage({ params, searchParams }: { params: Promise<
                 </p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-5" noValidate>
+              <form onSubmit={handleSubmit} className="space-y-6" noValidate>
                 {/* Name */}
-                <div className="space-y-2">
+                <div className="space-y-3">
                   <Label htmlFor="name" className="text-white/80 text-sm">Name</Label>
                   <Input
                     id="name"
@@ -257,13 +257,13 @@ export default function ContactPage({ params, searchParams }: { params: Promise<
                     placeholder="Your name"
                     value={formData.name}
                     onChange={(e) => handleFieldChange('name', e.target.value)}
-                    className="bg-white/5 border-white/10 text-white placeholder:text-white/30 focus:border-cyan-500/50 focus:ring-cyan-500/20"
+                    className="bg-white/5 border-white/10 text-white text-base placeholder:text-white/30 focus:border-cyan-500/50 focus:ring-cyan-500/20"
                   />
                   {errors.name && <p className="text-red-400 text-xs mt-1">{errors.name}</p>}
                 </div>
 
                 {/* Email */}
-                <div className="space-y-2">
+                <div className="space-y-3">
                   <Label htmlFor="email" className="text-white/80 text-sm">Email</Label>
                   <Input
                     id="email"
@@ -271,13 +271,13 @@ export default function ContactPage({ params, searchParams }: { params: Promise<
                     placeholder="your@email.com"
                     value={formData.email}
                     onChange={(e) => handleFieldChange('email', e.target.value)}
-                    className="bg-white/5 border-white/10 text-white placeholder:text-white/30 focus:border-cyan-500/50 focus:ring-cyan-500/20"
+                    className="bg-white/5 border-white/10 text-white text-base placeholder:text-white/30 focus:border-cyan-500/50 focus:ring-cyan-500/20"
                   />
                   {errors.email && <p className="text-red-400 text-xs mt-1">{errors.email}</p>}
                 </div>
 
                 {/* Subject */}
-                <div className="space-y-2">
+                <div className="space-y-3">
                   <Label htmlFor="subject" className="text-white/80 text-sm">Subject</Label>
                   <Input
                     id="subject"
@@ -285,13 +285,13 @@ export default function ContactPage({ params, searchParams }: { params: Promise<
                     placeholder="What is this about?"
                     value={formData.subject}
                     onChange={(e) => handleFieldChange('subject', e.target.value)}
-                    className="bg-white/5 border-white/10 text-white placeholder:text-white/30 focus:border-cyan-500/50 focus:ring-cyan-500/20"
+                    className="bg-white/5 border-white/10 text-white text-base placeholder:text-white/30 focus:border-cyan-500/50 focus:ring-cyan-500/20"
                   />
                   {errors.subject && <p className="text-red-400 text-xs mt-1">{errors.subject}</p>}
                 </div>
 
                 {/* Message */}
-                <div className="space-y-2">
+                <div className="space-y-3">
                   <Label htmlFor="message" className="text-white/80 text-sm">Message</Label>
                   <Textarea
                     id="message"
@@ -299,7 +299,7 @@ export default function ContactPage({ params, searchParams }: { params: Promise<
                     rows={5}
                     value={formData.message}
                     onChange={(e) => handleFieldChange('message', e.target.value)}
-                    className="bg-white/5 border-white/10 text-white placeholder:text-white/30 focus:border-cyan-500/50 focus:ring-cyan-500/20 resize-none"
+                    className="bg-white/5 border-white/10 text-white text-base placeholder:text-white/30 focus:border-cyan-500/50 focus:ring-cyan-500/20 resize-none"
                   />
                   {errors.message && <p className="text-red-400 text-xs mt-1">{errors.message}</p>}
                 </div>

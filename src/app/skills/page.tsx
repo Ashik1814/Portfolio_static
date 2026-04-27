@@ -117,7 +117,7 @@ function SkillCard({ skill, index }: { skill: Skill; index: number }) {
     >
       <div
         className={`
-          relative overflow-hidden rounded-xl border p-6
+          relative overflow-hidden rounded-2xl border p-6
           transition-all duration-300 ease-out
           bg-white/5 backdrop-blur-lg
           border-white/10
@@ -126,7 +126,7 @@ function SkillCard({ skill, index }: { skill: Skill; index: number }) {
         style={{ animationDelay: `${index * 100}ms` }}
       >
         {/* Category badge */}
-        <span className="mb-3 inline-block rounded-full bg-cyan-500/10 px-2.5 py-0.5 text-xs text-cyan-400">
+        <span className="mb-4 inline-block rounded-full bg-cyan-500/10 px-2.5 py-0.5 text-xs text-cyan-400">
           {skill.category}
         </span>
 
@@ -136,10 +136,10 @@ function SkillCard({ skill, index }: { skill: Skill; index: number }) {
         </div>
 
         {/* Skill name */}
-        <h3 className="mb-2 text-lg font-semibold text-white">{skill.name}</h3>
+        <h3 className="mb-3 text-h3 text-white">{skill.name}</h3>
 
         {/* Short description */}
-        <p className="text-sm text-white/60">{skill.description}</p>
+        <p className="text-[0.875rem] text-white/60">{skill.description}</p>
       </div>
 
       {/* Hover Tooltip */}
@@ -173,20 +173,20 @@ export default function SkillsPage({ params, searchParams }: { params: Promise<R
 
   return (
     <main className="min-h-screen pt-24 pb-16 px-4 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-6xl">
+      <div className="mx-auto max-w-7xl">
         {/* ── Page Header ─────────────────────────────────────────────── */}
         <div className="mb-12 text-center">
-          <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl">
+          <h1 className="text-h1 text-white">
             Skills &amp; Expertise
           </h1>
-          <div className="mx-auto mt-4 h-1 w-24 rounded-full bg-gradient-to-r from-cyan-400 to-cyan-600" />
-          <p className="mt-6 text-lg text-white/50">
+          <div className="mx-auto mt-6 h-1 w-24 rounded-full bg-gradient-to-r from-cyan-400 to-cyan-600" />
+          <p className="mt-6 text-body text-white/50">
             Technologies and tools I work with daily
           </p>
         </div>
 
         {/* ── Category Filter ─────────────────────────────────────────── */}
-        <div className="mb-10 flex flex-wrap justify-center gap-2">
+        <div className="mb-12 flex flex-wrap justify-center gap-2">
           {categories.map((cat) => (
             <AnimatedBorderButton
               key={cat}
@@ -208,8 +208,8 @@ export default function SkillsPage({ params, searchParams }: { params: Promise<R
         </div>
 
         {/* ── CTA ─────────────────────────────────────────────────────── */}
-        <div className="mt-14 text-center">
-          <p className="mb-4 text-white/50">See these skills in action</p>
+        <div className="mt-16 text-center">
+          <p className="mb-6 text-white/50 text-body">See these skills in action</p>
           <AnimatedBorderButton href="/projects" variant="primary" size="lg">
             View Projects
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />

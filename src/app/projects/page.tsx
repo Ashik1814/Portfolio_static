@@ -258,21 +258,21 @@ export default function ProjectsPage({ params, searchParams }: { params: Promise
 
   return (
     <main className="min-h-screen pt-24 pb-16 px-4 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-6xl">
+      <div className="mx-auto max-w-7xl">
         {/* ── Page Header ─────────────────────────────────────────────── */}
-        <div className="mb-14 text-center">
-          <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl">
+        <div className="mb-16 text-center">
+          <h1 className="text-h1 text-white">
             Featured Projects
           </h1>
-          <div className="mx-auto mt-4 h-1 w-24 rounded-full bg-gradient-to-r from-cyan-400 to-cyan-600" />
-          <p className="mt-6 text-lg text-white/50">
+          <div className="mx-auto mt-6 h-1 w-24 rounded-full bg-gradient-to-r from-cyan-400 to-cyan-600" />
+          <p className="mt-6 text-body text-white/50">
             A curated selection of work that showcases my skills and passion for
             building exceptional digital experiences.
           </p>
         </div>
 
         {/* ── Category Filter ─────────────────────────────────────────── */}
-        <div className="mb-10 flex flex-wrap justify-center gap-2">
+        <div className="mb-12 flex flex-wrap justify-center gap-2">
           {categories.map((cat) => (
             <AnimatedBorderButton
               key={cat}
@@ -323,9 +323,9 @@ export default function ProjectsPage({ params, searchParams }: { params: Promise
               </div>
 
               {/* Card Content */}
-              <div className="p-5 space-y-3">
+              <div className="p-6 space-y-4">
                 {/* Title */}
-                <h3 className="text-lg font-bold text-white">
+                <h3 className="text-h3 text-white">
                   {project.title}
                 </h3>
 
@@ -386,14 +386,14 @@ export default function ProjectsPage({ params, searchParams }: { params: Promise
 
         {/* ── Empty state when no projects match filter ── */}
         {filteredProjects.length === 0 && (
-          <div className="py-20 text-center">
+          <div className="py-24 text-center">
             <p className="text-lg text-white/40">No projects found in this category.</p>
           </div>
         )}
 
         {/* ── CTA ─────────────────────────────────────────────────────── */}
-        <div className="mt-14 text-center">
-          <p className="mb-4 text-white/50">Interested in working together?</p>
+        <div className="mt-16 text-center">
+          <p className="mb-6 text-white/50 text-body">Interested in working together?</p>
           <AnimatedBorderButton href="/contact" variant="primary" size="lg">
             Let&apos;s Talk
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />

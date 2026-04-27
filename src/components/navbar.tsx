@@ -72,7 +72,7 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Navigation Links */}
-          <div className="hidden items-center gap-1 md:flex">
+          <div className="hidden items-center gap-2 md:flex">
             {NAV_LINKS.map((link) => {
               const active = isActive(link.href)
               return (
@@ -80,7 +80,7 @@ export default function Navbar() {
                   key={link.href}
                   href={link.href}
                   onClick={handleLinkClick}
-                  className={`relative rounded-md px-4 py-2 text-sm font-medium transition-colors ${
+                  className={`relative rounded-md px-4 py-2 text-base font-medium transition-colors ${
                     active
                       ? 'text-cyan-400'
                       : 'text-white/70 hover:text-white'
@@ -123,7 +123,7 @@ export default function Navbar() {
           mobileMenuOpen ? 'max-h-80 bg-black/30' : 'max-h-0 border-t-0'
         }`}
       >
-        <div className="space-y-1 px-4 pb-4 pt-2">
+        <div className="space-y-2 px-4 pb-6 pt-4">
           {NAV_LINKS.map((link) => {
             const active = isActive(link.href)
             return (
@@ -131,7 +131,7 @@ export default function Navbar() {
                 key={link.href}
                 href={link.href}
                 onClick={handleLinkClick}
-                className={`block rounded-md px-4 py-2.5 text-sm font-medium transition-colors ${
+                className={`block rounded-md px-4 py-3 text-base font-medium transition-colors ${
                   active
                     ? 'text-cyan-400 bg-white/5'
                     : 'text-white/70 hover:text-white hover:bg-white/5'
