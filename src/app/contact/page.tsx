@@ -12,11 +12,9 @@ import { useState, use } from 'react';
 import Image from 'next/image';
 import {
   Send,
-  Mail,
-  MapPin,
-  Phone,
   CheckCircle2,
   Loader2,
+  MapPin,
 } from 'lucide-react';
 
 // ─── Brand SVG Icons ────────────────────────────────────────────────────────
@@ -96,11 +94,7 @@ const contactInfoItems: ContactInfoItem[] = [
     href: 'https://x.com/yourhandle',
     icon: TwitterIcon,
   },
-  {
-    label: 'Location',
-    value: 'Dhaka, Bangladesh',
-    icon: MapPin,
-  },
+
 ];
 
 // ─── Validation ──────────────────────────────────────────────────────────────
@@ -230,6 +224,27 @@ export default function ContactPage({ params, searchParams }: { params: Promise<
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
           {/* LEFT: Contact Info */}
           <div className="space-y-10">
+            {/* Google Map */}
+            <div className="overflow-hidden rounded-2xl border border-white/[0.03] backdrop-blur-xl">
+              <div className="relative w-full h-64 sm:h-72">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d233668.38703812057!2d90.2792399!3d23.7805733!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b8b087026b81%3A0x8fa563b5e21c8bda!2sDhaka%2C%20Bangladesh!5e0!3m2!1sen!2sbd!4v1700000000000!5m2!1sen!2sbd"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0, filter: 'invert(90%) hue-rotate(180deg) brightness(0.8) contrast(1.2)' }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="Location — Dhaka, Bangladesh"
+                  className="absolute inset-0"
+                />
+              </div>
+              <div className="flex items-center gap-3 px-5 py-3 border-t border-white/[0.03]">
+                <MapPin className="w-4 h-4 text-cyan-400" />
+                <span className="text-white/50 text-sm">Dhaka, Bangladesh</span>
+              </div>
+            </div>
+
             {/* Contact Info */}
             <div>
               <h2 className="text-h2 text-white mb-8">Contact Info</h2>
