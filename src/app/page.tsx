@@ -317,8 +317,8 @@ export default function Home({
         <div ref={cardsRef} className="mx-auto max-w-7xl space-y-8">
 
           {/* ── Tech Stack Marquee Slider ────────────────────────────────── */}
-          <div className="summary-card">
-            <div className="text-center mb-6">
+          <div className="summary-card py-10">
+            <div className="text-center mb-10">
               <h2 className="text-h2 text-white mb-2">
                 Tech <span className="gradient-text-cyan">Stack</span>
               </h2>
@@ -332,7 +332,7 @@ export default function Home({
               <div className="absolute right-0 top-0 bottom-0 w-32 z-10 pointer-events-none" style={{ background: 'linear-gradient(to left, #050510, transparent)' }} />
               {/* Scrolling track — doubled for seamless loop */}
               <div
-                className="flex gap-16 py-6"
+                className="flex gap-16 py-4"
                 style={{ animation: 'scroll 22s linear infinite' }}
               >
                 {[...techIcons, ...techIcons].map((tech, index) => (
@@ -354,6 +354,9 @@ export default function Home({
               </div>
             </div>
           </div>
+
+          {/* Spacer between marquee and About Me */}
+          <div className="h-4" />
 
           {/* About Summary */}
           <div className="summary-card rounded-2xl border border-white/[0.03] p-6 backdrop-blur-xl transition-all duration-300 hover:border-cyan-400/20 md:p-8">
