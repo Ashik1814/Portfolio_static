@@ -221,9 +221,9 @@ export default function ContactPage({ params, searchParams }: { params: Promise<
         </div>
 
         {/* ── Two-Column Layout ───────────────────────────────────────── */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
           {/* LEFT: Contact Info */}
-          <div className="space-y-10">
+          <div className="space-y-6">
             {/* Google Map */}
             <div className="overflow-hidden rounded-2xl border border-white/[0.03] backdrop-blur-xl">
               <div className="relative w-full h-64 sm:h-72">
@@ -247,31 +247,31 @@ export default function ContactPage({ params, searchParams }: { params: Promise<
 
             {/* Contact Info */}
             <div>
-              <h2 className="text-h2 text-white mb-8">Contact Info</h2>
-              <div className="space-y-4">
+              <h2 className="text-h2 text-white mb-5">Contact Info</h2>
+              <div className="space-y-3">
                 {contactInfoItems.map((item, index) => {
                   const Icon = item.icon;
                   return (
                     <div
                       key={index}
-                      className="flex items-center gap-6 border border-white/[0.03] rounded-2xl p-6 backdrop-blur-xl"
+                      className="flex items-center gap-4 border border-white/[0.03] rounded-xl p-4 backdrop-blur-xl"
                     >
-                      <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center">
-                        <Icon className="w-5 h-5 text-cyan-400" />
+                      <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center">
+                        <Icon className="w-4 h-4 text-cyan-400" />
                       </div>
                       <div>
-                        <p className="text-white/40 text-xs uppercase tracking-wider font-medium">
+                        <p className="text-white/40 text-[10px] uppercase tracking-wider font-medium">
                           {item.label}
                         </p>
                         {item.href ? (
                           <a
                             href={item.href}
-                            className="text-white text-base mt-0.5 hover:text-cyan-400 transition-colors"
+                            className="text-white text-sm mt-0.5 hover:text-cyan-400 transition-colors"
                           >
                             {item.value}
                           </a>
                         ) : (
-                          <p className="text-white text-base mt-0.5">{item.value}</p>
+                          <p className="text-white text-sm mt-0.5">{item.value}</p>
                         )}
                       </div>
                     </div>
@@ -282,8 +282,8 @@ export default function ContactPage({ params, searchParams }: { params: Promise<
           </div>
 
           {/* RIGHT: Contact Form */}
-          <div className="backdrop-blur-xl border border-white/[0.03] rounded-2xl p-6 sm:p-8">
-            <h2 className="text-h2 text-white mb-8">Send a Message</h2>
+          <div className="backdrop-blur-xl border border-white/[0.03] rounded-2xl p-5 sm:p-6">
+            <h2 className="text-h2 text-white mb-6">Send a Message</h2>
 
             {submissionState === 'success' ? (
               <div className="flex flex-col items-center justify-center py-16 gap-4">
