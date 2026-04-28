@@ -205,7 +205,7 @@ const imageGradientMap: Record<Project['accent'], string> = {
   purple: 'from-purple-900/80 via-purple-800/60 to-indigo-900/80',
   emerald: 'from-emerald-900/80 via-emerald-800/60 to-green-900/80',
   amber: 'from-amber-900/80 via-amber-800/60 to-orange-900/80',
-  rose: 'from-rose-900/80 via-rose-800/60 to-pink-900/80',
+  rose: 'from-rose-900/80 via-rose-800/60 to-red-900/80',
 };
 
 /** Glow effect on hover */

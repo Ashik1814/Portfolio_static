@@ -74,7 +74,7 @@ export default function Navbar() {
               <div
                 className="absolute inset-0 rounded-full animate-spin-fast"
                 style={{
-                  background: 'conic-gradient(from 0deg, #00e5ff, #a78bfa, #f472b6, #00e5ff)',
+                  background: 'conic-gradient(from 0deg, #00e5ff, #a78bfa, #2dd4bf, #00e5ff)',
                   padding: '2px',
                   WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
                   WebkitMaskComposite: 'xor',
@@ -93,10 +93,10 @@ export default function Navbar() {
               </div>
             </div>
             {/* Gradient animated text */}
-            <span className="text-xl font-bold bg-gradient-to-r from-primary via-purple-500 to-pink-500 bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient">
+            <span className="text-xl font-bold bg-gradient-to-r from-primary via-purple-500 to-teal-400 bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient">
               Portfolio
             </span>
-            <span className="text-xl font-bold bg-gradient-to-r from-primary via-purple-500 to-pink-500 bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient">.</span>
+            <span className="text-xl font-bold bg-gradient-to-r from-primary via-purple-500 to-teal-400 bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient">.</span>
           </Link>
 
           {/* Desktop Navigation Links */}

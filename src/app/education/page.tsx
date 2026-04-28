@@ -365,7 +365,7 @@ export default function EducationPage({ params, searchParams }: { params: Promis
             ═══════════════════════════════════════════════════════════════════ */}
         <div className="text-center mb-8">
           <h3 className="text-h3">
-            <span className="gradient-text-pink-blue">Relevant Coursework</span>
+            <span className="gradient-text-teal-blue">Relevant Coursework</span>
           </h3>
         </div>
 

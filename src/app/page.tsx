@@ -192,7 +192,7 @@ const imageGradientMap: Record<ProjectAccent, string> = {
   purple: 'from-purple-900/80 via-purple-800/60 to-indigo-900/80',
   emerald: 'from-emerald-900/80 via-emerald-800/60 to-green-900/80',
   amber: 'from-amber-900/80 via-amber-800/60 to-orange-900/80',
-  rose: 'from-rose-900/80 via-rose-800/60 to-pink-900/80',
+  rose: 'from-rose-900/80 via-rose-800/60 to-red-900/80',
 };
 
 /** Glow effect on hover */
@@ -287,7 +287,7 @@ export default function Home({
             UI/UX Designer &amp; Front-End Developer
           </span>
 
-          <h1 className="mb-8 text-h1 bg-gradient-to-r from-primary via-purple-500 to-pink-500 bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient">
+          <h1 className="mb-8 text-h1 bg-gradient-to-r from-primary via-purple-500 to-teal-400 bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient">
             Crafting Digital
             <br />
             Experiences
@@ -530,7 +530,7 @@ export default function Home({
           <div className="summary-card">
             <div className="text-center mb-8">
               <h2 className="text-h2 text-white mb-4">
-                Let&apos;s <span className="gradient-text-pink-blue">Connect</span>
+                Let&apos;s <span className="gradient-text-teal-blue">Connect</span>
               </h2>
             </div>
             <div className="max-w-2xl mx-auto">
