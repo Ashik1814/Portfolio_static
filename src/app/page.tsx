@@ -10,7 +10,7 @@
  *   - All buttons feature the animated traveling border glow effect
  */
 
-import { useEffect, useRef, use } from 'react';
+import React, { useEffect, useRef, use } from 'react';
 import gsap from 'gsap';
 import Image from 'next/image';
 
@@ -62,7 +62,7 @@ function TwitterIcon({ className }: { className?: string }) {
 interface TechIconData {
   name: string;
   color: string; // brand color shown on hover
-  svg: JSX.Element;
+  svg: React.ReactNode;
 }
 
 const techIcons: TechIconData[] = [

@@ -27,7 +27,7 @@
  *   • GPU-friendly: only position + color buffers updated per frame
  */
 
-import { useRef, useEffect, useCallback } from 'react';
+import React, { useRef, useEffect, useCallback } from 'react';
 import * as THREE from 'three';
 
 // ---------------------------------------------------------------------------
@@ -803,7 +803,7 @@ class AetherBackground {
  * Renders a fixed, full-viewport canvas behind all page content.
  * Supports mouse and touch events for the Gathering/Dropping interaction.
  */
-export default function AetherCanvas(): JSX.Element {
+export default function AetherCanvas(): React.ReactNode {
   const containerRef = useRef<HTMLDivElement>(null);
   const aetherRef = useRef<AetherBackground | null>(null);
 
