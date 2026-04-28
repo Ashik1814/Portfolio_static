@@ -324,47 +324,49 @@ export default function Home({
       {/* ═══════════════════════════════════════════════════════════════════
           SUMMARY CARDS — Brief previews linking to detail pages
           ═══════════════════════════════════════════════════════════════════ */}
+      {/* ── Tech Stack Marquee — Full viewport width ──────────────────── */}
+      <section className="py-10">
+        <div className="text-center mb-10 px-4">
+          <h2 className="text-h2 text-white mb-2">
+            Tech <span className="gradient-text-cyan">Stack</span>
+          </h2>
+          <p className="text-white/50 text-sm">Technologies I work with</p>
+        </div>
+        {/* Marquee container — full viewport width, no padding constraints */}
+        <div className="relative overflow-hidden w-screen"
+          style={{ marginLeft: 'calc(-50vw + 50%)' }}
+        >
+          {/* Left gradient fade */}
+          <div className="absolute left-0 top-0 bottom-0 w-32 z-10 pointer-events-none" style={{ background: 'linear-gradient(to right, #050510, transparent)' }} />
+          {/* Right gradient fade */}
+          <div className="absolute right-0 top-0 bottom-0 w-32 z-10 pointer-events-none" style={{ background: 'linear-gradient(to left, #050510, transparent)' }} />
+          {/* Scrolling track — doubled for seamless loop */}
+          <div
+            className="flex gap-16 py-4"
+            style={{ animation: 'scroll 22s linear infinite' }}
+          >
+            {[...techIcons, ...techIcons].map((tech, index) => (
+              <div
+                key={`${tech.name}-${index}`}
+                className="group/tech flex flex-col items-center gap-3 flex-shrink-0 cursor-default"
+              >
+                <div
+                  className="tech-icon [&>svg]:h-12 [&>svg]:w-12 transition-all duration-300"
+                  style={{ '--brand-color': tech.color } as React.CSSProperties}
+                >
+                  {tech.svg}
+                </div>
+                <span className="text-xs font-medium text-white/50 group-hover/tech:text-white transition-colors duration-300 whitespace-nowrap">
+                  {tech.name}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="px-4 py-20 sm:px-6 lg:px-8">
         <div ref={cardsRef} className="mx-auto max-w-7xl space-y-8">
-
-          {/* ── Tech Stack Marquee Slider ────────────────────────────────── */}
-          <div className="summary-card py-10">
-            <div className="text-center mb-10">
-              <h2 className="text-h2 text-white mb-2">
-                Tech <span className="gradient-text-cyan">Stack</span>
-              </h2>
-              <p className="text-white/50 text-sm">Technologies I work with</p>
-            </div>
-            {/* Marquee container with gradient fades */}
-            <div className="relative overflow-hidden">
-              {/* Left gradient fade */}
-              <div className="absolute left-0 top-0 bottom-0 w-32 z-10 pointer-events-none" style={{ background: 'linear-gradient(to right, #050510, transparent)' }} />
-              {/* Right gradient fade */}
-              <div className="absolute right-0 top-0 bottom-0 w-32 z-10 pointer-events-none" style={{ background: 'linear-gradient(to left, #050510, transparent)' }} />
-              {/* Scrolling track — doubled for seamless loop */}
-              <div
-                className="flex gap-16 py-4"
-                style={{ animation: 'scroll 22s linear infinite' }}
-              >
-                {[...techIcons, ...techIcons].map((tech, index) => (
-                  <div
-                    key={`${tech.name}-${index}`}
-                    className="group/tech flex flex-col items-center gap-3 flex-shrink-0 cursor-default"
-                  >
-                    <div
-                      className="tech-icon [&>svg]:h-12 [&>svg]:w-12 transition-all duration-300"
-                      style={{ '--brand-color': tech.color } as React.CSSProperties}
-                    >
-                      {tech.svg}
-                    </div>
-                    <span className="text-xs font-medium text-white/50 group-hover/tech:text-white transition-colors duration-300 whitespace-nowrap">
-                      {tech.name}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
 
           {/* Spacer between marquee and About Me */}
           <div className="h-4" />
