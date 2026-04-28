@@ -287,14 +287,14 @@ export default function WorldClock() {
         </div>
 
         {/* Timezone Selector */}
-        <div ref={dropRef} className="relative">
+        <div ref={dropRef} className="relative w-1/2 mx-auto">
           <button
             onClick={() => setDropdownOpen(!dropdownOpen)}
-            className="w-full flex items-center justify-between gap-2 px-3 py-2 rounded-xl border border-white/[0.06] bg-white/[0.02] hover:border-cyan-400/20 hover:bg-white/[0.04] transition-all duration-200 text-sm text-white/60 hover:text-white/80"
+            className="w-full flex items-center justify-between gap-2 px-3 py-1.5 rounded-xl border border-white/[0.06] bg-white/[0.02] hover:border-cyan-400/20 hover:bg-white/[0.04] transition-all duration-200 text-xs text-white/60 hover:text-white/80"
           >
             <span className="truncate">{currentTz.label}</span>
             <ChevronDown
-              className={`w-4 h-4 flex-shrink-0 transition-transform duration-200 ${dropdownOpen ? 'rotate-180' : ''}`}
+              className={`w-3 h-3 flex-shrink-0 transition-transform duration-200 ${dropdownOpen ? 'rotate-180' : ''}`}
             />
           </button>
 
