@@ -78,7 +78,7 @@ const CAMERA_LERP = 0.04;
 // ─── Gathering State Constants ──────────────────────────────────────────────
 
 /** Radius of the attraction force (world units) */
-const ATTRACTION_RADIUS = 8.0;
+const ATTRACTION_RADIUS = 4.0;
 
 /** How strongly particles are pulled toward the cursor */
 const ATTRACTION_STRENGTH = 0.12;
