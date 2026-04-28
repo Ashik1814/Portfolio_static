@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Menu, X } from 'lucide-react'
+import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 
 /** Navigation link definition for the multi-page portfolio */
@@ -65,10 +66,30 @@ export default function Navbar() {
           <Link
             href="/"
             onClick={handleLinkClick}
-            className="flex items-center gap-0.5 text-xl font-bold text-white transition-opacity hover:opacity-80"
+            className="flex items-center gap-2.5 transition-opacity hover:opacity-80"
           >
-            Portfolio
-            <span className="text-cyan-400">.</span>
+            {/* Auto-rotating profile icon */}
+            <div className="relative h-8 w-8 flex-shrink-0">
+              {/* Spinning gradient ring */}
+              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-primary via-purple-500 to-pink-500 animate-spin-slow" style={{ padding: '2px' }}>
+                <div className="h-full w-full rounded-full bg-black/80" />
+              </div>
+              {/* Profile image centered */}
+              <div className="absolute inset-[2px] rounded-full overflow-hidden">
+                <Image
+                  src="/profile.jpeg"
+                  alt=""
+                  width={28}
+                  height={28}
+                  className="h-full w-full object-cover"
+                />
+              </div>
+            </div>
+            {/* Gradient animated text */}
+            <span className="text-xl font-bold bg-gradient-to-r from-primary via-purple-500 to-pink-500 bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient">
+              Portfolio
+            </span>
+            <span className="text-xl font-bold bg-gradient-to-r from-primary via-purple-500 to-pink-500 bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient">.</span>
           </Link>
 
           {/* Desktop Navigation Links */}
