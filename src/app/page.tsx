@@ -127,17 +127,23 @@ interface FeaturedProject {
   liveUrl: string;
   sourceUrl: string;
   category: string;
+  /** Project thumbnail — place images in /public/projects/ */
+  image: string;
 }
+
+/** Default placeholder image — change per project as needed */
+const DEFAULT_PROJECT_IMAGE = '/projects/saas-marketing-website.png';
 
 const featuredProjects: FeaturedProject[] = [
   {
-    title: 'Nebula Dashboard',
-    description: 'A real-time analytics dashboard with 3D data visualization and interactive charts built with React and Three.js',
-    tags: ['React', 'Three.js', 'D3.js'],
+    title: 'SaaS Marketing Website',
+    description: 'A modern SaaS marketing website with clean layout, responsive design, and conversion-optimized sections built in Figma',
+    tags: ['Figma', 'React', 'Storybook'],
     accent: 'cyan',
-    liveUrl: '#',
+    liveUrl: 'https://www.figma.com/proto/nlwcSpHeYKiwCQUzfo9Wcj/SaaS-Marketing-Website?node-id=0-1&t=DLeOgzGDXqUjZUNZ-1',
     sourceUrl: '#',
-    category: 'Web Development',
+    category: 'UI/UX',
+    image: '/projects/saas-marketing-website.png',
   },
   {
     title: 'E-Commerce Platform',
@@ -147,6 +153,7 @@ const featuredProjects: FeaturedProject[] = [
     liveUrl: '#',
     sourceUrl: '#',
     category: 'Web Development',
+    image: DEFAULT_PROJECT_IMAGE,
   },
   {
     title: 'AI Content Studio',
@@ -156,6 +163,7 @@ const featuredProjects: FeaturedProject[] = [
     liveUrl: '#',
     sourceUrl: '#',
     category: 'Web Development',
+    image: DEFAULT_PROJECT_IMAGE,
   },
   {
     title: 'Healthcare App Redesign',
@@ -165,6 +173,7 @@ const featuredProjects: FeaturedProject[] = [
     liveUrl: '#',
     sourceUrl: '#',
     category: 'UI/UX',
+    image: DEFAULT_PROJECT_IMAGE,
   },
   {
     title: 'Fintech Mobile App',
@@ -174,6 +183,7 @@ const featuredProjects: FeaturedProject[] = [
     liveUrl: '#',
     sourceUrl: '#',
     category: 'UI/UX',
+    image: DEFAULT_PROJECT_IMAGE,
   },
   {
     title: 'EdTech Learning Portal',
@@ -183,6 +193,7 @@ const featuredProjects: FeaturedProject[] = [
     liveUrl: '#',
     sourceUrl: '#',
     category: 'UI/UX',
+    image: DEFAULT_PROJECT_IMAGE,
   },
 ];
 
@@ -413,21 +424,17 @@ export default function Home({
                     key={project.title}
                     className={`group/card relative overflow-hidden rounded-2xl border border-white/[0.03] backdrop-blur-xl transition-all duration-300 hover:scale-[1.02] hover:border-cyan-400/20 ${glowMap[project.accent]}`}
                   >
-                    {/* Project Image / Visual Header */}
-                    <div
-                      className={`relative h-48 bg-gradient-to-br ${imageGradientMap[project.accent]} overflow-hidden`}
-                    >
-                      {/* Grid pattern overlay */}
-                      <div
-                        className="absolute inset-0 opacity-20"
-                        style={{
-                          backgroundImage:
-                            'linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.06) 1px, transparent 1px)',
-                          backgroundSize: '32px 32px',
-                        }}
+                    {/* Project Image */}
+                    <div className="relative h-48 overflow-hidden">
+                      <Image
+                        src={project.image}
+                        alt={project.title}
+                        fill
+                        className="object-cover object-top transition-transform duration-500 group-hover/card:scale-105"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                       />
-                      {/* Radial glow */}
-                      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.08),transparent_70%)]" />
+                      {/* Subtle gradient overlay for readability */}
+                      <div className={`absolute inset-0 bg-gradient-to-br ${imageGradientMap[project.accent]} opacity-30`} />
 
                       {/* Category badge */}
                       <span className="absolute left-4 top-4 rounded-full bg-black/40 px-3 py-1 text-xs font-medium text-white/80 backdrop-blur-sm">
