@@ -278,28 +278,20 @@ export default function Home({
       <section className="relative flex min-h-screen items-center justify-center overflow-hidden">
         {/* Content overlay — pt-20 ensures profile image clears the fixed navbar */}
         <div className="relative z-10 flex flex-col items-center px-4 pt-20 text-center w-full">
-          {/* Hero top row: Profile + Clock side by side on lg */}
-          <div className="flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-16 w-full max-w-4xl mb-8">
-            {/* Profile Image */}
-            <div className="relative flex items-center justify-center">
-              <div className="h-64 w-64 rounded-full overflow-hidden border-2 border-cyan-400/30 shadow-[0_0_60px_rgba(0,212,255,0.25)]">
-                <Image
-                  src="/profile.jpeg"
-                  alt="Alex Chen — UI/UX Designer & Front-End Developer"
-                  width={256}
-                  height={256}
-                  className="h-full w-full object-cover"
-                  priority
-                />
-              </div>
-              {/* Glow ring */}
-              <div className="absolute inset-0 rounded-full border border-cyan-400/10 scale-110" />
+          {/* Profile Image */}
+          <div className="mb-10 relative flex items-center justify-center">
+            <div className="h-64 w-64 rounded-full overflow-hidden border-2 border-cyan-400/30 shadow-[0_0_60px_rgba(0,212,255,0.25)]">
+              <Image
+                src="/profile.jpeg"
+                alt="Alex Chen — UI/UX Designer & Front-End Developer"
+                width={256}
+                height={256}
+                className="h-full w-full object-cover"
+                priority
+              />
             </div>
-
-            {/* World Clock */}
-            <div className="w-full max-w-xs">
-              <WorldClock />
-            </div>
+            {/* Glow ring */}
+            <div className="absolute inset-0 rounded-full border border-cyan-400/10 scale-110" />
           </div>
 
           <span className="mb-8 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-sm text-cyan-400 backdrop-blur-sm">
@@ -377,8 +369,10 @@ export default function Home({
       <section className="px-4 py-20 sm:px-6 lg:px-8">
         <div ref={cardsRef} className="mx-auto max-w-7xl space-y-8">
 
-          {/* Spacer between marquee and About Me */}
-          <div className="h-4" />
+          {/* World Clock */}
+          <div className="summary-card flex justify-center">
+            <WorldClock />
+          </div>
 
           {/* About Summary */}
           <div className="summary-card rounded-2xl border border-white/[0.03] p-6 backdrop-blur-xl transition-all duration-300 hover:border-cyan-400/20 md:p-8">
