@@ -162,12 +162,12 @@ export default function WorldClock() {
 
         {/* Analog Clock SVG — centered */}
         <div className="relative mx-auto w-36 h-36 mb-3">
-          {/* Outer glow ring — same size as profile image (w-64 h-64) */}
+          {/* Outer glow ring */}
           <div
-            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 rounded-full opacity-30"
+            className="absolute inset-0 rounded-full opacity-30"
             style={{
-              background: `conic-gradient(from 0deg, transparent, ${day ? 'rgba(0,229,255,0.2)' : 'rgba(167,139,250,0.2)'}, transparent)`,
-              filter: 'blur(8px)',
+              background: `conic-gradient(from 0deg, transparent, ${day ? 'rgba(0,229,255,0.15)' : 'rgba(167,139,250,0.15)'}, transparent)`,
+              filter: 'blur(2px)',
             }}
           />
 
