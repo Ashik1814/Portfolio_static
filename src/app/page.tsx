@@ -146,14 +146,14 @@ const featuredProjects: FeaturedProject[] = [
     image: '/projects/saas-marketing-website.png',
   },
   {
-    title: 'E-Commerce Platform',
-    description: 'Full-stack e-commerce solution with seamless checkout, inventory management, and integrated payments.',
-    tags: ['React', 'Node.js', 'MongoDB'],
+    title: 'Alchemist.io — Portfolio',
+    description: 'A cinematic portfolio website with 3D particle physics, glassmorphism UI, and gravity-manipulation interaction built with Next.js and Three.js',
+    tags: ['Next.js', 'Three.js', 'TypeScript'],
     accent: 'purple',
-    liveUrl: '#',
+    liveUrl: 'https://alchemist-io.vercel.app/',
     sourceUrl: '#',
     category: 'Web Development',
-    image: DEFAULT_PROJECT_IMAGE,
+    image: '/projects/alchemist-io.png',
   },
   {
     title: 'AI Content Studio',
@@ -325,7 +325,7 @@ export default function Home({
           SUMMARY CARDS — Brief previews linking to detail pages
           ═══════════════════════════════════════════════════════════════════ */}
       {/* ── Tech Stack Marquee — Full viewport width ──────────────────── */}
-      <section className="py-10">
+      <section className="py-10 overflow-x-clip">
         <div className="text-center mb-10 px-4">
           <h2 className="text-h2 text-white mb-2">
             Tech <span className="gradient-text-cyan">Stack</span>
@@ -333,7 +333,7 @@ export default function Home({
           <p className="text-white/50 text-sm">Technologies I work with</p>
         </div>
         {/* Marquee container — full viewport width, no padding constraints */}
-        <div className="relative overflow-hidden w-screen"
+        <div className="relative overflow-hidden w-[100vw]"
           style={{ marginLeft: 'calc(-50vw + 50%)' }}
         >
           {/* Left gradient fade */}
