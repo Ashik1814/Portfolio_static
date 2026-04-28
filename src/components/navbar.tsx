@@ -70,10 +70,17 @@ export default function Navbar() {
           >
             {/* Auto-rotating profile icon */}
             <div className="relative h-8 w-8 flex-shrink-0">
-              {/* Spinning gradient ring */}
-              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-primary via-purple-500 to-pink-500 animate-spin-slow" style={{ padding: '2px' }}>
-                <div className="h-full w-full rounded-full bg-black/80" />
-              </div>
+              {/* Spinning conic-gradient ring */}
+              <div
+                className="absolute inset-0 rounded-full animate-spin-fast"
+                style={{
+                  background: 'conic-gradient(from 0deg, #00e5ff, #a78bfa, #f472b6, #00e5ff)',
+                  padding: '2px',
+                  WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+                  WebkitMaskComposite: 'xor',
+                  maskComposite: 'exclude',
+                }}
+              />
               {/* Profile image centered */}
               <div className="absolute inset-[2px] rounded-full overflow-hidden">
                 <Image
