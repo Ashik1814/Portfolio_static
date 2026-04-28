@@ -35,7 +35,7 @@ import * as THREE from 'three';
 // ---------------------------------------------------------------------------
 
 /** Number of aether particles — single draw call */
-const PARTICLE_COUNT = 5000;
+const PARTICLE_COUNT = 2500;
 
 /** Spatial spread of the particle cloud */
 const PARTICLE_SPREAD_X = 30;
