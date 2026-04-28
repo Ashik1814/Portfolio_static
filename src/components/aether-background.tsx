@@ -95,10 +95,10 @@ const SIZE_GROW_SPEED = 0.08;
 // ─── Dropping State Constants ───────────────────────────────────────────────
 
 /** Downward acceleration (simulated gravity) */
-const GRAVITY_CONSTANT = 0.008;
+const GRAVITY_CONSTANT = 0.015;
 
 /** Initial downward velocity when dropping begins */
-const DROP_INITIAL_VELOCITY = 0.04;
+const DROP_INITIAL_VELOCITY = 0.08;
 
 /** Horizontal drift randomness during fall */
 const DROP_HORIZONTAL_DRIFT = 0.003;
@@ -110,18 +110,18 @@ const DROP_DAMPING = 0.998;
 const SIZE_SHRINK_SPEED = 0.04;
 
 /** How far below the viewport bottom a particle must go before resetting */
-const RESET_BELOW_Y = -10;
+const RESET_BELOW_Y = -7;
 
 /** Fade-out speed for particles falling below the viewport */
-const FADE_SPEED = 0.04;
+const FADE_SPEED = 0.08;
 
 // ─── Restoration Constants ──────────────────────────────────────────────────
 
 /** How quickly a particle lerps back to its original position after reset */
-const RESTORE_LERP_SPEED = 0.12;
+const RESTORE_LERP_SPEED = 0.25;
 
 /** How quickly the particle fades back in after reset */
-const FADE_IN_SPEED = 0.08;
+const FADE_IN_SPEED = 0.15;
 
 // ─── Color Palette ──────────────────────────────────────────────────────────
 
@@ -727,15 +727,15 @@ class AetherBackground {
           posArray[i3 + 2] = this.positions[i3 + 2];
 
           // Restore color
-          colorArray[i3] = this.lerp(colorArray[i3], this.baseColors[i3], 0.1);
-          colorArray[i3 + 1] = this.lerp(colorArray[i3 + 1], this.baseColors[i3 + 1], 0.1);
-          colorArray[i3 + 2] = this.lerp(colorArray[i3 + 2], this.baseColors[i3 + 2], 0.1);
+          colorArray[i3] = this.lerp(colorArray[i3], this.baseColors[i3], 0.2);
+          colorArray[i3 + 1] = this.lerp(colorArray[i3 + 1], this.baseColors[i3 + 1], 0.2);
+          colorArray[i3 + 2] = this.lerp(colorArray[i3 + 2], this.baseColors[i3 + 2], 0.2);
 
           // Restore size
-          this.sizes[i] = this.lerp(this.sizes[i], PARTICLE_SIZE_IDLE, 0.1);
+          this.sizes[i] = this.lerp(this.sizes[i], PARTICLE_SIZE_IDLE, 0.2);
 
           // Transition to IDLE once mostly faded in
-          if (this.alphas[i] >= 0.85) {
+          if (this.alphas[i] >= 0.7) {
             this.alphas[i] = 1.0;
             this.states[i] = ParticleState.IDLE;
           }
