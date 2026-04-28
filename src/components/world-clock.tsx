@@ -128,7 +128,7 @@ export default function WorldClock() {
 
   if (!mounted) {
     return (
-      <div className="w-full max-w-lg mx-auto opacity-0">
+      <div className="w-full max-w-md mx-auto opacity-0">
         {/* Placeholder to prevent layout shift */}
       </div>
     );
@@ -149,182 +149,177 @@ export default function WorldClock() {
   const timeStr = `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
 
   return (
-    <div className="w-full max-w-lg mx-auto">
+    <div className="w-full max-w-md mx-auto">
       <div className="rounded-2xl border border-white/[0.03] backdrop-blur-xl bg-white/[0.02] p-5 transition-all duration-300 hover:border-cyan-400/15 hover:shadow-[0_0_40px_-10px_rgba(0,229,255,0.08)]">
-        <div className="flex items-center gap-6">
 
-          {/* Analog Clock SVG — left side */}
-          <div className="relative flex-shrink-0 w-32 h-32">
-            {/* Outer glow ring */}
-            <div
-              className="absolute inset-0 rounded-full opacity-30"
-              style={{
-                background: `conic-gradient(from 0deg, transparent, ${day ? 'rgba(0,229,255,0.15)' : 'rgba(167,139,250,0.15)'}, transparent)`,
-                filter: 'blur(2px)',
-              }}
+        {/* Greeting + Date */}
+        <div className="text-center mb-3">
+          <h3 className="text-lg font-semibold text-white/80 flex items-center justify-center gap-2">
+            {greeting.emoji} {greeting.text}
+          </h3>
+          <p className="text-white/30 text-xs mt-1">{dateStr}</p>
+        </div>
+
+        {/* Analog Clock SVG — centered */}
+        <div className="relative mx-auto w-36 h-36 mb-3">
+          {/* Outer glow ring */}
+          <div
+            className="absolute inset-0 rounded-full opacity-30"
+            style={{
+              background: `conic-gradient(from 0deg, transparent, ${day ? 'rgba(0,229,255,0.15)' : 'rgba(167,139,250,0.15)'}, transparent)`,
+              filter: 'blur(2px)',
+            }}
+          />
+
+          <svg viewBox="0 0 200 200" className="w-full h-full">
+            {/* Clock face background */}
+            <circle
+              cx="100" cy="100" r="94"
+              fill="rgba(5,5,16,0.8)"
+              stroke="rgba(255,255,255,0.06)"
+              strokeWidth="1"
             />
 
-            <svg viewBox="0 0 200 200" className="w-full h-full">
-              {/* Clock face background */}
-              <circle
-                cx="100" cy="100" r="94"
-                fill="rgba(5,5,16,0.8)"
-                stroke="rgba(255,255,255,0.06)"
-                strokeWidth="1"
-              />
-
-              {/* Hour tick marks */}
-              {Array.from({ length: 12 }).map((_, i) => {
-                const angle = (i * 30 - 90) * (Math.PI / 180);
-                const outerR = 86;
-                const innerR = 76;
-                return (
-                  <line
-                    key={`h-${i}`}
-                    x1={100 + Math.cos(angle) * innerR}
-                    y1={100 + Math.sin(angle) * innerR}
-                    x2={100 + Math.cos(angle) * outerR}
-                    y2={100 + Math.sin(angle) * outerR}
-                    stroke="rgba(0,229,255,0.4)"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                  />
-                );
-              })}
-
-              {/* Minute tick marks */}
-              {Array.from({ length: 60 }).map((_, i) => {
-                if (i % 5 === 0) return null;
-                const angle = (i * 6 - 90) * (Math.PI / 180);
-                const outerR = 86;
-                const innerR = 82;
-                return (
-                  <line
-                    key={`m-${i}`}
-                    x1={100 + Math.cos(angle) * innerR}
-                    y1={100 + Math.sin(angle) * innerR}
-                    x2={100 + Math.cos(angle) * outerR}
-                    y2={100 + Math.sin(angle) * outerR}
-                    stroke="rgba(255,255,255,0.1)"
-                    strokeWidth="1"
-                    strokeLinecap="round"
-                  />
-                );
-              })}
-
-              {/* Hour hand */}
-              <line
-                x1="100" y1="100"
-                x2={100 + Math.cos((hourDeg - 90) * (Math.PI / 180)) * 50}
-                y2={100 + Math.sin((hourDeg - 90) * (Math.PI / 180)) * 50}
-                stroke="#00e5ff"
-                strokeWidth="3.5"
-                strokeLinecap="round"
-                style={{ filter: 'drop-shadow(0 0 4px rgba(0,229,255,0.6))' }}
-              />
-
-              {/* Minute hand */}
-              <line
-                x1="100" y1="100"
-                x2={100 + Math.cos((minDeg - 90) * (Math.PI / 180)) * 68}
-                y2={100 + Math.sin((minDeg - 90) * (Math.PI / 180)) * 68}
-                stroke="#a78bfa"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                style={{ filter: 'drop-shadow(0 0 4px rgba(167,139,250,0.6))' }}
-              />
-
-              {/* Second hand */}
-              <line
-                x1={100 - Math.cos((secDeg - 90) * (Math.PI / 180)) * 15}
-                y1={100 - Math.sin((secDeg - 90) * (Math.PI / 180)) * 15}
-                x2={100 + Math.cos((secDeg - 90) * (Math.PI / 180)) * 75}
-                y2={100 + Math.sin((secDeg - 90) * (Math.PI / 180)) * 75}
-                stroke="#2dd4bf"
-                strokeWidth="1.2"
-                strokeLinecap="round"
-                style={{ filter: 'drop-shadow(0 0 6px rgba(45,212,191,0.8))' }}
-              />
-
-              {/* Center dot */}
-              <circle cx="100" cy="100" r="4" fill="#2dd4bf" style={{ filter: 'drop-shadow(0 0 6px rgba(45,212,191,0.8))' }} />
-              <circle cx="100" cy="100" r="2" fill="#050510" />
-            </svg>
-          </div>
-
-          {/* Info — right side */}
-          <div className="flex-1 min-w-0">
-            {/* Greeting */}
-            <div className="mb-2">
-              <h3 className="text-base font-semibold text-white/80 flex items-center gap-2">
-                {greeting.emoji} {greeting.text}
-              </h3>
-              <p className="text-white/30 text-xs mt-0.5">{dateStr}</p>
-            </div>
-
-            {/* Digital Time */}
-            <div className="mb-2">
-              <p
-                className="text-2xl font-mono font-bold tracking-wider"
-                style={{
-                  background: 'linear-gradient(135deg, #00e5ff, #a78bfa, #2dd4bf)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text',
-                }}
-              >
-                {timeStr}
-              </p>
-            </div>
-
-            {/* Day/Night + City row */}
-            <div className="flex items-center gap-3 mb-3">
-              <span className="text-xs text-white/40 flex items-center gap-1">
-                {day ? '\u2600\uFE0F Day' : '\uD83C\uDF19 Night'}
-              </span>
-              <span className="w-1 h-1 rounded-full bg-white/20" />
-              <span className="text-xs text-white/40 flex items-center gap-1">
-                <Clock className="w-3 h-3" />
-                {currentTz.city}
-              </span>
-            </div>
-
-            {/* Timezone Selector */}
-            <div ref={dropRef} className="relative">
-              <button
-                onClick={() => setDropdownOpen(!dropdownOpen)}
-                className="w-full flex items-center justify-between gap-2 px-3 py-1.5 rounded-xl border border-white/[0.06] bg-white/[0.02] hover:border-cyan-400/20 hover:bg-white/[0.04] transition-all duration-200 text-sm text-white/60 hover:text-white/80"
-              >
-                <span className="truncate">{currentTz.label}</span>
-                <ChevronDown
-                  className={`w-4 h-4 flex-shrink-0 transition-transform duration-200 ${dropdownOpen ? 'rotate-180' : ''}`}
+            {/* Hour tick marks */}
+            {Array.from({ length: 12 }).map((_, i) => {
+              const angle = (i * 30 - 90) * (Math.PI / 180);
+              const outerR = 86;
+              const innerR = 76;
+              return (
+                <line
+                  key={`h-${i}`}
+                  x1={100 + Math.cos(angle) * innerR}
+                  y1={100 + Math.sin(angle) * innerR}
+                  x2={100 + Math.cos(angle) * outerR}
+                  y2={100 + Math.sin(angle) * outerR}
+                  stroke="rgba(0,229,255,0.4)"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
                 />
-              </button>
+              );
+            })}
 
-              {/* Dropdown */}
-              {dropdownOpen && (
-                <div className="absolute bottom-full left-0 right-0 mb-2 max-h-48 overflow-y-auto rounded-xl border border-white/[0.06] bg-[#0a0a1a]/95 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.6)] z-50">
-                  {timezones.map((tz) => (
-                    <button
-                      key={tz.value}
-                      onClick={() => {
-                        setSelectedTz(tz.value);
-                        setDropdownOpen(false);
-                      }}
-                      className={`w-full text-left px-4 py-2 text-sm transition-all duration-150 hover:bg-white/[0.05] ${
-                        tz.value === selectedTz
-                          ? 'text-cyan-400 bg-cyan-400/5'
-                          : 'text-white/50 hover:text-white/80'
-                      }`}
-                    >
-                      <span className="font-medium">{tz.city}</span>
-                      <span className="ml-2 text-white/30 text-xs">{tz.offset}</span>
-                    </button>
-                  ))}
-                </div>
-              )}
+            {/* Minute tick marks */}
+            {Array.from({ length: 60 }).map((_, i) => {
+              if (i % 5 === 0) return null;
+              const angle = (i * 6 - 90) * (Math.PI / 180);
+              const outerR = 86;
+              const innerR = 82;
+              return (
+                <line
+                  key={`m-${i}`}
+                  x1={100 + Math.cos(angle) * innerR}
+                  y1={100 + Math.sin(angle) * innerR}
+                  x2={100 + Math.cos(angle) * outerR}
+                  y2={100 + Math.sin(angle) * outerR}
+                  stroke="rgba(255,255,255,0.1)"
+                  strokeWidth="1"
+                  strokeLinecap="round"
+                />
+              );
+            })}
+
+            {/* Hour hand */}
+            <line
+              x1="100" y1="100"
+              x2={100 + Math.cos((hourDeg - 90) * (Math.PI / 180)) * 50}
+              y2={100 + Math.sin((hourDeg - 90) * (Math.PI / 180)) * 50}
+              stroke="#00e5ff"
+              strokeWidth="3.5"
+              strokeLinecap="round"
+              style={{ filter: 'drop-shadow(0 0 4px rgba(0,229,255,0.6))' }}
+            />
+
+            {/* Minute hand */}
+            <line
+              x1="100" y1="100"
+              x2={100 + Math.cos((minDeg - 90) * (Math.PI / 180)) * 68}
+              y2={100 + Math.sin((minDeg - 90) * (Math.PI / 180)) * 68}
+              stroke="#a78bfa"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              style={{ filter: 'drop-shadow(0 0 4px rgba(167,139,250,0.6))' }}
+            />
+
+            {/* Second hand */}
+            <line
+              x1={100 - Math.cos((secDeg - 90) * (Math.PI / 180)) * 15}
+              y1={100 - Math.sin((secDeg - 90) * (Math.PI / 180)) * 15}
+              x2={100 + Math.cos((secDeg - 90) * (Math.PI / 180)) * 75}
+              y2={100 + Math.sin((secDeg - 90) * (Math.PI / 180)) * 75}
+              stroke="#2dd4bf"
+              strokeWidth="1.2"
+              strokeLinecap="round"
+              style={{ filter: 'drop-shadow(0 0 6px rgba(45,212,191,0.8))' }}
+            />
+
+            {/* Center dot */}
+            <circle cx="100" cy="100" r="4" fill="#2dd4bf" style={{ filter: 'drop-shadow(0 0 6px rgba(45,212,191,0.8))' }} />
+            <circle cx="100" cy="100" r="2" fill="#050510" />
+          </svg>
+        </div>
+
+        {/* Digital Time */}
+        <div className="text-center mb-2">
+          <p
+            className="text-3xl font-mono font-bold tracking-wider"
+            style={{
+              background: 'linear-gradient(135deg, #00e5ff, #a78bfa, #2dd4bf)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+            }}
+          >
+            {timeStr}
+          </p>
+        </div>
+
+        {/* Day/Night + City row */}
+        <div className="flex items-center justify-center gap-3 mb-3">
+          <span className="text-xs text-white/40 flex items-center gap-1">
+            {day ? '\u2600\uFE0F Day' : '\uD83C\uDF19 Night'}
+          </span>
+          <span className="w-1 h-1 rounded-full bg-white/20" />
+          <span className="text-xs text-white/40 flex items-center gap-1">
+            <Clock className="w-3 h-3" />
+            {currentTz.city}
+          </span>
+        </div>
+
+        {/* Timezone Selector */}
+        <div ref={dropRef} className="relative">
+          <button
+            onClick={() => setDropdownOpen(!dropdownOpen)}
+            className="w-full flex items-center justify-between gap-2 px-3 py-2 rounded-xl border border-white/[0.06] bg-white/[0.02] hover:border-cyan-400/20 hover:bg-white/[0.04] transition-all duration-200 text-sm text-white/60 hover:text-white/80"
+          >
+            <span className="truncate">{currentTz.label}</span>
+            <ChevronDown
+              className={`w-4 h-4 flex-shrink-0 transition-transform duration-200 ${dropdownOpen ? 'rotate-180' : ''}`}
+            />
+          </button>
+
+          {/* Dropdown */}
+          {dropdownOpen && (
+            <div className="absolute bottom-full left-0 right-0 mb-2 max-h-52 overflow-y-auto rounded-xl border border-white/[0.06] bg-[#0a0a1a]/95 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.6)] z-50">
+              {timezones.map((tz) => (
+                <button
+                  key={tz.value}
+                  onClick={() => {
+                    setSelectedTz(tz.value);
+                    setDropdownOpen(false);
+                  }}
+                  className={`w-full text-left px-4 py-2.5 text-sm transition-all duration-150 hover:bg-white/[0.05] ${
+                    tz.value === selectedTz
+                      ? 'text-cyan-400 bg-cyan-400/5'
+                      : 'text-white/50 hover:text-white/80'
+                  }`}
+                >
+                  <span className="font-medium">{tz.city}</span>
+                  <span className="ml-2 text-white/30 text-xs">{tz.offset}</span>
+                </button>
+              ))}
             </div>
-          </div>
+          )}
         </div>
       </div>
     </div>
