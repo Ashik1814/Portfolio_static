@@ -164,10 +164,11 @@ export default function WorldClock() {
         <div className="relative mx-auto w-36 h-36 mb-3">
           {/* Outer glow ring */}
           <div
-            className="absolute inset-0 rounded-full opacity-30"
+            className="absolute rounded-full opacity-30"
             style={{
-              background: `conic-gradient(from 0deg, transparent, ${day ? 'rgba(0,229,255,0.15)' : 'rgba(167,139,250,0.15)'}, transparent)`,
-              filter: 'blur(2px)',
+              inset: '-20%',
+              background: `conic-gradient(from 0deg, transparent, ${day ? 'rgba(0,229,255,0.2)' : 'rgba(167,139,250,0.2)'}, transparent)`,
+              filter: 'blur(8px)',
             }}
           />
 
