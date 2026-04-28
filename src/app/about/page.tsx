@@ -64,6 +64,10 @@ const technologies = [
   'Node.js',
 ];
 
+const currentlyLearning = [
+  'n8n Automation',
+];
+
 const coreValues = [
   {
     icon: User,
@@ -259,6 +263,23 @@ export default function AboutPage({
             <span
               key={tech}
               className="px-4 py-2 rounded-full text-sm font-medium border border-white/[0.03] bg-white/[0.02] backdrop-blur-xl text-white/50 hover:text-[#00e5ff] hover:border-[#00e5ff]/20 transition-all duration-200"
+            >
+              {tech}
+            </span>
+          ))}
+        </div>
+
+        {/* ── Currently Learning ───────────────────────────────────────── */}
+        <div className="text-center mb-6">
+          <h3 className="text-lg font-semibold text-white/60">
+            Currently Learning
+          </h3>
+        </div>
+        <div className="flex flex-wrap justify-center gap-3 mb-16">
+          {currentlyLearning.map((tech) => (
+            <span
+              key={tech}
+              className="px-4 py-2 rounded-full text-sm font-medium border border-purple-400/20 bg-purple-500/5 backdrop-blur-xl text-purple-300 hover:text-purple-200 hover:border-purple-400/30 transition-all duration-200"
             >
               {tech}
             </span>
