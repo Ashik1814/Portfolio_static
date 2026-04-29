@@ -224,6 +224,7 @@ const additionalTech = [
 const currentlyLearning = [
   { name: 'Web3 & Blockchain', icon: Shield },
   { name: 'Advanced AI Integration', icon: Bot },
+  { name: 'n8n Workflow Automation', icon: N8nIcon },
 ];
 
 // ─── Page Component ───────────────────────────────────────────────────────────

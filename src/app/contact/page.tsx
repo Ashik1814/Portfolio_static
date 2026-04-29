@@ -16,6 +16,10 @@ import {
   CheckCircle2,
   Loader2,
   MapPin,
+  Github,
+  Linkedin,
+  Youtube,
+  Facebook,
 } from 'lucide-react';
 
 // ─── Brand SVG Icons ────────────────────────────────────────────────────────
@@ -36,17 +40,11 @@ function WhatsAppIcon({ className }: { className?: string }) {
   );
 }
 
-function TwitterIcon({ className }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="currentColor">
-      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-    </svg>
-  );
-}
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
+import { contactUrls, contactValues } from '@/lib/contact-links';
 import AnimatedBorderButton from '@/components/ui/animated-border-button';
 
 // ─── Type Definitions ────────────────────────────────────────────────────────
@@ -79,23 +77,40 @@ type SubmissionState = 'idle' | 'loading' | 'success' | 'error';
 const contactInfoItems: ContactInfoItem[] = [
   {
     label: 'Gmail',
-    value: 'ashikurahmanashik1814@gmail.com',
-    href: 'mailto:ashikurahmanashik1814@gmail.com',
+    value: contactValues.gmail,
+    href: contactUrls.gmail,
     icon: GmailIcon,
   },
   {
     label: 'WhatsApp',
-    value: '+880 1755718668',
-    href: 'https://wa.me/8801755718668',
+    value: contactValues.whatsapp,
+    href: contactUrls.whatsapp,
     icon: WhatsAppIcon,
   },
   {
-    label: 'Twitter',
-    value: '@yourhandle',
-    href: 'https://x.com/yourhandle',
-    icon: TwitterIcon,
+    label: 'GitHub',
+    value: contactValues.github,
+    href: contactUrls.github,
+    icon: Github,
   },
-
+  {
+    label: 'LinkedIn',
+    value: contactValues.linkedin,
+    href: contactUrls.linkedin,
+    icon: Linkedin,
+  },
+  {
+    label: 'YouTube',
+    value: contactValues.youtube,
+    href: contactUrls.youtube,
+    icon: Youtube,
+  },
+  {
+    label: 'Facebook',
+    value: contactValues.facebook,
+    href: contactUrls.facebook,
+    icon: Facebook,
+  },
 ];
 
 // ─── Validation ──────────────────────────────────────────────────────────────

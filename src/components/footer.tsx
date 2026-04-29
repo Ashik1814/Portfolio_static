@@ -9,6 +9,7 @@ import {
   Facebook,
   FlaskConical,
 } from 'lucide-react';
+import { contactUrls } from '@/lib/contact-links';
 
 // ─── Brand SVG Icons ────────────────────────────────────────────────────────
 
@@ -28,14 +29,6 @@ function WhatsAppIcon({ className }: { className?: string }) {
   );
 }
 
-function TwitterIcon({ className }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="currentColor">
-      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-    </svg>
-  );
-}
-
 // ─── Navigation links for Quick Links section ──────────────────────────────
 
 const quickLinks = [
@@ -50,13 +43,12 @@ const quickLinks = [
 // ─── Social links for Connect section ──────────────────────────────────────
 
 const socialLinks = [
-  { href: 'mailto:alex@portfolio.dev', icon: GmailIcon, label: 'Gmail' },
-  { href: 'https://wa.me/8801XXXXXXXXX', icon: WhatsAppIcon, label: 'WhatsApp' },
-  { href: 'https://x.com/yourhandle', icon: TwitterIcon, label: 'Twitter' },
-  { href: 'https://github.com', icon: Github, label: 'GitHub' },
-  { href: 'https://linkedin.com', icon: Linkedin, label: 'LinkedIn' },
-  { href: 'https://youtube.com', icon: Youtube, label: 'YouTube' },
-  { href: 'https://facebook.com', icon: Facebook, label: 'Facebook' },
+  { href: contactUrls.gmail, icon: GmailIcon, label: 'Gmail' },
+  { href: contactUrls.whatsapp, icon: WhatsAppIcon, label: 'WhatsApp' },
+  { href: contactUrls.github, icon: Github, label: 'GitHub' },
+  { href: contactUrls.linkedin, icon: Linkedin, label: 'LinkedIn' },
+  { href: contactUrls.youtube, icon: Youtube, label: 'YouTube' },
+  { href: contactUrls.facebook, icon: Facebook, label: 'Facebook' },
 ];
 
 // ─── Footer Component ──────────────────────────────────────────────────────
