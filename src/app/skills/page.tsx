@@ -8,6 +8,7 @@
  * Uses glassmorphism transparent cards — no conic gradients.
  */
 
+
 import { use } from 'react';
 import {
   Cog,
@@ -227,9 +228,7 @@ const currentlyLearning = [
 
 // ─── Page Component ───────────────────────────────────────────────────────────
 
-export default function SkillsPage({ params, searchParams }: { params: Promise<Record<string, string | string[]>>; searchParams: Promise<Record<string, string | string[] | undefined>> }) {
-  use(params);
-  use(searchParams);
+export default function SkillsPage() {
 
   return (
     <main className="min-h-screen py-20 px-4 sm:px-6 lg:px-8">

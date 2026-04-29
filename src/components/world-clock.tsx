@@ -150,18 +150,18 @@ export default function WorldClock() {
 
   return (
     <div className="w-full max-w-md mx-auto">
-      <div className="rounded-2xl border border-white/[0.03] backdrop-blur-xl bg-white/[0.02] p-5 transition-all duration-300 hover:border-cyan-400/15 hover:shadow-[0_0_40px_-10px_rgba(0,229,255,0.08)]">
+      <div className="rounded-2xl p-6">
 
         {/* Greeting + Date */}
-        <div className="text-center mb-3">
-          <h3 className="text-lg font-semibold text-white/80 flex items-center justify-center gap-2">
+        <div className="text-center mb-4">
+          <h3 className="text-xl font-semibold text-white/80 flex items-center justify-center gap-2">
             {greeting.emoji} {greeting.text}
           </h3>
           <p className="text-white/30 text-xs mt-1">{dateStr}</p>
         </div>
 
         {/* Analog Clock SVG — centered */}
-        <div className="relative mx-auto w-36 h-36 mb-3">
+        <div className="relative mx-auto w-72 h-72 mb-4">
           {/* Outer glow ring */}
           <div
             className="absolute inset-0 rounded-full opacity-30"
@@ -260,9 +260,9 @@ export default function WorldClock() {
         </div>
 
         {/* Digital Time */}
-        <div className="text-center mb-2">
+        <div className="text-center mb-3">
           <p
-            className="text-3xl font-mono font-bold tracking-wider"
+            className="text-4xl font-mono font-bold tracking-wider"
             style={{
               background: 'linear-gradient(135deg, #00e5ff, #a78bfa, #2dd4bf)',
               WebkitBackgroundClip: 'text',
@@ -275,8 +275,8 @@ export default function WorldClock() {
         </div>
 
         {/* Day/Night + City row */}
-        <div className="flex items-center justify-center gap-3 mb-3">
-          <span className="text-xs text-white/40 flex items-center gap-1">
+        <div className="flex items-center justify-center gap-4 mb-4">
+          <span className="text-sm text-white/40 flex items-center gap-1">
             {day ? '\u2600\uFE0F Day' : '\uD83C\uDF19 Night'}
           </span>
           <span className="w-1 h-1 rounded-full bg-white/20" />
@@ -290,7 +290,7 @@ export default function WorldClock() {
         <div ref={dropRef} className="relative w-1/2 mx-auto">
           <button
             onClick={() => setDropdownOpen(!dropdownOpen)}
-            className="w-full flex items-center justify-between gap-2 px-3 py-1.5 rounded-xl border border-white/[0.06] bg-white/[0.02] hover:border-cyan-400/20 hover:bg-white/[0.04] transition-all duration-200 text-xs text-white/60 hover:text-white/80"
+            className="w-full flex items-center justify-between gap-2 px-4 py-2 rounded-xl border border-white/[0.06] bg-white/[0.02] hover:border-cyan-400/20 hover:bg-white/[0.04] transition-all duration-200 text-sm text-white/60 hover:text-white/80"
           >
             <span className="truncate">{currentTz.label}</span>
             <ChevronDown

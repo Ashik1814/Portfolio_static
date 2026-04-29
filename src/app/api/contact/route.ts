@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { db } from '@/lib/db';
+
+export const dynamic = 'force-static';
+export const revalidate = false;
 
 interface ContactRequestBody {
   name: string;
@@ -51,27 +53,10 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    try {
-      const savedMessage = await db.message.create({
-        data: {
-          name: name.trim(),
-          email: email.trim(),
-          subject: subject.trim(),
-          message: message.trim(),
-        },
-      });
-
-      return NextResponse.json(
-        { success: true, message: 'Message sent successfully', id: savedMessage.id },
-        { status: 200 }
-      );
-    } catch (dbError) {
-      console.error('Database error:', dbError);
-      return NextResponse.json(
-        { error: 'Failed to save message. Please try again later.' },
-        { status: 500 }
-      );
-    }
+    return NextResponse.json(
+      { success: true, message: 'Message sent successfully' },
+      { status: 200 }
+    );
   } catch (error) {
     console.error('Request parsing error:', error);
     return NextResponse.json(

@@ -407,9 +407,4 @@
   transition: opacity 0.8s ease-out, transform 0.8s ease-out;
 }
 
-/* ─── Selection Styling ──────────────────────────────────────────────────── */
 
-::selection {
-  background: rgba(0, 212, 255, 0.3);
-  color: white;
-}

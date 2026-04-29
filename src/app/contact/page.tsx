@@ -8,7 +8,8 @@
  * All buttons use the animated traveling border glow effect.
  */
 
-import { useState, use } from 'react';
+
+import { useState } from 'react';
 import Image from 'next/image';
 import {
   Send,
@@ -78,14 +79,14 @@ type SubmissionState = 'idle' | 'loading' | 'success' | 'error';
 const contactInfoItems: ContactInfoItem[] = [
   {
     label: 'Gmail',
-    value: 'alex@portfolio.dev',
-    href: 'mailto:alex@portfolio.dev',
+    value: 'ashikurahmanashik1814@gmail.com',
+    href: 'mailto:ashikurahmanashik1814@gmail.com',
     icon: GmailIcon,
   },
   {
     label: 'WhatsApp',
-    value: '+880 1XXX-XXXXXX',
-    href: 'https://wa.me/8801XXXXXXXXX',
+    value: '+880 1755718668',
+    href: 'https://wa.me/8801755718668',
     icon: WhatsAppIcon,
   },
   {
@@ -120,9 +121,7 @@ function validateForm(data: FormData): FormErrors {
 
 // ─── Page Component ──────────────────────────────────────────────────────────
 
-export default function ContactPage({ params, searchParams }: { params: Promise<Record<string, string | string[]>>; searchParams: Promise<Record<string, string | string[] | undefined>> }) {
-  use(params);
-  use(searchParams);
+export default function ContactPage() {
   const { toast } = useToast();
 
   const [formData, setFormData] = useState<FormData>({
@@ -159,14 +158,37 @@ export default function ContactPage({ params, searchParams }: { params: Promise<
     setErrorMessage('');
 
     try {
-      const response = await fetch('/api/contact', {
+      // Submit to Forminit - using correct endpoint and format
+      const response = await fetch('https://forminit.com/f/pzwtmrzks4s', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          blocks: [
+            {
+              type: 'sender',
+              properties: {
+                firstName: formData.name.split(' ')[0],
+                lastName: formData.name.split(' ').slice(1).join(' ') || '',
+                email: formData.email,
+              },
+            },
+            {
+              type: 'text',
+              name: 'subject',
+              value: formData.subject,
+            },
+            {
+              type: 'text',
+              name: 'message',
+              value: formData.message,
+            },
+          ],
+        }),
       });
 
       if (!response.ok) {
-        throw new Error('Failed to send message. Please try again.');
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.message || 'Failed to send message. Please try again.');
       }
 
       setSubmissionState('success');
@@ -202,7 +224,7 @@ export default function ContactPage({ params, searchParams }: { params: Promise<
             <div className="h-40 w-40 sm:h-48 sm:w-48 rounded-full overflow-hidden border-2 border-cyan-400/30 shadow-[0_0_40px_rgba(0,212,255,0.2)] mx-auto">
               <Image
                 src="/profile.jpeg"
-                alt="Alex Chen"
+                alt="Ashik"
                 width={192}
                 height={192}
                 className="h-full w-full object-cover"

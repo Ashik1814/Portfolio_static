@@ -94,9 +94,8 @@ export default function Navbar() {
             </div>
             {/* Gradient animated text */}
             <span className="text-xl font-bold bg-gradient-to-r from-primary via-purple-500 to-teal-400 bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient">
-              Portfolio
+              ashik.io
             </span>
-            <span className="text-xl font-bold bg-gradient-to-r from-primary via-purple-500 to-teal-400 bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient">.</span>
           </Link>
 
           {/* Desktop Navigation Links */}

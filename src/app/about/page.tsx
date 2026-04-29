@@ -14,7 +14,7 @@
  *   - My Journey — alternating timeline
  */
 
-import { use } from 'react';
+
 import Image from 'next/image';
 import {
   Paintbrush,
@@ -131,15 +131,7 @@ const journeyEntries = [
 
 // ─── Component ─────────────────────────────────────────────────────────────
 
-export default function AboutPage({
-  params,
-  searchParams,
-}: {
-  params: Promise<Record<string, string | string[]>>;
-  searchParams: Promise<Record<string, string | string[] | undefined>>;
-}) {
-  use(params);
-  use(searchParams);
+export default function AboutPage() {
 
   return (
     <main className="min-h-screen pt-24 pb-16 px-4 sm:px-6 lg:px-8">
@@ -172,16 +164,16 @@ export default function AboutPage({
                 }}
               />
               <div className="relative z-[1] flex items-center justify-center w-64 h-64 sm:w-72 sm:h-72 lg:w-80 lg:h-80 rounded-full bg-[#08050f]">
-                <div className="w-full h-full rounded-full bg-gradient-to-br from-[#0a0f1e] to-[#0d1525] flex items-center justify-center overflow-hidden p-1">
-                  <Image
-                    src="/profile.jpeg"
-                    alt="Ashikur Rahman Ashik"
-                    width={320}
-                    height={320}
-                    className="w-full h-full rounded-full object-cover"
-                    priority
-                  />
-                </div>
+                 <div className="w-full h-full rounded-full bg-gradient-to-br from-[#0a0f1e] to-[#0d1525] flex items-center justify-center overflow-hidden p-1">
+                   <img
+                     src="/profile.jpeg"
+                     alt="Ashikur Rahman Ashik"
+                     width={320}
+                     height={320}
+                     className="w-full h-full rounded-full object-cover"
+                     loading="lazy"
+                   />
+                 </div>
               </div>
             </div>
           </div>

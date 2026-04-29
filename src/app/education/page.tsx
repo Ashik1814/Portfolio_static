@@ -11,7 +11,7 @@
  *   - Relevant coursework grid with colored icons
  */
 
-import { use } from 'react';
+
 import {
   GraduationCap,
   Calendar,
@@ -195,9 +195,7 @@ const courseworkItems: CourseworkItem[] = [
 
 // ─── Page Component ──────────────────────────────────────────────────────────
 
-export default function EducationPage({ params, searchParams }: { params: Promise<Record<string, string | string[]>>; searchParams: Promise<Record<string, string | string[] | undefined>> }) {
-  use(params);
-  use(searchParams);
+export default function EducationPage() {
   return (
     <main className="min-h-screen pt-24 pb-16 px-4 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">

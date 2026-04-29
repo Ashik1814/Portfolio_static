@@ -80,12 +80,12 @@ export default function Footer() {
                 <FlaskConical className="h-4 w-4 text-cyan-400" />
               </div>
               <span className="text-lg font-bold tracking-tight">
-                <span className="text-cyan-400">Alex</span>
-                <span className="text-white">Chen</span>
+                <span className="text-cyan-400">Ashik</span>
+                <span className="text-white">.io</span>
               </span>
             </Link>
             <p className="max-w-xs text-sm leading-relaxed text-slate-500">
-              © 2025 Alex Chen. All rights reserved .🤍
+              © 2025 Ashik.io. All rights reserved .
             </p>
           </div>
 
@@ -131,7 +131,7 @@ export default function Footer() {
         {/* ── Bottom bar ──────────────────────────────────────────────── */}
         <div className="mt-10 flex items-center justify-center border-t border-white/[0.03] pt-8">
           <p className="text-xs text-slate-700">
-            © 2025 Alex Chen. All rights reserved .🤍
+            © 2025 Ashik.io. All rights reserved .
           </p>
         </div>
       </div>

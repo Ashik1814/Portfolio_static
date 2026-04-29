@@ -8,9 +8,10 @@
  * colored tech badges, and gradient/outline action buttons with animated border.
  */
 
-import { useState, use } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
 import { ExternalLink, Eye, ArrowRight } from 'lucide-react';
+import * as Dialog from '@radix-ui/react-dialog';
 import AnimatedBorderButton from '@/components/ui/animated-border-button';
 
 // ─── Types & Data ───────────────────────────────────────────────────────────
@@ -37,7 +38,7 @@ const projects: Project[] = [
     title: 'SaaS Marketing Website',
     description: 'A modern SaaS marketing website with clean layout, responsive design, and conversion-optimized sections built in Figma',
     longDescription: 'A conversion-focused SaaS marketing website designed in Figma with a clean, modern layout. Features responsive breakpoints, micro-interactions, and strategically placed CTAs to maximize sign-ups.',
-    tags: ['Figma', 'React', 'Storybook'],
+    tags: ['Figma'],
     accent: 'cyan',
     liveUrl: 'https://www.figma.com/proto/nlwcSpHeYKiwCQUzfo9Wcj/SaaS-Marketing-Website?node-id=0-1&t=DLeOgzGDXqUjZUNZ-1',
     sourceUrl: '#',
@@ -73,7 +74,7 @@ const projects: Project[] = [
     title: 'Design System Kit',
     description: 'Comprehensive design system with 200+ components, theming engine, and accessibility compliance',
     longDescription: 'A production-grade design system featuring 200+ React components, a powerful theming engine with CSS variables, full WCAG 2.1 AA accessibility compliance, and comprehensive Storybook documentation.',
-    tags: ['Figma', 'React', 'Storybook'],
+    tags: ['Figma'],
     accent: 'amber',
     liveUrl: '#',
     sourceUrl: '#',
@@ -169,7 +170,7 @@ const projects: Project[] = [
     title: 'EdTech Learning Portal',
     description: 'Interactive e-learning platform with adaptive quizzes, progress dashboards, and gamified achievements',
     longDescription: 'Created an engaging e-learning portal with adaptive quiz algorithms that adjust difficulty in real-time, comprehensive progress dashboards, and a gamification system with badges and streaks to boost retention.',
-    tags: ['Figma', 'React', 'Storybook'],
+    tags: ['Figma'],
     accent: 'purple',
     liveUrl: '#',
     sourceUrl: '#',
@@ -193,7 +194,7 @@ const projects: Project[] = [
     title: 'SaaS Admin Dashboard',
     description: 'Enterprise admin panel with role-based access, data visualization widgets, and bulk action workflows',
     longDescription: 'Designed a comprehensive SaaS admin dashboard supporting complex role-based permissions, interactive data visualization widgets with drill-down capabilities, and efficient bulk action workflows for managing thousands of records.',
-    tags: ['Figma', 'React', 'Storybook'],
+    tags: ['Figma'],
     accent: 'amber',
     liveUrl: '#',
     sourceUrl: '#',
@@ -267,10 +268,9 @@ const defaultTagColor = { bg: 'bg-white/10', text: 'text-white/70' };
 
 // ─── Page Component ─────────────────────────────────────────────────────────
 
-export default function ProjectsPage({ params, searchParams }: { params: Promise<Record<string, string | string[]>>; searchParams: Promise<Record<string, string | string[] | undefined>> }) {
-  use(params);
-  use(searchParams);
+export default function ProjectsPage() {
   const [activeCategory, setActiveCategory] = useState<string>('All');
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   const filteredProjects =
     activeCategory === 'All'
@@ -308,7 +308,7 @@ export default function ProjectsPage({ params, searchParams }: { params: Promise
         </div>
 
         {/* ── Project Grid ────────────────────────────────────────────── */}
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
           {filteredProjects.map((project) => (
             <article
               key={project.title}
@@ -318,13 +318,16 @@ export default function ProjectsPage({ params, searchParams }: { params: Promise
               <div
                 className={`relative h-48 overflow-hidden`}
               >
-                <Image
-                  src={project.image}
-                  alt={project.title}
-                  fill
-                  className="object-cover object-top transition-transform duration-500 group-hover/card:scale-105"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                />
+                 <Image
+                   src={project.image}
+                   alt={project.title}
+                   fill
+                   className="object-cover object-top transition-transform duration-500 group-hover/card:scale-105"
+                   sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                   loading="lazy"
+                 />
+
+
                 {/* Dark gradient overlay for readability */}
                 <div className={`absolute inset-0 bg-gradient-to-br ${imageGradientMap[project.accent]} opacity-30`} />
 
@@ -332,13 +335,6 @@ export default function ProjectsPage({ params, searchParams }: { params: Promise
                 <span className="absolute left-4 top-4 rounded-full bg-black/40 px-3 py-1 text-xs font-medium text-white/80 backdrop-blur-sm">
                   {project.category}
                 </span>
-
-                {/* Hover overlay for image area */}
-                <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition-all duration-300 group-hover/card:bg-black/20">
-                  <span className="text-white/0 transition-all duration-300 group-hover/card:text-white/90 text-sm font-medium backdrop-blur-sm rounded-lg px-4 py-2">
-                    Preview
-                  </span>
-                </div>
               </div>
 
               {/* Card Content */}
@@ -385,18 +381,19 @@ export default function ProjectsPage({ params, searchParams }: { params: Promise
                   </AnimatedBorderButton>
 
                   {/* View — outline button with animated border */}
-                  <AnimatedBorderButton
-                    href={project.sourceUrl}
-                    variant="outline"
-                    size="sm"
-                    borderRadius={6}
-                    animationDuration={5}
-                    wrapperClassName="flex-1"
-                    fullWidth
+                  <button
+                    onClick={() => setSelectedProject(project)}
+                    className="group relative overflow-hidden inline-flex flex-1 transition-shadow duration-300 hover:shadow-[0_0_15px_rgba(0,229,255,0.15)]"
+                    style={{ borderRadius: '6px' }}
                   >
-                    <Eye className="w-3.5 h-3.5" />
-                    View
-                  </AnimatedBorderButton>
+                    <div className="-inset-px pointer-events-none absolute rounded-[inherit] border-2 border-inset" style={{ maskClip: 'padding-box, border-box', maskComposite: 'intersect', maskImage: 'linear-gradient(transparent, transparent), linear-gradient(rgb(0, 0, 0), rgb(0, 0, 0))' }}>
+                      <div className="absolute aspect-square glow-border-dot" style={{ width: '20px', background: 'linear-gradient(to right, transparent, rgb(167, 139, 250), rgb(0, 229, 255))', offsetPath: 'rect(0px auto auto 0px round 6px)', animation: '5s linear 0s infinite normal none running border-glow-travel', transition: 'filter 0.3s, width 0.3s' }}></div>
+                    </div>
+                    <span className="relative z-[1] inline-flex items-center justify-center gap-1.5 px-6 py-2 text-sm h-12 bg-[#00e5ff]/5 border border-[#00e5ff]/30 text-[#00e5ff] font-medium group-hover:bg-[#00e5ff]/15 group-hover:border-[#00e5ff]/60 group-hover:shadow-[0_0_20px_rgba(0,229,255,0.2)] transition-all duration-200 group-hover:scale-[1.04] group-active:scale-[0.97] w-full cursor-pointer">
+                      <Eye className="w-3.5 h-3.5" />
+                      View
+                    </span>
+                  </button>
                 </div>
               </div>
             </article>
@@ -418,6 +415,33 @@ export default function ProjectsPage({ params, searchParams }: { params: Promise
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
           </AnimatedBorderButton>
         </div>
+
+        {/* Project Image Modal */}
+        <Dialog.Root open={!!selectedProject} onOpenChange={(open) => !open && setSelectedProject(null)}>
+          <Dialog.Portal>
+            <Dialog.Overlay className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200" />
+            <Dialog.Content className="fixed left-1/2 top-1/2 z-50 w-full max-w-4xl -translate-x-1/2 -translate-y-1/2 p-4 animate-in fade-in zoom-in-95 duration-200">
+              <Dialog.Title className="sr-only">{selectedProject?.title}</Dialog.Title>
+              <div className="relative rounded-2xl overflow-hidden border border-white/10 bg-[#0a0a0f]">
+                <button
+                  onClick={() => setSelectedProject(null)}
+                  className="absolute right-4 top-4 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-black/50 text-white/70 hover:text-white transition-colors"
+                >
+                  <Eye className="h-5 w-5" />
+                </button>
+                {selectedProject && (
+                  <Image
+                    src={selectedProject.image}
+                    alt={selectedProject.title}
+                    width={1200}
+                    height={800}
+                    className="w-full h-auto max-h-[80vh] object-contain"
+                  />
+                )}
+              </div>
+            </Dialog.Content>
+          </Dialog.Portal>
+        </Dialog.Root>
       </div>
     </main>
   );

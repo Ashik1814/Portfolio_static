@@ -197,6 +197,7 @@ class AetherBackground {
   // ─── Temp Vectors (reused each frame to avoid GC) ──────────────────────
   private _tempVec3: THREE.Vector3;
   private _attractionDir: THREE.Vector3;
+  private isPaused: boolean = false;
 
   constructor(container: HTMLDivElement) {
     this.container = container;
@@ -773,18 +774,43 @@ class AetherBackground {
     this.renderer.setSize(width, height);
   }
 
-  // ─── Cleanup ─────────────────────────────────────────────────────────────
+  // ─── Pause/Resume ─────────────────────────────────────────────────────
 
-  /** Clean up all resources to prevent memory leaks */
-  dispose(): void {
+  pause(): void {
     if (this.animationFrameId !== null) {
       cancelAnimationFrame(this.animationFrameId);
       this.animationFrameId = null;
     }
+    this.isPaused = true;
+  }
 
+  resume(): void {
+    if (this.animationFrameId === null && !this.isPaused) {
+      this.animate();
+    }
+    this.isPaused = false;
+  }
+
+  // ─── Cleanup ─────────────────────────────────────────────────────────────
+
+  /** Clean up all resources to prevent memory leaks */
+  dispose(): void {
+    this.pause();
+
+    if (this.scene) {
+      this.scene.clear();
+    }
+    if (this.points) {
+      this.points.geometry?.dispose();
+      this.points.material?.dispose();
+    }
     this.geometry.dispose();
     this.material.dispose();
     this.renderer.dispose();
+
+    if (this.camera) {
+      this.camera.dispose();
+    }
 
     if (this.container.contains(this.renderer.domElement)) {
       this.container.removeChild(this.renderer.domElement);
@@ -806,6 +832,7 @@ class AetherBackground {
 export default function AetherCanvas(): React.ReactNode {
   const containerRef = useRef<HTMLDivElement>(null);
   const aetherRef = useRef<AetherBackground | null>(null);
+  const observerRef = useRef<IntersectionObserver | null>(null);
 
   // ─── Event Handlers ───────────────────────────────────────────────────
 
@@ -861,39 +888,55 @@ export default function AetherCanvas(): React.ReactNode {
 
   // ─── Lifecycle ─────────────────────────────────────────────────────────
 
-  useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
+   useEffect(() => {
+     const container = containerRef.current;
+     if (!container) return;
 
-    const aether = new AetherBackground(container);
-    aetherRef.current = aether;
+     const aether = new AetherBackground(container);
+     aetherRef.current = aether;
 
-    // Mouse events
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('mousedown', handleMouseDown);
-    window.addEventListener('mouseup', handleMouseUp);
+     // Viewport awareness: pause when off-screen
+     observerRef.current = new IntersectionObserver(
+       (entries) => {
+         if (entries[0].isIntersecting) {
+           aether.resume();
+         } else {
+           aether.pause();
+         }
+       },
+       { threshold: 0.1, rootMargin: '50px' }
+     );
+     observerRef.current.observe(container);
 
-    // Touch events
-    window.addEventListener('touchstart', handleTouchStart, { passive: true });
-    window.addEventListener('touchmove', handleTouchMove, { passive: true });
-    window.addEventListener('touchend', handleTouchEnd);
+     // Mouse events
+     window.addEventListener('mousemove', handleMouseMove);
+     window.addEventListener('mousedown', handleMouseDown);
+     window.addEventListener('mouseup', handleMouseUp);
 
-    // Resize
-    window.addEventListener('resize', handleResize);
+     // Touch events
+     window.addEventListener('touchstart', handleTouchStart, { passive: true });
+     window.addEventListener('touchmove', handleTouchMove, { passive: true });
+     window.addEventListener('touchend', handleTouchEnd);
 
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mousedown', handleMouseDown);
-      window.removeEventListener('mouseup', handleMouseUp);
-      window.removeEventListener('touchstart', handleTouchStart);
-      window.removeEventListener('touchmove', handleTouchMove);
-      window.removeEventListener('touchend', handleTouchEnd);
-      window.removeEventListener('resize', handleResize);
+     // Resize
+     window.addEventListener('resize', handleResize);
 
-      aether.dispose();
-      aetherRef.current = null;
-    };
-  }, [handleMouseMove, handleMouseDown, handleMouseUp, handleTouchStart, handleTouchMove, handleTouchEnd, handleResize]);
+     return () => {
+       if (observerRef.current) {
+         observerRef.current.disconnect();
+       }
+       window.removeEventListener('mousemove', handleMouseMove);
+       window.removeEventListener('mousedown', handleMouseDown);
+       window.removeEventListener('mouseup', handleMouseUp);
+       window.removeEventListener('touchstart', handleTouchStart);
+       window.removeEventListener('touchmove', handleTouchMove);
+       window.removeEventListener('touchend', handleTouchEnd);
+       window.removeEventListener('resize', handleResize);
+
+       aether.dispose();
+       aetherRef.current = null;
+     };
+   }, [handleMouseMove, handleMouseDown, handleMouseUp, handleTouchStart, handleTouchMove, handleTouchEnd, handleResize]);
 
   return (
     <div

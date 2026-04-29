@@ -1,18 +1,9 @@
 'use client';
 
-/**
- * Home Page — Portfolio Summary Landing
- *
- * A landing page with:
- *   - 3D hero with name/title and CTAs (aether background is now global)
- *   - Summary preview cards for About, Skills, Projects, Education, and Contact
- *   - Each card links to its dedicated detail page via Next.js routing
- *   - All buttons feature the animated traveling border glow effect
- */
-
-import React, { useEffect, useRef, use } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import Image from 'next/image';
+import * as Dialog from '@radix-ui/react-dialog';
 
 import AnimatedBorderButton from '@/components/ui/animated-border-button';
 import WorldClock from '@/components/world-clock';
@@ -139,7 +130,7 @@ const featuredProjects: FeaturedProject[] = [
   {
     title: 'SaaS Marketing Website',
     description: 'A modern SaaS marketing website with clean layout, responsive design, and conversion-optimized sections built in Figma',
-    tags: ['Figma', 'React', 'Storybook'],
+    tags: ['Figma', 'Next.js'],
     accent: 'cyan',
     liveUrl: 'https://www.figma.com/proto/nlwcSpHeYKiwCQUzfo9Wcj/SaaS-Marketing-Website?node-id=0-1&t=DLeOgzGDXqUjZUNZ-1',
     sourceUrl: '#',
@@ -149,7 +140,7 @@ const featuredProjects: FeaturedProject[] = [
   {
     title: 'Alchemist.io — Portfolio',
     description: 'A cinematic portfolio website with 3D particle physics, glassmorphism UI, and gravity-manipulation interaction built with Next.js and Three.js',
-    tags: ['Next.js', 'Three.js', 'TypeScript'],
+    tags: ['Next.js', 'Three.js'],
     accent: 'purple',
     liveUrl: 'https://alchemist-io.vercel.app/',
     sourceUrl: '#',
@@ -159,7 +150,7 @@ const featuredProjects: FeaturedProject[] = [
   {
     title: 'AI Content Studio',
     description: 'AI-powered content creation platform with real-time collaboration and intelligent suggestions',
-    tags: ['TypeScript', 'OpenAI', 'WebSocket'],
+    tags: ['TypeScript', 'OpenAI'],
     accent: 'emerald',
     liveUrl: '#',
     sourceUrl: '#',
@@ -169,7 +160,7 @@ const featuredProjects: FeaturedProject[] = [
   {
     title: 'Healthcare App Redesign',
     description: 'Complete UX overhaul of a patient management system, significantly improving task completion rates',
-    tags: ['Figma', 'React', 'User Research'],
+    tags: ['Figma', 'TypeScript'],
     accent: 'emerald',
     liveUrl: '#',
     sourceUrl: '#',
@@ -179,7 +170,7 @@ const featuredProjects: FeaturedProject[] = [
   {
     title: 'Fintech Mobile App',
     description: 'Mobile banking app redesign with intuitive navigation, biometric auth, and real-time transaction tracking',
-    tags: ['Figma', 'React', 'User Research'],
+    tags: ['Figma', 'TypeScript'],
     accent: 'rose',
     liveUrl: '#',
     sourceUrl: '#',
@@ -189,7 +180,7 @@ const featuredProjects: FeaturedProject[] = [
   {
     title: 'EdTech Learning Portal',
     description: 'Interactive e-learning platform with adaptive quizzes, progress dashboards, and gamified achievements',
-    tags: ['Figma', 'React', 'Storybook'],
+    tags: ['Figma', 'Next.js'],
     accent: 'purple',
     liveUrl: '#',
     sourceUrl: '#',
@@ -218,7 +209,6 @@ const glowMap: Record<ProjectAccent, string> = {
 
 /** Colored tech badges */
 const tagColorMap: Record<string, { bg: string; text: string }> = {
-  'React': { bg: 'bg-cyan-500/20', text: 'text-cyan-300' },
   'Three.js': { bg: 'bg-cyan-500/20', text: 'text-cyan-300' },
   'D3.js': { bg: 'bg-orange-500/20', text: 'text-orange-300' },
   'Next.js': { bg: 'bg-slate-500/20', text: 'text-slate-300' },
@@ -228,7 +218,6 @@ const tagColorMap: Record<string, { bg: string; text: string }> = {
   'OpenAI': { bg: 'bg-green-500/20', text: 'text-green-300' },
   'WebSocket': { bg: 'bg-teal-500/20', text: 'text-teal-300' },
   'Figma': { bg: 'bg-rose-500/20', text: 'text-rose-300' },
-  'Storybook': { bg: 'bg-orange-500/20', text: 'text-orange-300' },
   'User Research': { bg: 'bg-amber-500/20', text: 'text-amber-300' },
   'Prisma': { bg: 'bg-teal-500/20', text: 'text-teal-300' },
 };
@@ -237,18 +226,10 @@ const defaultTagColor = { bg: 'bg-white/10', text: 'text-white/70' };
 
 // ─── Component ──────────────────────────────────────────────────────────────
 
-export default function Home({
-  params,
-  searchParams,
-}: {
-  params: Promise<Record<string, string | string[]>>;
-  searchParams: Promise<Record<string, string | string[] | undefined>>;
-}) {
-  // Next.js 16 requires unwrapping Promise-based props with React.use()
-  use(params);
-  use(searchParams);
-
+export default function Home() {
   const cardsRef = useRef<HTMLDivElement>(null);
+  const [selectedProject, setSelectedProject] = useState<FeaturedProject | null>(null);
+  const [selectedDate, setSelectedDate] = useState<number>(28);
 
   // Entrance animation for summary cards
   useEffect(() => {
@@ -272,53 +253,49 @@ export default function Home({
 
   return (
     <>
-      {/* ═══════════════════════════════════════════════════════════════════
-          HERO — Full viewport (aether particles flow behind via global canvas)
-          ═══════════════════════════════════════════════════════════════════ */}
-      <section className="relative flex min-h-screen items-center justify-center overflow-hidden">
-        {/* Content overlay — pt-20 ensures profile image clears the fixed navbar */}
-        <div className="relative z-10 flex flex-col items-center px-4 pt-20 text-center w-full">
-          {/* Profile Image */}
-          <div className="mb-10 relative flex items-center justify-center">
-            <div className="h-64 w-64 rounded-full overflow-hidden border-2 border-cyan-400/30 shadow-[0_0_60px_rgba(0,212,255,0.25)]">
-              <Image
-                src="/profile.jpeg"
-                alt="Alex Chen — UI/UX Designer & Front-End Developer"
-                width={256}
-                height={256}
-                className="h-full w-full object-cover"
-                priority
-              />
+      <section className="relative z-10 flex flex-col items-center px-4 pt-32 text-center w-full">
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#00e5ff]/20 bg-[#00e5ff]/5">
+          <span className="w-2 h-2 bg-[#2dd4bf] rounded-full animate-pulse"></span>
+          <span className="text-sm text-[#94a3b8]">Welcome</span>
+        </div>
+        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight text-white mt-6">
+          Hi, I&apos;m <span className="gradient-text-cyan">Ashikur Rahman Ashik</span>
+        </h1>
+        <p className="text-lg text-[#64b5f6] font-medium mt-2">UI/UX Designer • Frontend Developer</p>
+        
+        <div className="mb-10 mt-8 relative flex items-center justify-center">
+          <div className="h-80 w-80 rounded-full overflow-hidden border-2 border-cyan-400/30 shadow-[0_0_60px_rgba(0,212,255,0.25)]">
+            <img
+              alt="Ashikur Rahman Ashik"
+              width={320}
+              height={320}
+              className="w-full h-full rounded-full object-cover"
+              loading="lazy"
+              src="/profile.jpeg"
+            />
+          </div>
+          <div className="absolute inset-0 rounded-full border border-cyan-400/10 scale-110 pointer-events-none"></div>
+        </div>
+        <p className="mb-12 max-w-2xl text-body text-white/60 mt-4">
+          I design and build beautiful, performant web experiences that delight users and drive results. Specializing in interactive interfaces and immersive 3D web.
+        </p>
+        <div className="flex flex-col gap-4 sm:flex-row">
+          <a className="group relative overflow-hidden inline-flex transition-shadow duration-300 hover:shadow-[0_0_15px_rgba(0,229,255,0.15)]" href="/projects" style={{ borderRadius: '8px' }}>
+            <div className="-inset-px pointer-events-none absolute rounded-[inherit] border-2 border-inset" style={{ maskClip: 'padding-box, border-box', maskComposite: 'intersect', maskImage: 'linear-gradient(transparent, transparent), linear-gradient(rgb(0, 0, 0), rgb(0, 0, 0))' }}>
+              <div className="absolute aspect-square glow-border-dot" style={{ width: '20px', background: 'linear-gradient(to right, transparent, rgb(167, 139, 250), rgb(0, 229, 255))', offsetPath: 'rect(0px auto auto 0px round 8px)', animation: '3s linear 0s infinite normal none running border-glow-travel', transition: 'filter 0.3s, width 0.3s' }}></div>
             </div>
-            {/* Glow ring */}
-            <div className="absolute inset-0 rounded-full border border-cyan-400/10 scale-110" />
-          </div>
-
-          <span className="mb-8 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-sm text-cyan-400 backdrop-blur-sm">
-            <Sparkles className="h-4 w-4" />
-            UI/UX Designer &amp; Front-End Developer
-          </span>
-
-          <h1 className="mb-8 text-h1 bg-gradient-to-r from-primary via-purple-500 to-teal-400 bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient">
-            Crafting Digital
-            <br />
-            Experiences
-          </h1>
-
-          <p className="mb-12 max-w-2xl text-body text-white/60">
-            I design and build beautiful, performant web experiences that delight
-            users and drive results. Specializing in interactive interfaces and
-            immersive 3D web.
-          </p>
-
-          <div className="flex flex-col gap-4 sm:flex-row">
-            <AnimatedBorderButton href="/projects" variant="primary" size="lg">
+            <span className="relative z-[1] inline-flex items-center justify-center gap-1.5 px-6 py-3 text-lg h-12 bg-gradient-to-r from-[#00e5ff] to-[#64b5f6] text-[#06080f] font-semibold shadow-md shadow-[#00e5ff]/15 group-hover:shadow-[0_0_25px_rgba(0,229,255,0.35)] group-hover:from-[#00c2e5] group-hover:to-[#5ba3e0] transition-all duration-200 group-hover:scale-[1.04] group-active:scale-[0.97] cursor-pointer">
               View My Work
-            </AnimatedBorderButton>
-            <AnimatedBorderButton href="/contact" variant="outline" size="lg">
+            </span>
+          </a>
+          <a className="group relative overflow-hidden inline-flex transition-shadow duration-300 hover:shadow-[0_0_15px_rgba(0,229,255,0.15)]" href="/contact" style={{ borderRadius: '8px' }}>
+            <div className="-inset-px pointer-events-none absolute rounded-[inherit] border-2 border-inset" style={{ maskClip: 'padding-box, border-box', maskComposite: 'intersect', maskImage: 'linear-gradient(transparent, transparent), linear-gradient(rgb(0, 0, 0), rgb(0, 0, 0))' }}>
+              <div className="absolute aspect-square glow-border-dot" style={{ width: '20px', background: 'linear-gradient(to right, transparent, rgb(167, 139, 250), rgb(0, 229, 255))', offsetPath: 'rect(0px auto auto 0px round 8px)', animation: '3s linear 0s infinite normal none running border-glow-travel', transition: 'filter 0.3s, width 0.3s' }}></div>
+            </div>
+            <span className="relative z-[1] inline-flex items-center justify-center gap-1.5 px-6 py-3 text-lg h-12 bg-[#00e5ff]/5 border border-[#00e5ff]/30 text-[#00e5ff] font-medium group-hover:bg-[#00e5ff]/15 group-hover:border-[#00e5ff]/60 group-hover:shadow-[0_0_20px_rgba(0,229,255,0.2)] transition-all duration-200 group-hover:scale-[1.04] group-active:scale-[0.97] cursor-pointer">
               Get In Touch
-            </AnimatedBorderButton>
-          </div>
+            </span>
+          </a>
         </div>
       </section>
 
@@ -366,39 +343,87 @@ export default function Home({
         </div>
       </section>
 
-      <section className="px-4 py-20 sm:px-6 lg:px-8">
+      <section className="px-4 pt-12 pb-10 sm:px-6 lg:px-8">
         <div ref={cardsRef} className="mx-auto max-w-7xl space-y-8">
 
-          {/* World Clock */}
-          <div className="summary-card flex justify-center">
-            <WorldClock />
+          {/* World Clock + Calendar */}
+          <div className="summary-card flex justify-center -mt-8">
+            <div className="flex flex-col sm:flex-row gap-[85px] items-center">
+              <WorldClock />
+              <div className="w-full max-w-[420px] -mt-16 pl-2 sm:pl-4 rounded-2xl border border-white/[0.03] p-5 sm:p-6" style={{ background: 'rgba(8, 5, 15, 0.5)' }}>
+                <div className="flex items-center justify-between mb-4">
+                  <button className="w-7 h-7 rounded-md flex items-center justify-center hover:bg-white/[0.06] text-[#94a3b8] transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5"><path d="m15 18-6-6 6-6"/></svg>
+                  </button>
+                  <h4 className="text-base font-bold text-white">April 2026</h4>
+                  <button className="w-7 h-7 rounded-md flex items-center justify-center hover:bg-white/[0.06] text-[#94a3b8] transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4"><path d="m9 18 6-6-6-6"/></svg>
+                  </button>
+                </div>
+                <div className="w-full">
+                  <div className="grid grid-cols-7 gap-2 mb-2">
+                    <div className="text-center text-sm font-medium text-[#64748b]">Sun</div>
+                    <div className="text-center text-sm font-medium text-[#64748b]">Mon</div>
+                    <div className="text-center text-sm font-medium text-[#64748b]">Tue</div>
+                    <div className="text-center text-sm font-medium text-[#64748b]">Wed</div>
+                    <div className="text-center text-sm font-medium text-[#64748b]">Thu</div>
+                    <div className="text-center text-sm font-medium text-[#64748b]">Fri</div>
+                    <div className="text-center text-sm font-medium text-[#64748b]">Sat</div>
+                  </div>
+                  <div className="grid grid-cols-7 gap-2">
+                    {[29, 30, 31, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 1, 2].map((day, idx) => {
+                      const isSelected = selectedDate === day;
+                      const isCurrentDay = day === 28;
+                      return (
+                        <button
+                          key={idx}
+                          type="button"
+                          onClick={() => setSelectedDate(day)}
+                          className={`aspect-square flex items-center justify-center rounded-md text-sm font-medium transition-all duration-200 ${
+                            isSelected || isCurrentDay
+                              ? 'bg-gradient-to-br from-[#00e5ff] to-[#64b5f6] text-[#06080f] shadow-md shadow-[#00e5ff]/20 font-bold'
+                              : day > 27 && day <= 31
+                              ? 'text-white/80 hover:bg-white/[0.06]'
+                              : day === 1 || day === 2
+                              ? 'text-white/15 cursor-default'
+                              : 'text-white/80 hover:bg-white/[0.06]'
+                          }`}
+                        >
+                          {day}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* About Summary */}
-          <div className="summary-card rounded-2xl border border-white/[0.03] p-6 backdrop-blur-xl transition-all duration-300 hover:border-cyan-400/20 md:p-8">
-            <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-              <div className="flex items-start gap-6">
-                <div className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-xl overflow-hidden border border-cyan-400/15">
+          <div className="summary-card rounded-2xl border border-white/[0.03] p-8 md:p-10">
+            <div className="flex flex-col gap-8">
+              <div className="flex items-start gap-8">
+                <div className="flex h-20 w-20 flex-shrink-0 items-center justify-center rounded-2xl overflow-hidden border border-cyan-400/15">
                   <Image
                     src="/profile.jpeg"
-                    alt="Alex Chen"
-                    width={56}
-                    height={56}
+                    alt="Ashik"
+                    width={80}
+                    height={80}
                     className="h-full w-full object-cover"
                   />
                 </div>
-                <div>
+                <div className="flex-1">
                   <h2 className="text-h2 text-white">About Me</h2>
-                  <p className="mt-4 max-w-xl text-body text-white/60">
-                    Senior UI/UX Designer &amp; Front-End Developer with 5+ years of experience
-                    crafting digital products. Passionate about design systems, component
-                    architecture, and immersive web experiences.
+                  <p className="mt-4 max-w-2xl text-xl text-white/60 leading-relaxed">
+                    Passionate UI/UX Designer & Front-End Developer with 5+ years of experience creating beautiful, 
+                    performant digital experiences. I specialize in building modern web applications with clean interfaces, 
+                    smooth animations, and immersive interactions.
                   </p>
-                  <div className="mt-6 flex flex-wrap gap-3">
-                    {['5+ Years', '50+ Projects', '30+ Clients'].map((stat) => (
+                  <div className="mt-6 flex flex-wrap gap-4">
+                    {['5+ Years Experience', 'Remote Available', 'Full-Stack Capable'].map((stat) => (
                       <span
                         key={stat}
-                        className="rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-sm font-medium text-cyan-400"
+                        className="rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-base font-medium text-cyan-400"
                       >
                         {stat}
                       </span>
@@ -406,10 +431,12 @@ export default function Home({
                   </div>
                 </div>
               </div>
-              <AnimatedBorderButton href="/about" variant="outline" size="md">
-                Read More
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </AnimatedBorderButton>
+              <div className="flex justify-start">
+                <AnimatedBorderButton href="/about" variant="outline" size="lg">
+                  Read More
+                  <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+                </AnimatedBorderButton>
+              </div>
             </div>
           </div>
 
@@ -423,7 +450,7 @@ export default function Home({
                   <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </AnimatedBorderButton>
               </div>
-              <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+              <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
                 {featuredProjects.map((project) => (
                   <article
                     key={project.title}
@@ -445,13 +472,6 @@ export default function Home({
                       <span className="absolute left-4 top-4 rounded-full bg-black/40 px-3 py-1 text-xs font-medium text-white/80 backdrop-blur-sm">
                         {project.category}
                       </span>
-
-                      {/* Hover overlay */}
-                      <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition-all duration-300 group-hover/card:bg-black/20">
-                        <span className="text-white/0 transition-all duration-300 group-hover/card:text-white/90 text-sm font-medium backdrop-blur-sm rounded-lg px-4 py-2">
-                          Preview
-                        </span>
-                      </div>
                     </div>
 
                     {/* Card Content */}
@@ -489,18 +509,19 @@ export default function Home({
                           Live Demo
                         </AnimatedBorderButton>
 
-                        <AnimatedBorderButton
-                          href={project.sourceUrl}
-                          variant="outline"
-                          size="sm"
-                          borderRadius={6}
-                          animationDuration={5}
-                          wrapperClassName="flex-1"
-                          fullWidth
+                        <button
+                          onClick={() => setSelectedProject(project)}
+                          className="group relative overflow-hidden inline-flex flex-1 transition-shadow duration-300 hover:shadow-[0_0_15px_rgba(0,229,255,0.15)]"
+                          style={{ borderRadius: '6px' }}
                         >
-                          <Eye className="w-3.5 h-3.5" />
-                          View
-                        </AnimatedBorderButton>
+                          <div className="-inset-px pointer-events-none absolute rounded-[inherit] border-2 border-inset" style={{ maskClip: 'padding-box, border-box', maskComposite: 'intersect', maskImage: 'linear-gradient(transparent, transparent), linear-gradient(rgb(0, 0, 0), rgb(0, 0, 0))' }}>
+                            <div className="absolute aspect-square glow-border-dot" style={{ width: '20px', background: 'linear-gradient(to right, transparent, rgb(167, 139, 250), rgb(0, 229, 255))', offsetPath: 'rect(0px auto auto 0px round 6px)', animation: '5s linear 0s infinite normal none running border-glow-travel', transition: 'filter 0.3s, width 0.3s' }}></div>
+                          </div>
+                          <span className="relative z-[1] inline-flex items-center justify-center gap-1.5 px-6 py-2 text-sm h-12 bg-[#00e5ff]/5 border border-[#00e5ff]/30 text-[#00e5ff] font-medium group-hover:bg-[#00e5ff]/15 group-hover:border-[#00e5ff]/60 group-hover:shadow-[0_0_20px_rgba(0,229,255,0.2)] transition-all duration-200 group-hover:scale-[1.04] group-active:scale-[0.97] w-full cursor-pointer">
+                            <Eye className="w-3.5 h-3.5" />
+                            View
+                          </span>
+                        </button>
                       </div>
                     </div>
                   </article>
@@ -567,8 +588,8 @@ export default function Home({
                         { Icon: TwitterIcon, href: 'https://x.com/yourhandle', label: 'Twitter' },
                         { Icon: Github, href: 'https://github.com/Ashik1814', label: 'GitHub' },
                         { Icon: Linkedin, href: 'https://linkedin.com', label: 'LinkedIn' },
-                        { Icon: Youtube, href: 'https://youtube.com/@arckbreaker1814?si=iSdffxmKQl47TeMk', label: 'YouTube' },
-                        { Icon: Facebook, href: 'https://www.facebook.com/share/18FuK1HEes/', label: 'Facebook' },
+                        { Icon: Youtube, href: 'https://youtube.com/@arckbreaker1814?si=6KtuJACQlBiHrAkE', label: 'YouTube' },
+                        { Icon: Facebook, href: 'https://www.facebook.com/share/1KSd3jSUDZ/', label: 'Facebook' },
                       ].map(({ Icon, href, label }) => (
                         <a
                           key={label}
@@ -595,6 +616,33 @@ export default function Home({
           </div>
         </div>
       </section>
+
+      {/* Project Image Modal */}
+      <Dialog.Root open={!!selectedProject} onOpenChange={(open) => !open && setSelectedProject(null)}>
+        <Dialog.Portal>
+          <Dialog.Overlay className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200" />
+          <Dialog.Content className="fixed left-1/2 top-1/2 z-50 w-full max-w-4xl -translate-x-1/2 -translate-y-1/2 p-4 animate-in fade-in zoom-in-95 duration-200">
+            <Dialog.Title className="sr-only">{selectedProject?.title}</Dialog.Title>
+            <div className="relative rounded-2xl overflow-hidden border border-white/10 bg-[#0a0a0f]">
+              <button
+                onClick={() => setSelectedProject(null)}
+                className="absolute right-4 top-4 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-black/50 text-white/70 hover:text-white transition-colors"
+              >
+                <Eye className="h-5 w-5" />
+              </button>
+              {selectedProject && (
+                <Image
+                  src={selectedProject.image}
+                  alt={selectedProject.title}
+                  width={1200}
+                  height={800}
+                  className="w-full h-auto max-h-[80vh] object-contain"
+                />
+              )}
+            </div>
+          </Dialog.Content>
+        </Dialog.Portal>
+      </Dialog.Root>
     </>
   );
 }

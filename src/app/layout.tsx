@@ -21,10 +21,10 @@ const inter = Inter({
  * Optimised for a UI/UX Designer & Front-End Developer portfolio.
  */
 export const metadata: Metadata = {
-  metadataBase: new URL("https://alexchen.dev"),
-  title: "Alex Chen — UI/UX Designer & Front-End Developer Portfolio",
+  metadataBase: new URL("https://ashik.io"),
+  title: "Ashik.io | UI/UX Designer & Front-End Developer Portfolio",
   description:
-    "Crafting digital experiences. Portfolio of Alex Chen — Senior UI/UX Designer and Front-End Developer specializing in interactive interfaces, design systems, and immersive 3D web.",
+    "Crafting digital experiences. Portfolio of Ashik.io — Senior UI/UX Designer and Front-End Developer specializing in interactive interfaces, design systems, and immersive 3D web.",
   keywords: [
     "UI/UX Designer",
     "Front-End Developer",
@@ -35,19 +35,19 @@ export const metadata: Metadata = {
     "Three.js",
     "Design Systems",
     "Web Development",
-    "Alex Chen",
+    "Ashik.io",
   ],
-  authors: [{ name: "Alex Chen", url: "https://alexchen.dev" }],
-  creator: "Alex Chen",
+  authors: [{ name: "Ashik.io", url: "https://ashik.io" }],
+  creator: "Ashik.io",
   icons: {
-    icon: "https://z-cdn.chatglm.cn/z-ai/static/logo.svg",
+    icon: "/logo.svg",
   },
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://alexchen.dev",
-    siteName: "Alex Chen Portfolio",
-    title: "Alex Chen — UI/UX Designer & Front-End Developer",
+    url: "https://ashik.io",
+    siteName: "Ashik.io Portfolio",
+    title: "Ashik.io | UI/UX Designer & Front-End Developer",
     description:
       "Crafting digital experiences. Specializing in interactive interfaces, design systems, and immersive 3D web.",
     images: [
@@ -55,17 +55,17 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Alex Chen — UI/UX Designer & Front-End Developer Portfolio",
+        alt: "Ashik.io | UI/UX Designer & Front-End Developer Portfolio",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Alex Chen — UI/UX Designer & Front-End Developer",
+    title: "Ashik.io | UI/UX Designer & Front-End Developer",
     description:
       "Crafting digital experiences. Specializing in interactive interfaces, design systems, and immersive 3D web.",
     images: ["/og-image.png"],
-    creator: "@alexchen",
+    creator: "@ashik.io",
   },
   robots: {
     index: true,
