@@ -399,50 +399,6 @@ export default function Home() {
             </div>
           </div>
 
-          {/* About Summary */}
-          <div className="summary-card rounded-2xl border border-white/[0.03] p-8 md:p-10">
-            <div className="flex flex-col gap-8">
-              <div className="flex items-start gap-8">
-                <div className="flex h-20 w-20 flex-shrink-0 items-center justify-center rounded-2xl overflow-hidden border border-cyan-400/15">
-                  <Image
-                    src="/profile.jpeg"
-                    alt="Ashik"
-                    width={80}
-                    height={80}
-                    className="h-full w-full object-cover"
-                  />
-                </div>
-                  <h2 className="text-h2 text-white">About Me</h2>
-                   <div className="mt-4 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
-                      <p className="max-w-5xl text-xl text-white/60 leading-relaxed">
-                        Passionate UI/UX Designer & Front-End Developer with 5+ years of experience creating beautiful, performant digital experiences. I specialize in building modern web applications with clean interfaces,
-                        smooth animations, and immersive interactions.
-                      </p>
-                      <span className="relative z-[1] inline-flex items-center gap-2 px-8 py-3 text-lg h-12 bg-[#00e5ff]/5 border border-[#00e5ff]/30 text-[#00e5ff] font-medium group-hover:bg-[#00e5ff]/15 group-hover:border-[#00e5ff]/60 group-hover:shadow-[0_0_20px_rgba(0,229,255,0.2)] transition-all duration-200 group-hover:scale-[1.04] group-active:scale-[0.97] cursor-pointer rounded-lg ml-4 -mt-2">
-                        <span>Read</span>
-                        <span>More</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-arrow-right h-5 w-5 transition-transform group-hover:translate-x-1" aria-hidden="true">
-                          <path d="M5 12h14"></path>
-                          <path d="m12 5 7 7-7 7"></path>
-                        </svg>
-                      </span>
-                    </div>
-                    <div className="mt-6 flex flex-wrap gap-4">
-                  <div className="mt-6 flex flex-wrap gap-4">
-                    {['5+ Years Experience', 'Remote Available', 'Full-Stack Capable'].map((stat) => (
-                      <span
-                        key={stat}
-                        className="rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-base font-medium text-cyan-400"
-                      >
-                        {stat}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
           {/* Projects Summary — Full project cards matching /projects page */}
           <div className="summary-card">
             <div className="flex flex-col gap-6">
