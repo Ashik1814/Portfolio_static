@@ -382,69 +382,19 @@ export default function Home() {
       <section className="px-4 pt-12 pb-10 sm:px-6 lg:px-8">
         <div ref={cardsRef} className="mx-auto max-w-7xl space-y-8">
 
-          {/* World Clock + Calendar */}
+{/* World Clock + Google Calendar */}
           <div className="summary-card flex justify-center -mt-8">
             <div className="flex flex-col sm:flex-row gap-[85px] items-center">
               <WorldClock />
-              <div className="w-full max-w-[420px] -mt-16 pl-2 sm:pl-4 rounded-2xl border border-white/[0.03] p-5 sm:p-6" style={{ background: 'rgba(8, 5, 15, 0.5)' }}>
-                 <div className="flex items-center justify-between mb-4">
-                   <button
-                     onClick={() => {
-                       const newDate = new Date(currentYear, currentMonth - 1, 1);
-                       setCurrentMonth(newDate.getMonth());
-                       setCurrentYear(newDate.getFullYear());
-                       setSelectedDate(newDate.getDate());
-                     }}
-                     className="w-7 h-7 rounded-md flex items-center justify-center hover:bg-white/[0.06] text-[#94a3b8] transition-colors"
-                   >
-                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5"><path d="m15 18-6-6 6-6"/></svg>
-                   </button>
-                   <h4 className="text-base font-bold text-white">{monthNames[currentMonth]} {currentYear}</h4>
-                    <button
-                     onClick={() => {
-                       const newDate = new Date(currentYear, currentMonth + 1, 1);
-                       setCurrentMonth(newDate.getMonth());
-                       setCurrentYear(newDate.getFullYear());
-                       setSelectedDate(newDate.getDate());
-                     }}
-                     className="w-7 h-7 rounded-md flex items-center justify-center hover:bg-white/[0.06] text-[#94a3b8] transition-colors"
-                   >
-                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4"><path d="m9 18 6-6-6-6"/></svg>
-                   </button>
-                 </div>
-                <div className="w-full">
-                  <div className="grid grid-cols-7 gap-2 mb-2">
-                    <div className="text-center text-sm font-medium text-[#64748b]">Sun</div>
-                    <div className="text-center text-sm font-medium text-[#64748b]">Mon</div>
-                    <div className="text-center text-sm font-medium text-[#64748b]">Tue</div>
-                    <div className="text-center text-sm font-medium text-[#64748b]">Wed</div>
-                    <div className="text-center text-sm font-medium text-[#64748b]">Thu</div>
-                    <div className="text-center text-sm font-medium text-[#64748b]">Fri</div>
-                    <div className="text-center text-sm font-medium text-[#64748b]">Sat</div>
-                  </div>
-                   <div className="grid grid-cols-7 gap-2">
-                      {calendarDays.map(({day, isCurrentMonth: isDayInMonth}, idx) => (
-                        <button
-                          key={idx}
-                          type="button"
-                          onClick={() => setSelectedDate(day)}
-                           className={`aspect-square flex items-center justify-center rounded-md text-sm font-medium transition-all duration-200 ${
-                              selectedDate === day
-                                ? "bg-gradient-to-br from-[#00e5ff] to-[#64b5f6] text-[#06080f] shadow-md shadow-[#00e5ff]/20 font-bold"
-                                : day === 0
-                                ? "text-transparent cursor-default"
-                                : !isDayInMonth
-                                ? "text-white/10 hover:bg-white/[0.02] cursor-default"
-                                : day === today
-                                ? "bg-gradient-to-br from-[#00e5ff]/50 to-[#64b5f6]/50 text-[#00e5ff] font-bold border border-[#00e5ff]/30"
-                                : "text-white/80 hover:bg-white/[0.06]"
-                            }`}
-                        >
-                          {day === 0 ? "" : day}
-                        </button>
-                      ))}
-                   </div>
-                </div>
+              <div className="w-full max-w-[420px] -mt-16 pl-2 sm:pl-4 rounded-2xl border border-white/[0.03] p-3">
+                <iframe
+                  src="https://calendar.google.com/calendar/embed?height=380&wkst=1&ctz=Asia%2FDhaka&showPrint=0&showTitle=0&showTz=0&src=YXNoaWt1cnJhaG1hbmFzaGlrMTgxNEBnbWFpbC5jb20&src=OGRkMzkyMjc3ZGFkZDM1NWZhNGE3YzcwYjBmMmI4MDY1MzBlMmIyOTc5YjRhOGUzMmE0NmYwYjdkNWI5Y2I4Y0Bncm91cC5jYWxlbmRhci5nb29nbGUuY29t&color=%234285f4&color=%23009688"
+                  style={{ border: 'solid 1px #777', borderRadius: 16 }}
+                  width="350"
+                  height="380"
+                  frameBorder={0}
+                  scrolling="no"
+                />
               </div>
             </div>
           </div>
