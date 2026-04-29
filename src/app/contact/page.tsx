@@ -285,31 +285,21 @@ export default function ContactPage() {
             {/* Contact Info */}
             <div>
               <h2 className="text-h2 text-white mb-5">Contact Info</h2>
-              <div className="space-y-3">
+              <div className="grid grid-cols-2 gap-3">
                 {contactInfoItems.map((item, index) => {
                   const Icon = item.icon;
                   return (
                     <div
                       key={index}
-                      className="flex items-center gap-4 border border-white/[0.03] rounded-xl p-4 backdrop-blur-xl"
+                      className="flex items-center gap-3 border border-white/[0.03] rounded-xl p-3 backdrop-blur-xl"
                     >
                       <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center">
                         <Icon className="w-4 h-4 text-cyan-400" />
                       </div>
                       <div>
-                        <p className="text-white/40 text-[10px] uppercase tracking-wider font-medium">
+                        <p className="text-white text-sm mt-0.5">
                           {item.label}
                         </p>
-                        {item.href ? (
-                          <a
-                            href={item.href}
-                            className="text-white text-sm mt-0.5 hover:text-cyan-400 transition-colors"
-                          >
-                            {item.value}
-                          </a>
-                        ) : (
-                          <p className="text-white text-sm mt-0.5">{item.value}</p>
-                        )}
                       </div>
                     </div>
                   );
@@ -331,7 +321,7 @@ export default function ContactPage() {
                 </p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-6" noValidate>
+              <form onSubmit={handleSubmit} className="space-y-6 flex flex-col justify-between" noValidate>
                 {/* Name */}
                 <div className="space-y-3">
                   <Label htmlFor="name" className="text-white/80 text-sm">Name</Label>
@@ -392,26 +382,23 @@ export default function ContactPage() {
                   <p className="text-red-400 text-sm text-center">{errorMessage}</p>
                 )}
 
-                <AnimatedBorderButton
+                <button
                   type="submit"
-                  variant="primary"
-                  size="md"
-                  fullWidth
                   disabled={submissionState === 'loading'}
-                  borderRadius={6}
+                  className="mt-16 w-full py-3 rounded-md bg-gradient-to-r from-[#00e5ff] to-[#64b5f6] text-black font-semibold hover:opacity-90 transition-opacity disabled:opacity-50"
                 >
                   {submissionState === 'loading' ? (
                     <>
-                      <Loader2 className="w-4 h-4 animate-spin" />
+                      <Loader2 className="w-4 h-4 animate-spin inline mr-2" />
                       Sending...
                     </>
                   ) : (
                     <>
-                      <Send className="w-4 h-4" />
+                      <Send className="w-4 h-4 inline mr-2" />
                       Send Message
                     </>
                   )}
-                </AnimatedBorderButton>
+                </button>
               </form>
             )}
           </div>
