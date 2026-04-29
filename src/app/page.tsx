@@ -123,6 +123,11 @@ interface FeaturedProject {
   image: string;
 }
 
+interface CalendarDay {
+  day: number;
+  isCurrentMonth: boolean;
+}
+
 /** Default placeholder image — change per project as needed */
 const DEFAULT_PROJECT_IMAGE = '/projects/saas-marketing-website.png';
 
@@ -229,7 +234,38 @@ const defaultTagColor = { bg: 'bg-white/10', text: 'text-white/70' };
 export default function Home() {
   const cardsRef = useRef<HTMLDivElement>(null);
   const [selectedProject, setSelectedProject] = useState<FeaturedProject | null>(null);
-  const [selectedDate, setSelectedDate] = useState<number>(28);
+  const [selectedDate, setSelectedDate] = useState<number>(new Date().getDate());
+  const [currentMonth, setCurrentMonth] = useState<number>(new Date().getMonth());
+  const [currentYear, setCurrentYear] = useState<number>(new Date().getFullYear());
+
+  const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+  const getCalendarDays = (): CalendarDay[] => {
+    const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+    const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
+    const prevMonthDays = new Date(currentYear, currentMonth, 0).getDate();
+    
+    const days: CalendarDay[] = [];
+    // Previous month days (filling empty cells at start)
+    for (let i = firstDayOfMonth - 1; i >= 0; i--) {
+      days.push({ day: prevMonthDays - i, isCurrentMonth: false });
+    }
+    // Current month days
+    for (let i = 1; i <= daysInMonth; i++) {
+      days.push({ day: i, isCurrentMonth: true });
+    }
+    // Next month days (filling empty cells at end) - only up to 5 rows (35 cells)
+    const totalCells = days.length;
+    const remaining = totalCells <= 35 ? 35 - totalCells : 42 - totalCells;
+    for (let i = 1; i <= remaining; i++) {
+      days.push({ day: i, isCurrentMonth: false });
+    }
+    return days;
+  };
+
+  const calendarDays = getCalendarDays();
+  const today = new Date().getDate();
+  const isCurrentMonth = currentMonth === new Date().getMonth() && currentYear === new Date().getFullYear();
 
   // Entrance animation for summary cards
   useEffect(() => {
@@ -351,15 +387,31 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row gap-[85px] items-center">
               <WorldClock />
               <div className="w-full max-w-[420px] -mt-16 pl-2 sm:pl-4 rounded-2xl border border-white/[0.03] p-5 sm:p-6" style={{ background: 'rgba(8, 5, 15, 0.5)' }}>
-                <div className="flex items-center justify-between mb-4">
-                  <button className="w-7 h-7 rounded-md flex items-center justify-center hover:bg-white/[0.06] text-[#94a3b8] transition-colors">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5"><path d="m15 18-6-6 6-6"/></svg>
-                  </button>
-                  <h4 className="text-base font-bold text-white">April 2026</h4>
-                  <button className="w-7 h-7 rounded-md flex items-center justify-center hover:bg-white/[0.06] text-[#94a3b8] transition-colors">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4"><path d="m9 18 6-6-6-6"/></svg>
-                  </button>
-                </div>
+                 <div className="flex items-center justify-between mb-4">
+                   <button
+                     onClick={() => {
+                       const newDate = new Date(currentYear, currentMonth - 1, 1);
+                       setCurrentMonth(newDate.getMonth());
+                       setCurrentYear(newDate.getFullYear());
+                       setSelectedDate(newDate.getDate());
+                     }}
+                     className="w-7 h-7 rounded-md flex items-center justify-center hover:bg-white/[0.06] text-[#94a3b8] transition-colors"
+                   >
+                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5"><path d="m15 18-6-6 6-6"/></svg>
+                   </button>
+                   <h4 className="text-base font-bold text-white">{monthNames[currentMonth]} {currentYear}</h4>
+                    <button
+                     onClick={() => {
+                       const newDate = new Date(currentYear, currentMonth + 1, 1);
+                       setCurrentMonth(newDate.getMonth());
+                       setCurrentYear(newDate.getFullYear());
+                       setSelectedDate(newDate.getDate());
+                     }}
+                     className="w-7 h-7 rounded-md flex items-center justify-center hover:bg-white/[0.06] text-[#94a3b8] transition-colors"
+                   >
+                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4"><path d="m9 18 6-6-6-6"/></svg>
+                   </button>
+                 </div>
                 <div className="w-full">
                   <div className="grid grid-cols-7 gap-2 mb-2">
                     <div className="text-center text-sm font-medium text-[#64748b]">Sun</div>
@@ -370,30 +422,28 @@ export default function Home() {
                     <div className="text-center text-sm font-medium text-[#64748b]">Fri</div>
                     <div className="text-center text-sm font-medium text-[#64748b]">Sat</div>
                   </div>
-                  <div className="grid grid-cols-7 gap-2">
-                    {[29, 30, 31, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 1, 2].map((day, idx) => {
-                      const isSelected = selectedDate === day;
-                      const isCurrentDay = day === 28;
-                      return (
+                   <div className="grid grid-cols-7 gap-2">
+                      {calendarDays.map(({day, isCurrentMonth: isDayInMonth}, idx) => (
                         <button
                           key={idx}
                           type="button"
                           onClick={() => setSelectedDate(day)}
-                          className={`aspect-square flex items-center justify-center rounded-md text-sm font-medium transition-all duration-200 ${
-                            isSelected || isCurrentDay
-                              ? 'bg-gradient-to-br from-[#00e5ff] to-[#64b5f6] text-[#06080f] shadow-md shadow-[#00e5ff]/20 font-bold'
-                              : day > 27 && day <= 31
-                              ? 'text-white/80 hover:bg-white/[0.06]'
-                              : day === 1 || day === 2
-                              ? 'text-white/15 cursor-default'
-                              : 'text-white/80 hover:bg-white/[0.06]'
-                          }`}
+                           className={`aspect-square flex items-center justify-center rounded-md text-sm font-medium transition-all duration-200 ${
+                              selectedDate === day
+                                ? "bg-gradient-to-br from-[#00e5ff] to-[#64b5f6] text-[#06080f] shadow-md shadow-[#00e5ff]/20 font-bold"
+                                : day === 0
+                                ? "text-transparent cursor-default"
+                                : !isDayInMonth
+                                ? "text-white/10 hover:bg-white/[0.02] cursor-default"
+                                : day === today
+                                ? "bg-gradient-to-br from-[#00e5ff]/50 to-[#64b5f6]/50 text-[#00e5ff] font-bold border border-[#00e5ff]/30"
+                                : "text-white/80 hover:bg-white/[0.06]"
+                            }`}
                         >
-                          {day}
+                          {day === 0 ? "" : day}
                         </button>
-                      );
-                    })}
-                  </div>
+                      ))}
+                   </div>
                 </div>
               </div>
             </div>
