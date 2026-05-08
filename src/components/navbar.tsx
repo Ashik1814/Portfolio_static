@@ -146,8 +146,8 @@ export default function Navbar() {
 
       {/* Mobile Navigation Menu */}
       <div
-        className={`overflow-hidden border-t border-white/[0.04] backdrop-blur-xl transition-all duration-300 md:hidden ${
-          mobileMenuOpen ? 'max-h-80 bg-black/20' : 'max-h-0 border-t-0'
+        className={`overflow-y-auto border-t border-white/[0.04] backdrop-blur-xl transition-all duration-300 md:hidden ${
+          mobileMenuOpen ? 'max-h-[60vh] bg-black/20' : 'max-h-0 border-t-0'
         }`}
       >
         <div className="space-y-2 px-4 pb-6 pt-4">

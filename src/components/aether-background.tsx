@@ -199,6 +199,32 @@ class AetherBackground {
   private _attractionDir: THREE.Vector3;
   private isPaused: boolean = false;
 
+  // ─── Click Interaction Particles (Independent System) ───────────────────
+  private clickParticles: {
+    x: number;
+    y: number;
+    z: number;
+    startX: number;
+    startY: number;
+    startZ: number;
+    targetX: number;
+    targetY: number;
+    targetZ: number;
+    char: string;
+    alpha: number;
+    created: number;
+    removed: boolean;
+  }[] = [];
+  private clickParticleSystem: THREE.Points | null = null;
+  private clickParticleGeometry: THREE.BufferGeometry | null = null;
+  private clickParticleMaterial: THREE.PointsMaterial | null = null;
+  private clickParticlePositions: Float32Array | null = null;
+  private clickParticleColors: Float32Array | null = null;
+  private clickParticleAlphas: Float32Array | null = null;
+  private CLICK_PARTICLE_COUNT = 60;
+  private CLICK_PARTICLE_LIFETIME = 2500; // ms
+  private CLICK_GATHER_DURATION = 600; // ms
+
   constructor(container: HTMLDivElement) {
     this.container = container;
     this.clock = new THREE.Clock();
@@ -266,8 +292,82 @@ class AetherBackground {
     this.points = new THREE.Points(this.geometry, this.material);
     this.scene.add(this.points);
 
+    // ---- Initialize Click Particle System ----
+    this.initializeClickParticleSystem();
+
     // ---- Start animation loop ----
     this.animate();
+  }
+
+  // ─── Click Particle System Initialization ─────────────────────────────────
+  private initializeClickParticleSystem(): void {
+    this.clickParticlePositions = new Float32Array(this.CLICK_PARTICLE_COUNT * 3);
+    this.clickParticleColors = new Float32Array(this.CLICK_PARTICLE_COUNT * 3);
+    this.clickParticleAlphas = new Float32Array(this.CLICK_PARTICLE_COUNT);
+
+    this.clickParticleGeometry = new THREE.BufferGeometry();
+    this.clickParticleGeometry.setAttribute('position', new THREE.BufferAttribute(this.clickParticlePositions, 3));
+    this.clickParticleGeometry.setAttribute('color', new THREE.BufferAttribute(this.clickParticleColors, 3));
+
+    this.clickParticleMaterial = new THREE.PointsMaterial({
+      size: 0.2,
+      sizeAttenuation: true,
+      vertexColors: true,
+      transparent: true,
+      opacity: 1.0,
+      depthWrite: false,
+      blending: THREE.AdditiveBlending,
+    });
+
+    this.clickParticleSystem = new THREE.Points(this.clickParticleGeometry, this.clickParticleMaterial);
+    this.scene.add(this.clickParticleSystem);
+  }
+
+  // ─── Spawn Click Particles ─────────────────────────────────────────────────
+  spawnClickParticles(clientX: number, clientY: number): void {
+    // Convert screen coords to world coords
+    const ndcX = (clientX / window.innerWidth) * 2 - 1;
+    const ndcY = -(clientY / window.innerHeight) * 2 + 1;
+
+    this.raycaster.setFromCamera(new THREE.Vector2(ndcX, ndcY), this.camera);
+    const intersectPoint = new THREE.Vector3();
+    this.raycaster.ray.intersectPlane(this.interactionPlane, intersectPoint);
+
+    const targetX = intersectPoint.x;
+    const targetY = intersectPoint.y;
+    const targetZ = intersectPoint.z;
+
+    // Convert 100px radius to world units (approximate)
+    const worldRadius = 2.0;
+
+    // Spawn 15-20 particles
+    const count = 15 + Math.floor(Math.random() * 6);
+    const now = performance.now();
+
+    for (let i = 0; i < count; i++) {
+      const angle = Math.random() * Math.PI * 2;
+      const dist = Math.random() * worldRadius;
+
+      const startX = targetX + Math.cos(angle) * dist;
+      const startY = targetY + Math.sin(angle) * dist;
+      const startZ = (Math.random() - 0.5) * 0.5;
+
+      this.clickParticles.push({
+        x: startX,
+        y: startY,
+        z: startZ,
+        startX,
+        startY,
+        startZ,
+        targetX,
+        targetY,
+        targetZ,
+        char: Math.random() > 0.5 ? '0' : '1',
+        alpha: 1.0,
+        created: now,
+        removed: false,
+      });
+    }
   }
 
   // ─── Initialization ─────────────────────────────────────────────────────
@@ -745,9 +845,20 @@ class AetherBackground {
       }
     }
 
+    // ── Update Click Particles ───────────────────────────────────────────────
+    this.updateClickParticles();
+
     // ── Update GPU buffers ─────────────────────────────────────────────────
     posAttr.needsUpdate = true;
     colorAttr.needsUpdate = true;
+
+    // Update click particle GPU buffers
+    if (this.clickParticleGeometry) {
+      const clickPosAttr = this.clickParticleGeometry.getAttribute('position');
+      const clickColorAttr = this.clickParticleGeometry.getAttribute('color');
+      if (clickPosAttr) clickPosAttr.needsUpdate = true;
+      if (clickColorAttr) clickColorAttr.needsUpdate = true;
+    }
 
     // ── Update material opacity based on global average (subtle) ───────────
     // For per-particle alpha we'd need a shader; instead we use size as proxy
@@ -791,6 +902,86 @@ class AetherBackground {
     this.isPaused = false;
   }
 
+  // ─── Click Particle Update ───────────────────────────────────────────────
+  private updateClickParticles(): void {
+    if (!this.clickParticles.length || !this.clickParticlePositions || !this.clickParticleColors) return;
+
+    const now = performance.now();
+    const activeParticles = this.clickParticles.filter(p => !p.removed);
+    const count = Math.min(activeParticles.length, this.CLICK_PARTICLE_COUNT);
+
+    // Clear all positions first
+    for (let i = 0; i < this.CLICK_PARTICLE_COUNT; i++) {
+      this.clickParticlePositions![i * 3] = 0;
+      this.clickParticlePositions![i * 3 + 1] = -1000; // Off screen
+      this.clickParticlePositions![i * 3 + 2] = 0;
+      this.clickParticleColors![i * 3] = 0;
+      this.clickParticleColors![i * 3 + 1] = 0;
+      this.clickParticleColors![i * 3 + 2] = 0;
+    }
+
+    for (let i = 0; i < count; i++) {
+      const p = activeParticles[i];
+      const elapsed = now - p.created;
+      const progress = Math.min(elapsed / this.CLICK_GATHER_DURATION, 1.0);
+
+      // Exponential easing: fast start, slow end
+      // Using ease-out exponential: 1 - (1 - t)^3
+      const easedProgress = 1 - Math.pow(1 - progress, 3);
+
+      // Interpolate from start to target
+      p.x = p.startX + (p.targetX - p.startX) * easedProgress;
+      p.y = p.startY + (p.targetY - p.startY) * easedProgress;
+      p.z = p.startZ + (p.targetZ - p.startZ) * easedProgress;
+
+      // Check if within 2px (approximately 0.1 world units) of target
+      const dx = p.x - p.targetX;
+      const dy = p.y - p.targetY;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+
+      // Fade out when close to target or after lifetime
+      if (dist < 0.1 || elapsed > this.CLICK_PARTICLE_LIFETIME) {
+        // Fade out
+        const fadeProgress = dist < 0.1 ? (elapsed - this.CLICK_GATHER_DURATION) / 200 : (elapsed - this.CLICK_PARTICLE_LIFETIME + 200) / 200;
+        p.alpha = Math.max(0, 1 - fadeProgress);
+
+        if (p.alpha <= 0) {
+          p.removed = true;
+        }
+      }
+
+      // Color: bright cyan/white glow (#00f2ff or #fff)
+      const isWhite = Math.random() > 0.3;
+      if (isWhite) {
+        this.clickParticleColors![i * 3] = 1.0;
+        this.clickParticleColors![i * 3 + 1] = 1.0;
+        this.clickParticleColors![i * 3 + 2] = 1.0;
+      } else {
+        this.clickParticleColors![i * 3] = 0.0;
+        this.clickParticleColors![i * 3 + 1] = 0.949; // #00f2ff
+        this.clickParticleColors![i * 3 + 2] = 1.0;
+      }
+
+      // Apply brightness boost
+      this.clickParticleColors![i * 3] = Math.min(this.clickParticleColors![i * 3] * 1.5, 1.0);
+      this.clickParticleColors![i * 3 + 1] = Math.min(this.clickParticleColors![i * 3 + 1] * 1.5, 1.0);
+      this.clickParticleColors![i * 3 + 2] = Math.min(this.clickParticleColors![i * 3 + 2] * 1.5, 1.0);
+
+      this.clickParticlePositions![i * 3] = p.x;
+      this.clickParticlePositions![i * 3 + 1] = p.y;
+      this.clickParticlePositions![i * 3 + 2] = p.z;
+    }
+
+    // Update material opacity based on average alpha
+    if (this.clickParticleMaterial) {
+      const avgAlpha = activeParticles.reduce((sum, p) => sum + p.alpha, 0) / Math.max(activeParticles.length, 1);
+      this.clickParticleMaterial.opacity = avgAlpha;
+    }
+
+    // Clean up removed particles
+    this.clickParticles = activeParticles.filter(p => !p.removed);
+  }
+
   // ─── Cleanup ─────────────────────────────────────────────────────────────
 
   /** Clean up all resources to prevent memory leaks */
@@ -802,15 +993,25 @@ class AetherBackground {
     }
     if (this.points) {
       this.points.geometry?.dispose();
-      this.points.material?.dispose();
+      if (this.points.material && !Array.isArray(this.points.material)) {
+        this.points.material.dispose();
+      }
+    }
+    if (this.clickParticleSystem) {
+      this.clickParticleSystem.geometry?.dispose();
+      if (this.clickParticleSystem.material && !Array.isArray(this.clickParticleSystem.material)) {
+        this.clickParticleSystem.material.dispose();
+      }
+    }
+    if (this.clickParticleGeometry) {
+      this.clickParticleGeometry.dispose();
+    }
+    if (this.clickParticleMaterial) {
+      this.clickParticleMaterial.dispose();
     }
     this.geometry.dispose();
     this.material.dispose();
     this.renderer.dispose();
-
-    if (this.camera) {
-      this.camera.dispose();
-    }
 
     if (this.container.contains(this.renderer.domElement)) {
       this.container.removeChild(this.renderer.domElement);
@@ -843,42 +1044,9 @@ export default function AetherCanvas(): React.ReactNode {
     aetherRef.current.setMouse(ndcX, ndcY);
   }, []);
 
-  const handleMouseDown = useCallback((event: MouseEvent) => {
+  const handleClick = useCallback((event: MouseEvent) => {
     if (!aetherRef.current) return;
-    aetherRef.current.beginGathering(event.clientX, event.clientY);
-  }, []);
-
-  const handleMouseUp = useCallback(() => {
-    if (!aetherRef.current) return;
-    aetherRef.current.beginDropping();
-  }, []);
-
-  const handleTouchStart = useCallback((event: TouchEvent) => {
-    if (!aetherRef.current) return;
-    const touch = event.touches[0];
-    if (touch) {
-      // Update mouse position first
-      const ndcX = (touch.clientX / window.innerWidth) * 2 - 1;
-      const ndcY = -(touch.clientY / window.innerHeight) * 2 + 1;
-      aetherRef.current.setMouse(ndcX, ndcY);
-      // Then begin gathering
-      aetherRef.current.beginGathering(touch.clientX, touch.clientY);
-    }
-  }, []);
-
-  const handleTouchMove = useCallback((event: TouchEvent) => {
-    if (!aetherRef.current) return;
-    const touch = event.touches[0];
-    if (touch) {
-      const ndcX = (touch.clientX / window.innerWidth) * 2 - 1;
-      const ndcY = -(touch.clientY / window.innerHeight) * 2 + 1;
-      aetherRef.current.setMouse(ndcX, ndcY);
-    }
-  }, []);
-
-  const handleTouchEnd = useCallback(() => {
-    if (!aetherRef.current) return;
-    aetherRef.current.beginDropping();
+    aetherRef.current.spawnClickParticles(event.clientX, event.clientY);
   }, []);
 
   const handleResize = useCallback(() => {
@@ -908,35 +1076,25 @@ export default function AetherCanvas(): React.ReactNode {
      );
      observerRef.current.observe(container);
 
-     // Mouse events
-     window.addEventListener('mousemove', handleMouseMove);
-     window.addEventListener('mousedown', handleMouseDown);
-     window.addEventListener('mouseup', handleMouseUp);
+// Mouse events
+      window.addEventListener('mousemove', handleMouseMove);
+      window.addEventListener('click', handleClick);
 
-     // Touch events
-     window.addEventListener('touchstart', handleTouchStart, { passive: true });
-     window.addEventListener('touchmove', handleTouchMove, { passive: true });
-     window.addEventListener('touchend', handleTouchEnd);
-
-     // Resize
+      // Resize
      window.addEventListener('resize', handleResize);
 
      return () => {
        if (observerRef.current) {
          observerRef.current.disconnect();
        }
-       window.removeEventListener('mousemove', handleMouseMove);
-       window.removeEventListener('mousedown', handleMouseDown);
-       window.removeEventListener('mouseup', handleMouseUp);
-       window.removeEventListener('touchstart', handleTouchStart);
-       window.removeEventListener('touchmove', handleTouchMove);
-       window.removeEventListener('touchend', handleTouchEnd);
-       window.removeEventListener('resize', handleResize);
+window.removeEventListener('mousemove', handleMouseMove);
+        window.removeEventListener('click', handleClick);
+        window.removeEventListener('resize', handleResize);
 
        aether.dispose();
        aetherRef.current = null;
      };
-   }, [handleMouseMove, handleMouseDown, handleMouseUp, handleTouchStart, handleTouchMove, handleTouchEnd, handleResize]);
+   }, [handleMouseMove, handleClick, handleResize]);
 
   return (
     <div
